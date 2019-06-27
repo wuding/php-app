@@ -32,6 +32,8 @@ web 文档根目录
 
 /img/
 
+/img/index.html
+
 /img/screenshot.png
 
 ### 存在的模块和控制器
