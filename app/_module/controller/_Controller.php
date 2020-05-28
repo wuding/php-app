@@ -21,6 +21,11 @@ class _Controller extends \MagicCube\Controller
         print_r(array(__FILE__, __LINE__));
     }
 
+    public function contacts()
+    {
+        print_r(array(__FILE__, __LINE__));
+    }
+
     public function __destruct()
     {
         parent::__destruct();

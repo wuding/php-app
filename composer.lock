@@ -4,8 +4,40 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6f9e59235bb0ccf28dfa4331ce26c3f",
+    "content-hash": "83c77ecda5f83f1735768cd3f9a04911",
     "packages": [
+        {
+            "name": "wuding/equiv-route",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wuding/equiv-route.git",
+                "reference": "7abbeabfb539ca157f904558373d935a95255bc1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wuding/equiv-route/zipball/7abbeabfb539ca157f904558373d935a95255bc1",
+                "reference": "7abbeabfb539ca157f904558373d935a95255bc1",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EquivRoute\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2019-10-21T12:34:29+00:00"
+        },
         {
             "name": "wuding/magic-cube",
             "version": "1.1.1",
