@@ -1,0 +1,51 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "c6f9e59235bb0ccf28dfa4331ce26c3f",
+    "packages": [
+        {
+            "name": "wuding/magic-cube",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wuding/magic-cube.git",
+                "reference": "9cb78cd76b42f7683b1791a5c26cd96759f931a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wuding/magic-cube/zipball/9cb78cd76b42f7683b1791a5c26cd96759f931a8",
+                "reference": "9cb78cd76b42f7683b1791a5c26cd96759f931a8",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "MagicCube\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2020-04-30T18:18:46+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
+}
