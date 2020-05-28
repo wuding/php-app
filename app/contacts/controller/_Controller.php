@@ -13,6 +13,7 @@ class _Controller extends \MagicCube\Controller
     {
         $uriInfo =& $this->uriInfo;
         $num = $uriInfo['action'];
+        // 动作匹配
         if (preg_match('/\d+/i', $num, $matches)) {
             $uriInfo['action'] = 'contact';
             return $this->contact($num);
