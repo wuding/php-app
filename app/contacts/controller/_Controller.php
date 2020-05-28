@@ -4,37 +4,9 @@ namespace App\Contacts\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $enableView = false;
-
     public function index()
     {
-        $uriInfo =& $this->uriInfo;
-        $params = explode('/', $uriInfo['param']);
-        $num = array_shift($params);
-
-        // 动作匹配
-        if (preg_match('/\d+/i', $num, $matches)) {
-            $uriInfo['action'] = 'contact';
-            return $this->contact($num);
-        } elseif ('Index' != $num && preg_match('/[a-z]+/i', $num, $matches)) {
-            $method = strtolower($num);
-            return $this->$method();
-        }
-
-        $q = isset($_GET['q']) ? $_GET['q'] : '';
-        $page = isset($_GET['page']) ? $_GET['page'] : 1;
-        $where = '';
-        if ($q) {
-            $where = "`NickName` LIKE '%$q%'";
-        }
-        $w = $where ? ' WHERE ' . $where : '';
-        $offset = $page * 50 - 50;
-
-        $Tel = new \Model\Tel;
-        $sql = "SELECT id, NickName FROM beings.`contact_item` $w LIMIT $offset,50";
-        $all = $Tel->select($sql);
-        print_r(get_defined_vars());exit;
-        return get_defined_vars();
+        print_r(array(__FILE__, __LINE__));
     }
 
     public function _action()
@@ -91,7 +63,26 @@ LIMIT 50";
 
         $sql = "SELECT id, location FROM beings.`contact_address` WHERE `contact_id` = '$id' LIMIT 50";
         $addr = $Tel->select($sql);
-        print_r(get_defined_vars());exit;
+        return get_defined_vars();
+    }
+
+    public function add()
+    {
+        $uriInfo =& $this->uriInfo;
+        $uriInfo['action'] = 'contact-add';
+
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $Tel = new \Model\Tel;
+            $n = $_POST['name'];
+            $name = addslashes($n);
+            $nu = rawurlencode($n);
+            $sql = "INSERT INTO beings.contact_item SET NickName = '$name'";
+            $ins = $Tel->query($sql);
+            $url = "/contacts?q=$nu";
+            header("Location: $url");
+            exit;
+        }
+
         return get_defined_vars();
     }
 

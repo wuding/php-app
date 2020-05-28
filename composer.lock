@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ba99d824f87fc4a9c00dbdc89d97ef42",
+    "content-hash": "292a9c7405e03f0a117697dffca667d5",
     "packages": [
         {
             "name": "wuding/equiv-route",
@@ -69,6 +69,38 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "time": "2020-04-30T18:18:46+00:00"
+        },
+        {
+            "name": "wuding/new-ui",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wuding/new-ui.git",
+                "reference": "b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wuding/new-ui/zipball/b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
+                "reference": "b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NewUI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2019-10-21T12:58:54+00:00"
         },
         {
             "name": "wuding/php-ext",

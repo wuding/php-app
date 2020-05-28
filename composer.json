@@ -10,6 +10,7 @@
         "wuding/magic-cube": "^1.1.1",
         "wuding/equiv-route": "^1.1",
         "wuding/topdb": "^1.0.2",
-        "wuding/php-ext": "^1.1"
+        "wuding/php-ext": "^1.1",
+        "wuding/new-ui": "^1.0"
     }
 }

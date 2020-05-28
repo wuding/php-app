@@ -8,6 +8,7 @@ date_default_timezone_set('PRC');
 
 use EquivRoute\Router;
 use Topdb\Table;
+use NewUI\Engine;
 
 global $_CONFIG, $template;
 define('ROOT', dirname(__DIR__));
@@ -17,6 +18,7 @@ require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
 $route = include ROOT . '/app/route.php';
 
+$template = new Engine(ROOT . '/app/template');
 $router = new Router($route['name'], $route['routes'], $route['options']);
 Table::init($_CONFIG['database'], 'wuding/topdb');
 
