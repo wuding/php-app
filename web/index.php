@@ -23,7 +23,7 @@ $rewrite_file = $_CONFIG['rewrite_file'] ?? null;
 $sorting_order = isset($_GET['sort']) ? $_GET['sort'] : null;
 $request_urn = preg_replace('/^\/|\.(html|htm|php)$/i', '', REQUEST_NAME);
 $request_filename = __DIR__ . REQUEST_NAME;
-$end_filename = BASE_DIR . '/app/' . trim($request_urn, '/') . '.php';
+$end_filename = BASE_DIR . '/src/app/' . trim($request_urn, '/') . '.php';
 $directory = is_dir($request_filename) ? $request_filename : false;
 
 if (!$request_urn || preg_match('/^index$/i', $request_urn)) {
@@ -37,7 +37,7 @@ if (!$request_urn || preg_match('/^index$/i', $request_urn)) {
     if ($rewrite_file) {
         include_once $rewrite_file;
     } else {
-        include BASE_DIR . '/app/template/404.html';
+        include BASE_DIR . '/src/app.php';
     }
 } else {
     include_once $end_filename;
