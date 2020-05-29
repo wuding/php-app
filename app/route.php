@@ -12,5 +12,5 @@ return [
 	    'cacheFile' => __DIR__ . '/../storage/cache/route.cache',
 	    'cacheDisabled' => 1,
 	],
-	'status' => -1,
+	'status' => 1,
 ];
