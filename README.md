@@ -12,9 +12,30 @@ web 文档根目录
 
 ## 安装
 
-### 环境需求
+#### 环境需求
 
 PHP >= 5.4
+
+#### 安装命令
+
+```bash
+composer create-project wuding/php-app=dev-master
+
+# 或者下载 zip 解压后安装
+composer install
+```
+
+#### 配置
+
+app/config.php
+
+```php
+'database' => array(
+    'db_name' => '',
+    'username' => '',
+    'password' => '',
+),
+```
 
 
 
