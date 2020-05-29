@@ -10,7 +10,7 @@ use EquivRoute\Router;
 use Topdb\Table;
 use NewUI\Engine;
 
-global $_CONFIG, $template;
+global $_CONFIG, $template, $_VAR;
 define('ROOT', dirname(__DIR__));
 defined('ROOT_DIR') or define('ROOT_DIR', 'I:/env');
 
@@ -24,6 +24,6 @@ Table::init($_CONFIG['database'], 'wuding/topdb');
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
-$routeInfo = $router->dispatch($httpMethod, $uri);
+$routeInfo = $router->dispatch($httpMethod, $uri, $route['status']);
 
 include ROOT . '/example/' . $_CONFIG['example'] . '.php';

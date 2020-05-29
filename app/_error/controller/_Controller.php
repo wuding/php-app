@@ -18,7 +18,7 @@ class _Controller extends \MagicCube\Controller
 
     public function route()
     {
-        print_r(array(__FILE__, __LINE__));
+        print_r(array($this, __FILE__, __LINE__));
     }
 
     public function __destruct()

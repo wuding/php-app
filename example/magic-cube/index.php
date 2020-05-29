@@ -8,15 +8,15 @@ class Index
 {
     public $dispatcher = null;
 
-    public function __construct($routeInfo)
+    public function __construct($routeInfo, $httpMethod)
     {
-        $this->init($routeInfo);
+        $this->init($routeInfo, $httpMethod);
     }
 
-    public function init($routeInfo)
+    public function init($routeInfo, $httpMethod)
     {
         $config = include ROOT . '/app/module.php';
-        $this->dispatcher = $dispatcher = new Dispatcher($routeInfo);
+        $this->dispatcher = $dispatcher = new Dispatcher($routeInfo, $httpMethod);
         $dispatcher->setVars($config);
     }
 
@@ -26,6 +26,6 @@ class Index
     }
 }
 
-$index = new Index($routeInfo);
+$index = new Index($routeInfo, $httpMethod);
 $result = $index->dispatch(0);
 # print_r($result);
