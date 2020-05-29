@@ -1,5 +1,0 @@
-<?php
-
-return array(
-    'rewrite_file' => 'I:/env/www/rewrite.php',
-);
