@@ -38,21 +38,32 @@ $end_filename = BASE_DIR . '/src/app/' . trim($request_urn, '/') . '.php';
 $directory = is_dir($request_filename) ? $request_filename : false;
 
 // 判断
+$result_type = 0;
+$arr = array(
+    $end_filename,
+    BASE_DIR . '/web/index.html',
+    BASE_DIR . '/src/scandir.php',
+    $request_filename,
+    $request_filename,
+    BASE_DIR . '/src/app.php',
+    $rewrite_file,
+);
+
 if (!$request_urn || preg_match('/^index$/i', $request_urn)) {
-    include BASE_DIR . '/web/index.html';
+    $result_type = 1;
 } elseif ($directory) {
-    include_once BASE_DIR . '/src/scandir.php';
+    $result_type = 2;
 } elseif (file_exists($request_filename)) {
+    $result_type = 3;
     if ($_CONFIG['extensions'] && preg_match('/\.(?:'. $_CONFIG['extensions'] .')$/i', REQUEST_NAME, $matches)) {
         header('Content-type: '. mime_content_type($request_filename));
+        $result_type = 4;
     }
-    include_once $request_filename;
 } elseif (!file_exists($end_filename)) {
+    $result_type = 5;
     if ($rewrite_file) {
-        include_once $rewrite_file;
-    } else {
-        include BASE_DIR . '/src/app.php';
+        $result_type = 6;
     }
-} else {
-    include_once $end_filename;
 }
+
+include_once $arr[$result_type];
