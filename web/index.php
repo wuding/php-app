@@ -64,6 +64,8 @@ if (!$request_urn || preg_match('/^index$/i', $request_urn)) {
     if ($rewrite_file) {
         $result_type = 6;
     }
+} else {
+    require BASE_DIR . '/vendor/autoload.php';
 }
 
 include_once $arr[$result_type];
