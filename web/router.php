@@ -32,9 +32,12 @@ if ($ini_reset) {
 define('REQUEST_NAME', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 define('BASE_DIR', dirname(__DIR__));
 
+// 配置
+$_CONFIG = include BASE_DIR . '/app/config.php';
+
 $request_filename = __DIR__ . REQUEST_NAME;
 
-if (preg_match('/\.(?:png|jpg|jpeg|gif|ico)$/i', REQUEST_NAME)) {
+if ($_CONFIG['extensions'] && preg_match('/\.(?:'. $_CONFIG['extensions'] .')$/i', REQUEST_NAME, $matches)) {
     if (file_exists($request_filename)) {
         return false;    // 直接返回请求的文件
     }
