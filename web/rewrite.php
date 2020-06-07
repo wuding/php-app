@@ -20,7 +20,9 @@ $route = include ROOT . '/app/route.php';
 
 $template = new Engine(ROOT . '/app/template');
 $router = new Router($route['name'], $route['routes'], $route['options']);
-Table::init($_CONFIG['database'], 'wuding/topdb');
+$db_contect = $_CONFIG['database_contect'];
+$db_config = $_CONFIG[$db_contect];
+Table::init($db_config, 'wuding/topdb');
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
