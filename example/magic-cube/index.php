@@ -27,5 +27,7 @@ class Index
 }
 
 $index = new Index($routeInfo, $httpMethod);
-$result = $index->dispatch(0);
-# print_r($result);
+$result = $index->dispatch($_CONFIG['debug']);
+if ($_CONFIG['debug']) {
+    print_r(array($result, __FILE__, __LINE__));
+}
