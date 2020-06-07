@@ -28,10 +28,13 @@ set_time_limit($_CONFIG['time_limit'] ?? 1);
 // 请求
 $sorting_order = isset($_GET['sort']) ? $_GET['sort'] : null;
 $request_urn = preg_replace('/^\/|\.(html|htm|php)$/i', '', REQUEST_NAME);
-$request_filename = __DIR__ . REQUEST_NAME;
-if (preg_match('/^([a-z]?):\/(.*)/i', $request_urn, $matches)) {
+$request_filename = $_CONFIG['file_exists_dir'] . REQUEST_NAME;
+$drv_matches = array();
+if (preg_match('/^([a-z]?):\/(.*)/i', $request_urn, $drv_matches)) {
     $request_filename = $request_urn;
 }
+$request_filename = rawurldecode($request_filename);
+$request_filename = mb_convert_encoding($request_filename, 'GBK');
 
 // 定义与检测
 $end_filename = BASE_DIR . '/src/app/' . trim($request_urn, '/') . '.php';
