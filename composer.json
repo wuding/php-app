@@ -2,8 +2,8 @@
     "name": "wuding/php-app",
     "autoload": {
         "psr-4": {
-          "App\\": "app/",
-          "Model\\": "src/Model"
+          "app\\": "app/",
+          "model\\": "src/model"
         }
     },
     "require": {

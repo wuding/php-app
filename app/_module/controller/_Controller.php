@@ -1,6 +1,6 @@
 <?php
 
-namespace App\_Module\Controller;
+namespace app\_module\controller;
 
 class _Controller extends \MagicCube\Controller
 {
