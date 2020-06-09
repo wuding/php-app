@@ -37,7 +37,7 @@ $_CONFIG = include BASE_DIR . '/app/config.php';
 
 $request_filename = __DIR__ . REQUEST_NAME;
 
-if ($_CONFIG['extensions'] && preg_match('/\.(?:'. $_CONFIG['extensions'] .')$/i', REQUEST_NAME, $matches)) {
+if ($_CONFIG['router_extensions'] && preg_match('/\.(?:'. $_CONFIG['router_extensions'] .')$/i', REQUEST_NAME, $matches)) {
     if (file_exists($request_filename)) {
         return false;    // 直接返回请求的文件
     }

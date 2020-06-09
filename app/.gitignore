@@ -1,0 +1,10 @@
+*
+!.gitignore
+!.dist/
+!_error/
+!_module/
+!contacts/
+!.dist/*
+!_error/*
+!_module/*
+!contacts/*
