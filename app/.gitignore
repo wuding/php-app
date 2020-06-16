@@ -1,10 +1,6 @@
-*
-!.gitignore
-!.dist/
-!_error/
-!_module/
-!contacts/
-!.dist/*
-!_error/*
-!_module/*
-!contacts/*
+money
+movie
+soft
+config.php
+module.php
+route.php

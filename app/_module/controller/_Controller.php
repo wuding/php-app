@@ -46,6 +46,21 @@ class _Controller extends \MagicCube\Controller
         print_r(array($this, __FILE__, __LINE__));
     }
 
+    public function upload()
+    {
+        global $_CONFIG;
+        $this->enableView = true;
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $file = $_FILES['_'];
+            $filename = $file['tmp_name'];
+            $destination = $_CONFIG['upload_dir'] .'/'. $file['name'];
+            $move = move_uploaded_file($filename, $destination);
+            print_r(get_defined_vars());
+            exit;
+        }
+        return [];
+    }
+
     public function __destruct()
     {
         parent::__destruct();
