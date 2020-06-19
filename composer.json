@@ -3,7 +3,8 @@
     "autoload": {
         "psr-4": {
           "app\\": "app/",
-          "model\\": "src/model"
+          "model\\": "src/model",
+          "view\\": "src/view"
         }
     },
     "require": {
