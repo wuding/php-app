@@ -12,6 +12,7 @@
         "wuding/equiv-route": "^1.1.1",
         "wuding/topdb": "dev-master",
         "wuding/php-ext": "^1.1",
-        "wuding/new-ui": "^1.0"
+        "wuding/new-ui": "^1.0",
+        "metowolf/meting": "^1.5"
     }
 }

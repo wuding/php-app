@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a72441fcaa915e5032c75185929921ce",
+    "content-hash": "c3829c47c513be3edfd01c029115f4c5",
     "packages": [
+        {
+            "name": "metowolf/meting",
+            "version": "v1.5.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/metowolf/Meting.git",
+                "reference": "54178aa112da5db09f487d862d7ae62cbf7bc060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/metowolf/Meting/zipball/54178aa112da5db09f487d862d7ae62cbf7bc060",
+                "reference": "54178aa112da5db09f487d862d7ae62cbf7bc060",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-openssl": "*",
+                "php": ">=5.4.0"
+            },
+            "suggest": {
+                "ext-bcmath": "Required to use BC Math calculate RSA.",
+                "ext-openssl": "Required to use OpenSSL encrypt params."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Metowolf\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "metowolf",
+                    "email": "i@i-meto.com",
+                    "homepage": "https://i-meto.com"
+                }
+            ],
+            "description": "A powerful music API framework to accelerate development.",
+            "homepage": "https://github.com/metowolf/Meting",
+            "keywords": [
+                "lightweight",
+                "lighty",
+                "music api",
+                "php music"
+            ],
+            "time": "2019-06-16T05:55:00+00:00"
+        },
         {
             "name": "wuding/equiv-route",
             "version": "1.1.1",
@@ -18,13 +68,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/equiv-route/zipball/cbd58f2116dbf583076d1754ac782f2ee6ac36e5",
                 "reference": "cbd58f2116dbf583076d1754ac782f2ee6ac36e5",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -50,13 +94,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/magic-cube/zipball/431ef00eff3508594e9fc6076e314d69abc2fc6b",
                 "reference": "431ef00eff3508594e9fc6076e314d69abc2fc6b",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -82,13 +120,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/new-ui/zipball/b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
                 "reference": "b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -114,13 +146,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/php-ext/zipball/6132cb827fb5ebbb14fb5b4b7efec6042b30e960",
                 "reference": "6132cb827fb5ebbb14fb5b4b7efec6042b30e960",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
@@ -160,13 +186,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/php-func/zipball/0cd031d61c93f596fd810a70b6ddeda47a5a0010",
                 "reference": "0cd031d61c93f596fd810a70b6ddeda47a5a0010",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -211,13 +231,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/topdb/zipball/9c5592de5b1ecd813bd54947995ee8b3224a77e8",
                 "reference": "9c5592de5b1ecd813bd54947995ee8b3224a77e8",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0"
@@ -241,6 +255,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "platform-dev": []
 }
