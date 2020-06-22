@@ -29,7 +29,9 @@ OFFSET $offset";
         $variable = $variable ? : $this->exist_fields;
         $where = [];
         foreach ($variable as $key => $value) {
-            $where[$value] = $arr[$value];
+            if ($arr[$value] ?? null) {
+               $where[$value] = $arr[$value];
+            }
         }
         $row = $this->get($where, '*');
 
