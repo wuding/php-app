@@ -1,6 +1,8 @@
 <?php
 namespace model;
 
+use PDO;
+
 class _Abstract extends \Topdb\Table
 {
     public function offset($offset = null, $site_id = null)
@@ -12,7 +14,7 @@ ORDER BY `id`
 LIMIT 1
 OFFSET $offset";
 
-        return $row = $this->get($sql);
+        return $this->query($sql, PDO::FETCH_OBJ);
     }
 
     /**

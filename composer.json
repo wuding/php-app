@@ -4,7 +4,9 @@
         "psr-4": {
           "app\\": "app/",
           "model\\": "src/model",
-          "view\\": "src/view"
+          "view\\": "src/view",
+          "src\\": "src/",
+          "traits\\": "src/traits"
         }
     },
     "require": {
