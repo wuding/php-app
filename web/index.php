@@ -23,7 +23,7 @@ defined('BASE_DIR') ? : define('BASE_DIR', dirname(__DIR__));
 $_CONFIG = include BASE_DIR . '/app/config.php';
 $rewrite_file = $_CONFIG['rewrite_file'] ?? null;
 date_default_timezone_set($_CONFIG['timezone'] ?? 'UTC');
-set_time_limit($_CONFIG['time_limit'] ?? 1);
+set_time_limit($_CONFIG['time_limit'] ?? 0);
 
 // 请求
 $sorting_order = isset($_GET['sort']) ? $_GET['sort'] : null;

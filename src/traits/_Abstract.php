@@ -17,4 +17,9 @@ trait _Abstract
         ];
         return json_encode($arr);
     }
+
+    public static function duration($str)
+    {
+        return $str = date('i:s', $str / 1000);
+    }
 }
