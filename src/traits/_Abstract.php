@@ -26,8 +26,8 @@ trait _Abstract
     public static function alias($str)
     {
         $arr = (array) json_decode($str);
-        $str = $arr[0] ?? null;
-        return $str ? " &nbsp; $str" : null;
+        $str = implode(', ', $arr);
+        return $str ? " &nbsp;$str" : null;
     }
 
     public static function mv($mv)
