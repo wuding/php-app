@@ -17,6 +17,18 @@ OFFSET $offset";
         return $this->query($sql, PDO::FETCH_OBJ);
     }
 
+    public function list($offset = null, $site_id = null, $limit = 100)
+    {
+        $sql = "SELECT *
+FROM $this->table_name
+WHERE `site` = '$site_id'
+ORDER BY `id`
+LIMIT $limit
+OFFSET $offset";
+
+        return $this->query($sql, PDO::FETCH_OBJ);
+    }
+
     /**
      * 检测
      * @param  array  $arr 查询及设置数据
