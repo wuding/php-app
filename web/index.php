@@ -22,6 +22,7 @@ defined('BASE_DIR') ? : define('BASE_DIR', dirname(__DIR__));
 // 配置
 $_CONFIG = include BASE_DIR . '/app/config.php';
 $rewrite_file = $_CONFIG['rewrite_file'] ?? null;
+$static_home = $_CONFIG['static_home'] ?? null;
 date_default_timezone_set($_CONFIG['timezone'] ?? 'UTC');
 set_time_limit($_CONFIG['time_limit'] ?? 0);
 
@@ -37,7 +38,9 @@ $request_filename = rawurldecode($request_filename);
 $request_filename = mb_convert_encoding($request_filename, 'GBK');
 
 // 定义与检测
-$end_filename = BASE_DIR . '/src/app/' . trim($request_urn, '/') . '.php';
+$request_urn_trim = trim($request_urn, '/');
+$request_urn_name = $request_urn_trim ?: 'index';
+$end_filename = BASE_DIR . '/src/app/' . $request_urn_name . '.php';
 $directory = is_dir($request_filename) ? $request_filename : false;
 
 // 判断
@@ -52,8 +55,11 @@ $arr = array(
     $rewrite_file,
 );
 
-if (!$request_urn || preg_match('/^index$/i', $request_urn)) {
+if (!$request_urn_trim || preg_match('/^index$/i', $request_urn_trim)) {
     $result_type = 1;
+    if ($rewrite_file && !$static_home) {
+        $result_type = 6;
+    }
 } elseif ($directory) {
     $result_type = 2;
 } elseif (file_exists($request_filename)) {
