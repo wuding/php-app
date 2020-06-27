@@ -1,5 +1,4 @@
 <?php
-
 namespace app\_module\controller;
 
 class _Controller extends \MagicCube\Controller
@@ -59,10 +58,5 @@ class _Controller extends \MagicCube\Controller
             exit;
         }
         return [];
-    }
-
-    public function __destruct()
-    {
-        parent::__destruct();
     }
 }

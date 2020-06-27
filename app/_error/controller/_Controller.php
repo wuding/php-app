@@ -1,6 +1,5 @@
 <?php
-
-namespace App\_Error\Controller;
+namespace app\_error\controller;
 
 class _Controller extends \MagicCube\Controller
 {
@@ -19,10 +18,5 @@ class _Controller extends \MagicCube\Controller
     public function route()
     {
         print_r(array($this, __FILE__, __LINE__));
-    }
-
-    public function __destruct()
-    {
-        parent::__destruct();
     }
 }
