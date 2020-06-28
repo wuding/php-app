@@ -17,9 +17,9 @@ OFFSET $offset";
         return $this->query($sql, PDO::FETCH_OBJ);
     }
 
-    public function list($offset = null, $site_id = null, $limit = 100)
+    public function list($offset = null, $site_id = null, $limit = 100, $column = '*')
     {
-        $sql = "SELECT *
+        $sql = "SELECT $column
 FROM $this->table_name A
 INNER JOIN (
 SELECT id
