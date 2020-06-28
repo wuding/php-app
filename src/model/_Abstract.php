@@ -5,9 +5,9 @@ use PDO;
 
 class _Abstract extends \Topdb\Table
 {
-    public function offset($offset = null, $site_id = null)
+    public function offset($offset = null, $site_id = null, $column = '*')
     {
-        $sql = "SELECT *
+        $sql = "SELECT $column
 FROM $this->table_name
 WHERE `site` = '$site_id'
 ORDER BY `id`
