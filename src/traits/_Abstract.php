@@ -1,6 +1,8 @@
 <?php
 namespace traits;
 
+use Ext\Zlib;
+
 trait _Abstract
 {
     public function _errorReport()
@@ -28,6 +30,18 @@ trait _Abstract
         $arr = (array) json_decode($str);
         $str = implode(', ', $arr);
         return $str ? " &nbsp;$str" : null;
+    }
+
+    public static function name($str, $i = null)
+    {
+        $q = $_GET['q'] ?? null;
+        $queryData = ['offset' => $i];
+        if ($q) {
+            $queryData['q'] = $q;
+        }
+        $queryUrl = http_build_query($queryData, '', '&', PHP_QUERY_RFC3986);
+        $str = preg_replace('/%g/', "?$queryUrl", $str);
+        return $str;
     }
 
     public static function mv($mv)
@@ -63,5 +77,29 @@ trait _Abstract
     public static function pic($pic)
     {
         return $str = $pic ? "<img style=\"width:24px\" src=\"$pic?param=24y24\">" : null;
+    }
+
+    public function lyricFilename($type, $song, $version, $id = 0)
+    {
+        $extensions = ['', 'lrc', 'xml', 'txt'];
+        $ext = $extensions[$type];
+        $filename = "$this->cacheDir\lyric\\$song-$version.$ext";
+        if ($id < 3625) {
+            $md5 = md5("$song-$version");
+            $hash = substr($md5, 0, 2);
+            $filename = "$this->cacheDir\geci\\$ext\\$hash\\$md5.$ext";
+
+        } elseif ($id < 54160) {
+
+        } else {
+            $filename = "$this->cacheDir\lyrics\\$ext\\$song-$version.$ext";
+        }
+        return $filename;
+    }
+
+    public function lyricContent($type, $song, $version, $id = 0)
+    {
+        $filename = $this->lyricFilename($type, $song, $version, $id);
+        return Zlib::getContents($filename);
     }
 }
