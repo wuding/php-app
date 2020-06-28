@@ -32,7 +32,7 @@ trait _Abstract
         return $str ? " &nbsp;$str" : null;
     }
 
-    public static function name($str, $i = null)
+    public static function name($str, $i = null, $only = null)
     {
         $q = $_GET['q'] ?? null;
         $queryData = ['offset' => $i];
@@ -40,6 +40,9 @@ trait _Abstract
             $queryData['q'] = $q;
         }
         $queryUrl = http_build_query($queryData, '', '&', PHP_QUERY_RFC3986);
+        if ($only) {
+            return "?$queryUrl";
+        }
         $str = preg_replace('/%g/', "?$queryUrl", $str);
         return $str;
     }

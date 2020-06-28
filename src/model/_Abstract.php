@@ -20,11 +20,15 @@ OFFSET $offset";
     public function list($offset = null, $site_id = null, $limit = 100)
     {
         $sql = "SELECT *
+FROM $this->table_name A
+INNER JOIN (
+SELECT id
 FROM $this->table_name
 WHERE `site` = '$site_id'
 ORDER BY `id`
 LIMIT $limit
-OFFSET $offset";
+OFFSET $offset
+) B ON A.id = B.id";
 
         return $this->query($sql, PDO::FETCH_OBJ);
     }
