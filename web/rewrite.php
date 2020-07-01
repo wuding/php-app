@@ -20,7 +20,7 @@ $route = include ROOT . '/app/route.php';
 
 $template = new Engine(ROOT . '/app/template');
 $router = new Router($route['name'], $route['routes'], $route['options']);
-$db_contect = $_CONFIG['database_contect'];
+$db_contect = $_CONFIG['database_contect'] ?? 'database';
 $db_config = $_CONFIG[$db_contect];
 Table::init($db_config, 'wuding/topdb');
 

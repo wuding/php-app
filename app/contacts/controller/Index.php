@@ -1,6 +1,7 @@
 <?php
+namespace app\contacts\controller;
 
-namespace App\Contacts\Controller;
+use model\Tel;
 
 class Index extends \MagicCube\Controller
 {
@@ -15,7 +16,7 @@ class Index extends \MagicCube\Controller
         $w = $where ? ' WHERE ' . $where : '';
         $offset = $page * 50 - 50;
 
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         $sql = "SELECT id, NickName FROM beings.`contact_item` $w LIMIT $offset,50";
         $all = $Tel->select($sql);
         return get_defined_vars();

@@ -18,7 +18,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/metowolf/Meting/zipball/54178aa112da5db09f487d862d7ae62cbf7bc060",
                 "reference": "54178aa112da5db09f487d862d7ae62cbf7bc060",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "ext-curl": "*",
@@ -68,7 +74,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/equiv-route/zipball/cbd58f2116dbf583076d1754ac782f2ee6ac36e5",
                 "reference": "cbd58f2116dbf583076d1754ac782f2ee6ac36e5",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -94,7 +106,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/magic-cube/zipball/431ef00eff3508594e9fc6076e314d69abc2fc6b",
                 "reference": "431ef00eff3508594e9fc6076e314d69abc2fc6b",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -120,7 +138,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/new-ui/zipball/b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
                 "reference": "b643c0c0996bf71cdfc5c1fa948c43e0ccbc90c5",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -146,7 +170,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/php-ext/zipball/6132cb827fb5ebbb14fb5b4b7efec6042b30e960",
                 "reference": "6132cb827fb5ebbb14fb5b4b7efec6042b30e960",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0",
@@ -186,7 +216,13 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/wuding/php-func/zipball/0cd031d61c93f596fd810a70b6ddeda47a5a0010",
                 "reference": "0cd031d61c93f596fd810a70b6ddeda47a5a0010",
-                "shasum": ""
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -225,13 +261,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wuding/topdb.git",
-                "reference": "9c5592de5b1ecd813bd54947995ee8b3224a77e8"
+                "reference": "25e77bd3578e9c33e124568714b1166920b8149f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wuding/topdb/zipball/9c5592de5b1ecd813bd54947995ee8b3224a77e8",
-                "reference": "9c5592de5b1ecd813bd54947995ee8b3224a77e8",
-                "shasum": ""
+                "url": "https://api.github.com/repos/wuding/topdb/zipball/25e77bd3578e9c33e124568714b1166920b8149f",
+                "reference": "25e77bd3578e9c33e124568714b1166920b8149f",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
             },
             "require": {
                 "php": ">=5.4.0"
@@ -243,7 +285,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2020-05-29T07:44:17+00:00"
+            "time": "2020-06-28T23:12:09+00:00"
         }
     ],
     "packages-dev": [],
@@ -255,5 +297,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }

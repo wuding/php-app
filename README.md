@@ -4,7 +4,11 @@
 
 app 应用目录
 
+example
+
 src 源文件目录
+
+vendor
 
 web 文档根目录
 
@@ -30,6 +34,7 @@ composer install
 app/config.php
 
 ```php
+'database_contect' => 'database',
 'database' => array(
     'db_name' => '',
     'username' => '',

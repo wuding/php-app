@@ -1,6 +1,5 @@
 <?php
-
-namespace Model;
+namespace model;
 
 class Tel extends \Topdb\Table
 {
@@ -8,17 +7,18 @@ class Tel extends \Topdb\Table
     public $table_name = 'tel_list';
     public $primary_key = 'id';
 
-    public function get($sql)
+    public function get($sql = null, $column = null, $order = null, $limit = 1, $call = null)
     {
+        $this->setQueryResult(false);
         $sth = $this->query($sql);
         return $sth->fetchObject();
     }
 
     public function getInfo($id)
     {
-        $sql = "SELECT * 
-FROM $this->db_name.$this->table_name 
-WHERE $this->primary_key = '$id' 
+        $sql = "SELECT *
+FROM $this->db_name.$this->table_name
+WHERE $this->primary_key = '$id'
 LIMIT 1";
 
         $user = $this->get($sql);
