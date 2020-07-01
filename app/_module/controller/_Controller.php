@@ -3,16 +3,18 @@ namespace app\_module\controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $enableView = false;
+    public $enableView = true;
 
     public function index()
     {
-        print_r(array(__FILE__, __LINE__));
+        return array('dir' => dirname(ROOT) .'\\', 'method' => __METHOD__, 'file' => __FILE__,  'line' => __LINE__);
     }
 
     public function _action()
     {
-        print_r(array($this, __FILE__, __LINE__));
+        $uriInfo = $this->uriInfo;
+        $this->uriInfo['action'] = '_action';
+        return array('uriInfo' => $uriInfo, 'uri' => $this->uri, 'method' => __METHOD__, 'file' => __FILE__,  'line' => __LINE__);
     }
 
     public function _error()
