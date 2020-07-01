@@ -25,6 +25,11 @@ trait _Abstract
         return $str = date('i:s', $str / 1000);
     }
 
+    public static function datetime($str)
+    {
+        return $str = date('m-d H:i', $str);
+    }
+
     public static function alias($str)
     {
         $arr = (array) json_decode($str);
@@ -49,7 +54,14 @@ trait _Abstract
 
     public static function mv($mv)
     {
-        return $str = $mv ? "<a href=\"https://music.163.com/mv?id=$mv\">▶</a>" : null;
+        return $str = $mv ? "<a class=\"mv\" href=\"https://music.163.com/mv?id=$mv\" data-mv=\"$mv\" id=\"mv-$mv\" data-url >▶</a>" : null;
+    }
+
+    public static function mvUrl($str, $i = null, $row = null)
+    {
+        $url = htmlspecialchars($row->url);
+        $str = 'mv' == $row->type ? preg_replace('/ data-url /', " data-url=\"$url\" ", $str) : $str;
+        return $str;
     }
 
     public static function artists($artists)

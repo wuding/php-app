@@ -71,7 +71,7 @@ OFFSET $offset
             }
             $keys = array_keys($diff);
             $data['updated'] = $data['compared'] = $time;
-            $data['compares'] = $row->compares ?? 0 + 1;
+            $data['compares'] = $row->compares ? ['compares + 1'] : 1;
             $data['diff'] = implode(',', $keys);
 
             return $this->update($data, $row->$primary_key);
