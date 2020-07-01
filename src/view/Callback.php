@@ -13,7 +13,7 @@ class Callback
 
     public static function output($buffer)
     {
-      # return 'replace all the apples with oranges';
-      return [__FILE__, $buffer];
+      // 不能返回数组或对象，也不能直接输出
+      return print_r(array('file' => __FILE__, 'buffer' => $buffer), true);
     }
 }
