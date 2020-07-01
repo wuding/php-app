@@ -1,0 +1,13 @@
+h1 {
+    float: left;
+    margin: 0;
+}
+
+nav {
+    float: left;
+    padding: 11px 20px;
+}
+
+form {
+    padding-top: 11px;
+}
