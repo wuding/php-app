@@ -2,7 +2,10 @@
 # echo $request_urn;
 
 use Topdb\Table;
-use Model\BookmarkList;
+use model\BookmarkList;
+
+global $bookmarks, $results, $guids;
+$bookmarks = $results = $guids = [];
 
 Table::init($_CONFIG['database'], 'wuding/topdb');
 
@@ -11,8 +14,6 @@ $filename = $filename ?? 'D:\Storage\Browser\Bookmarks\json\Bookmarks.json';
 $json = file_get_contents($filename);
 $obj = json_decode($json);
 $roots = $obj->roots;
-global $bookmarks;
-$bookmarks = [];
 $level = 1;
 foreach ($roots as $key => $value) {
     $arr = (array) $value;
@@ -21,13 +22,29 @@ foreach ($roots as $key => $value) {
     $children = $arr['children'];
     unset($arr['children']);
     $arr = fixDate(0, $arr);
-    $row = add($arr);
+    $results[] = $row = add($arr);
     $bookmarks[] = bookmark($arr, $children, $level, $value->guid ?? null, $row);
+    diff($arr, $row);
+}
+
+function diff($arr, $row) {
+    global $guids;
+    $ids = [$arr['guid']];
+    if (is_object($row)) {
+        $ids[] = $row->guid;
+    }
+    foreach ($ids as $gid) {
+        if (isset($guids[$gid])) {
+            $guids[$gid]++;
+        } else {
+            $guids[$gid] = 1;
+        }
+    }
 }
 
 function bookmark($bookmark, $children, $level = null, $guid = null, $row = null) {
     $level++;
-    global $bookmarks;
+    global $bookmarks, $results;
     $upper = null;
     if (is_numeric($row)) {
         $upper = $row;
@@ -48,8 +65,9 @@ function bookmark($bookmark, $children, $level = null, $guid = null, $row = null
         unset($arr['children']);
         $arr = fixDate(0, $arr);
         $arr = fixByte($arr);
-        $row = add($arr);
+        $results[] = $row = add($arr);
         $bookmarks[] = bookmark($arr, $child, $level, $v->guid ?? null, $row);
+        diff($arr, $row);
     }
 
     return $bookmark;
@@ -76,6 +94,8 @@ function add($arr) {
     if ('url' == $type) {
         $w['url'] = $url;
         unset($w['level']);
+    } elseif ('folder' == $type && isset($upper)) {
+        $w['upper'] = $upper;
     }
 
     $pieces = [];
@@ -89,7 +109,7 @@ function add($arr) {
 FROM `bookmark_list` 
 WHERE $wh 
 LIMIT 1";
-    $row = $BookmarkList->db->find($sql);
+    $row = $BookmarkList->db->get($sql);
     if (!$row) {
         $sql = "INSERT INTO bookmark_list SET $set";
         $row = $BookmarkList->db->insert($sql);
@@ -139,4 +159,17 @@ function fixByte($arr = null, $variable = null) {
     }
     return $arr;
 }
-print_r($bookmarks);
+
+// 比较数据而不是数量
+if (count($bookmarks) != count($results)) {
+    print_r($bookmarks);
+    print_r($results);
+}
+
+$uuid = [];
+foreach ($guids as $key => $value) {
+    if (2 != $value) {
+        $uuid[$key] = $value;
+    }
+}
+print_r($uuid);
