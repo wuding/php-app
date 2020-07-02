@@ -41,9 +41,7 @@ if ($_CONFIG['router_extensions'] && preg_match('/\.(?:'. $_CONFIG['router_exten
     if (file_exists($request_filename)) {
         return false;    // 直接返回请求的文件
     }
-    include BASE_DIR . '/app/template/404.html';
-
-} else {
-    # echo "<p>Welcome to PHP</p>";
-    include_once 'index.php';
+    # include BASE_DIR . '/src/app/template/404.html';
 }
+# echo "<p>Welcome to PHP</p>";
+include_once 'index.php';
