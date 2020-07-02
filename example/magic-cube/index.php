@@ -17,7 +17,7 @@ class Index
     {
         $config = include ROOT . '/app/module.php';
         $this->dispatcher = $dispatcher = new Dispatcher($routeInfo, $httpMethod);
-        $dispatcher->setVars($config);
+        $dispatcher->_setVars($config);
     }
 
     public function dispatch($return = null)
