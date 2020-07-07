@@ -23,6 +23,7 @@ $router = new Router($route['name'], $route['routes'], $route['options']);
 $db_contect = $_CONFIG['database_contect'] ?? 'database';
 $db_config = $_CONFIG[$db_contect];
 Table::init($db_config, 'wuding/topdb');
+$template->setCallback($_CONFIG['template']['output_callback']);
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];

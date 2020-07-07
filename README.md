@@ -25,7 +25,7 @@ PHP >= 5.4
 |          | 文件          |      |
 | -------- | ------------- | ---- |
 | mbstring | web/index.php |      |
-|          |               |      |
+| fileinfo | web/index.php |      |
 |          |               |      |
 
 #### 安装命令
