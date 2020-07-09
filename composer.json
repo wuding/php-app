@@ -10,11 +10,11 @@
         }
     },
     "require": {
-        "wuding/magic-cube": "^1.1.2",
-        "wuding/equiv-route": "^1.1.1",
-        "wuding/topdb": "dev-master",
-        "wuding/php-ext": "^1.1",
-        "wuding/new-ui": "^1.0",
+        "wuding/magic-cube": "^20.187.1558",
+        "wuding/equiv-route": "^1.1.2",
+        "wuding/topdb": "^1.0.4",
+        "wuding/php-ext": "^20.192.141",
+        "wuding/new-ui": "^20.187.1828",
         "metowolf/meting": "^1.5"
     }
 }
