@@ -94,15 +94,22 @@ trait _Abstract
         return $str = $pic ? "<img style=\"width:24px\" src=\"$pic?param=24y24\">" : null;
     }
 
-    public function lyricFilename($type, $song, $version, $id = 0)
+    public function lyricFilename($type, $song, $version, $id = 0, $site = -1, $size = -1)
     {
         $extensions = ['', 'lrc', 'xml', 'txt'];
         $ext = $extensions[$type];
         $filename = "$this->cacheDir\lyric\\$song-$version.$ext";
         if ($id < 3625) {
+            /*
             $md5 = md5("$song-$version");
             $hash = substr($md5, 0, 2);
             $filename = "$this->cacheDir\geci\\$ext\\$hash\\$md5.$ext";
+            */
+
+            $name = "$site-$song-$type-$version-$size";
+            $md5 = md5($name);
+            $hash = substr($md5, 0, 2);
+            $filename = "$this->downloadDir\lyric\\$site\\$ext\\$hash\\$name.$ext";
 
         } elseif ($id < 54160) {
 
@@ -112,9 +119,21 @@ trait _Abstract
         return $filename;
     }
 
-    public function lyricContent($type, $song, $version, $id = 0)
+    public function lyricContent($type, $song, $version, $id = 0, $site = -1, $size = -1)
     {
-        $filename = $this->lyricFilename($type, $song, $version, $id);
+        $filename = $this->lyricFilename($type, $song, $version, $id, $site, $size);
         return Zlib::getContents($filename);
+    }
+
+    public function audioFilename($song, $au, $ur, $ext, $site = null, $br = null, $size = null)
+    {
+        if (null === $site) {
+            return $filename = "$this->cacheDir/audio/$song-$au-$ur.$ext";
+        }
+
+        $name = "$site-$song-$ext-$br-$size";
+        $md5 = md5($name);
+        $hash = substr($md5, 0, 2);
+        return $filename = "$this->downloadDir/music/$site/$ext/$hash/$ur-$au-$song.$ext";
     }
 }
