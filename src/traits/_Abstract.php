@@ -72,7 +72,8 @@ trait _Abstract
             if ($value) {
                 $row = self::$artists[$value] ?? null;
                 if ($row) {
-                    $pieces[] = "<a href=\"/music/artist/$value/site/1\">$row->name</a>";
+                    $obj = (object) $row;
+                    $pieces[] = "<a href=\"/music/artist/$value/site/1\">$obj->name</a>";
                 }
             }
         }
