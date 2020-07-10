@@ -48,6 +48,15 @@ app/config.php
     'username' => '',
     'password' => '',
 ),
+'template' => array(
+    'output_callback' => null, // false 使用默认 null 不使用任何
+),
+// 需要用到的自定义函数
+'func' => [
+    'config' => [],
+    'load' => ['arr'],
+],
+'downloadDir' => 'N:\Server\Download',
 ```
 
 

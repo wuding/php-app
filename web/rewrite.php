@@ -18,6 +18,9 @@ require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
 $route = include ROOT . '/app/route.php';
 
+// 依赖函数
+func($_CONFIG['func']['config'], $_CONFIG['func']['load']);
+
 $template = new Engine(ROOT . '/app/template');
 $router = new Router($route['name'], $route['routes'], $route['options']);
 $db_contect = $_CONFIG['database_contect'] ?? 'database';
