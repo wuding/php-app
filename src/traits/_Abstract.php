@@ -64,6 +64,13 @@ trait _Abstract
         return $str;
     }
 
+    public static function albumName($output, $i = null, $row = null)
+    {
+        $name = $row->name ? htmlspecialchars($row->name) : $row->id;
+        $str = preg_replace('/%nm/', $name, $output);
+        return $str;
+    }
+
     public static function artists($artists)
     {
         $arr = explode(',', $artists);
