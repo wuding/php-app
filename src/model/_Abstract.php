@@ -44,10 +44,14 @@ OFFSET $offset
         $time = time();
         $variable = $variable ? : $this->exist_fields;
         $where = [];
-        foreach ($variable as $key => $value) {
-            if ($arr[$value] ?? null) {
+        foreach ($variable as $value) {
+            if (array_key_exists($value, $arr)) {
                $where[$value] = $arr[$value];
             }
+        }
+        if (!$where) {
+            print_r([get_defined_vars(), __FILE__, __LINE__]);
+            exit;
         }
 
         // 列名
@@ -64,7 +68,7 @@ OFFSET $offset
 
         __GET__:
         $row = $this->get($where, $column);
-
+        // 不存在则插入
         if (!$row) {
             $data = [
                 'status' => -1,
@@ -76,7 +80,7 @@ OFFSET $offset
         }
 
         $diff = array_diff_kv($arr, (array) $row);
-
+        // 不同则更新
         if ($diff) {
             $data = [];
             foreach ($diff as $key => $value) {
@@ -86,9 +90,9 @@ OFFSET $offset
             $data['updated'] = $data['compared'] = $time;
             $data['compares'] = $row->compares ? ['compares + 1'] : 1;
             $data['diff'] = implode(',', $keys);
-
             return $this->update($data, $row->$primary_key);
         }
+
         if ($return) {
             return $row;
         }
