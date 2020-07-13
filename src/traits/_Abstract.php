@@ -64,6 +64,16 @@ trait _Abstract
         return $str;
     }
 
+    public static function albums($output, $i = null, $row = null)
+    {
+        $name = $row->album;
+        if ($obj = self::$albums[$row->album] ?? null) {
+            $name = $obj->name ?: $name;
+        }
+        $str = preg_replace('/%nm/', $name, $output);
+        return $str;
+    }
+
     public static function albumName($output, $i = null, $row = null)
     {
         $name = $row->name ? htmlspecialchars($row->name) : $row->id;
