@@ -106,23 +106,33 @@ trait _Abstract
     {
         $extensions = ['', 'lrc', 'xml', 'txt'];
         $ext = $extensions[$type];
-        $filename = "$this->cacheDir\lyric\\$song-$version.$ext";
-        if ($id < 3625) {
-            /*
-            $md5 = md5("$song-$version");
-            $hash = substr($md5, 0, 2);
-            $filename = "$this->cacheDir\geci\\$ext\\$hash\\$md5.$ext";
-            */
+        //$md5 = md5("$song-$version");
+        $name = "$site-$song-$type-$version-$size";
+        $md5 = md5($name);
+        $hash = substr($md5, 0, 2);
+        $arr = [
+            'first' => "$this->cacheDir\lyric\\$song-$version.$ext",
+            'second' => "$this->cacheDir\lyrics\\$ext\\$song-$version.$ext",
+            //'third' => "$this->cacheDir\geci\\$ext\\$hash\\$md5.$ext",
+            'fourth' => "$this->downloadDir\lyric\\$site\\$ext\\$hash\\$name.$ext",
+        ];
 
-            $name = "$site-$song-$type-$version-$size";
-            $md5 = md5($name);
-            $hash = substr($md5, 0, 2);
-            $filename = "$this->downloadDir\lyric\\$site\\$ext\\$hash\\$name.$ext";
+        $key = 'second';
+        if (3625 > $id || 451471 < $id) {
+            $key = 'fourth';
 
-        } elseif ($id < 54160) {
+        } elseif (54160 > $id) {
+            $key = 'first';
+        }
 
-        } else {
-            $filename = "$this->cacheDir\lyrics\\$ext\\$song-$version.$ext";
+        $filename = $arr[$key];
+        if (!file_exists($filename)) {
+            unset($arr[$key]);
+            foreach ($arr as $v) {
+                if (file_exists($v)) {
+                    return $v;
+                }
+            }
         }
         return $filename;
     }
