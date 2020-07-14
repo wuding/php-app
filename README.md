@@ -22,11 +22,13 @@ PHP >= 5.4
 
 ##### 扩展
 
-|          | 文件          |      |
-| -------- | ------------- | ---- |
-| mbstring | web/index.php |      |
-| fileinfo | web/index.php |      |
-|          |               |      |
+|           | 文件                              | 应用模块 | 控制器 | 动作方法 |
+| --------- | --------------------------------- | -------- | ------ | -------- |
+| mbstring  | web/index.php                     |          |        |          |
+| fileinfo  | web/index.php                     |          |        |          |
+| pdo_mysql |                                   | search   | Index  | index    |
+| openssl   | Metowolf\Meting::netease_AESCBC() |          |        |          |
+| curl      | 同上                              |          |        |          |
 
 #### 安装命令
 
