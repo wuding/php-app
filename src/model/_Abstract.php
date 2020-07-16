@@ -82,6 +82,10 @@ OFFSET $offset
         $diff = array_diff_kv($arr, (array) $row);
         // 不同则更新
         if ($diff) {
+            if (is_array($return) && in_array('diff', $return)) {
+                return $diff;
+            }
+
             $data = [];
             foreach ($diff as $key => $value) {
                 $data[$key] = $value[0];
@@ -97,5 +101,34 @@ OFFSET $offset
             return $row;
         }
         return $row->$primary_key;
+    }
+
+    public function add($arr, $variable = null)
+    {
+        $time = time();
+        $variable = $variable ?: $this->exist_fields;
+        $where = [];
+        foreach ($variable as $value) {
+            if (array_key_exists($value, $arr)) {
+               $where[$value] = $arr[$value];
+            }
+        }
+        if (!$where) {
+            print_r([get_defined_vars(), __FILE__, __LINE__]);
+            exit;
+        }
+
+        $row = $this->get($where, $this->primary_key);
+        // 不存在则插入
+        if (!$row) {
+            $data = [
+                'status' => -1,
+                'created' => $time,
+                'updated' => $time,
+            ];
+            $arr += $data;
+            return $this->insert($arr);
+        }
+        return false;
     }
 }
