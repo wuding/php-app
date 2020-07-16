@@ -64,11 +64,35 @@ trait _Abstract
         return $str;
     }
 
+    public static function transNames($output, $i = null, $row = null)
+    {
+        $names = preg_split('/[;,]+/', $row->transNames);
+        $alias = preg_split('/[;,]+/', $row->alias);
+        $haystack = [];
+        foreach ($names as $value) {
+            if ($value && !in_array($value, $haystack)) {
+                $haystack[] = $value;
+            }
+        }
+        foreach ($alias as $value) {
+            if ($value && !in_array($value, $haystack)) {
+                $haystack[] = $value;
+            }
+        }
+        $nm = implode(', ', $haystack);
+        $str = preg_replace('/%nm/', $nm, $output);
+        return $str;
+    }
+
     public static function albums($output, $i = null, $row = null)
     {
         $name = $row->album;
         if ($obj = self::$albums[$row->album] ?? null) {
             $name = $obj->name ?: $name;
+            $output = preg_replace('/%id/', $obj->id, $output);
+        } else {
+            // 是否需要记录?
+            $output = preg_replace('/%id/', "$row->album/site/$row->site", $output);
         }
         $str = preg_replace('/%nm/', $name, $output);
         return $str;
