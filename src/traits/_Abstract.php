@@ -1,6 +1,7 @@
 <?php
 namespace traits;
 
+use Ext\File;
 use Ext\Zlib;
 
 trait _Abstract
@@ -8,6 +9,17 @@ trait _Abstract
     public function _errorReport()
     {
         print_r(func_get_args());
+    }
+
+    public function _errorLog($logFile, $id)
+    {
+        $haystack = File::getContents($logFile, 1, '[]');
+        if (!in_array($id, $haystack)) {
+            $haystack[] = $id;
+            $logData = json_encode($haystack);
+            $put = File::putContents($logFile, $logData);
+        }
+        return get_defined_vars();
     }
 
     public static function _outputJson($code = null, $msg = null, $data = null)
