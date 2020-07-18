@@ -43,7 +43,7 @@ OFFSET $offset
         $primary_key = $this->primary_key;
         $time = time();
         $variable = $variable ? : $this->exist_fields;
-        $where = [];
+        $where = $flags = [];
         foreach ($variable as $value) {
             if (array_key_exists($value, $arr)) {
                $where[$value] = $arr[$value];
@@ -52,6 +52,10 @@ OFFSET $offset
         if (!$where) {
             print_r([get_defined_vars(), __FILE__, __LINE__]);
             exit;
+        }
+        if (is_array($return)) {
+            $flags = $return;
+            $return = in_array('row', $flags) ?: null;
         }
 
         // 列名
@@ -82,21 +86,44 @@ OFFSET $offset
         $diff = array_diff_kv($arr, (array) $row);
         // 不同则更新
         if ($diff) {
-            if (is_array($return) && in_array('diff', $return)) {
+            if (in_array('diff', $flags)) {
                 return $diff;
             }
 
+            $ignoreNull = in_array('null', $flags);
+            $ignoreMin = in_array('min', $flags);
+
             $data = [];
             foreach ($diff as $key => $value) {
-                $data[$key] = $value[0];
+                list($val, $v) = $value;
+                // 忽略小于
+                if (is_numeric($val) && is_numeric($v) && $ignoreMin) {
+                    if ($val <= $v) {
+                        continue 1;
+                    }
+                }
+                // 忽略空
+                if (!is_numeric($val) && !trim($val) && $ignoreNull) {
+                    continue 1;
+                }
+                $data[$key] = $val;
             }
-            $keys = array_keys($diff);
+
+            if (in_array('data', $flags)) {
+                return $data;
+            }
+            if (!$data) {
+                goto __END__;
+            }
+
+            $keys = array_keys($data);
             $data['updated'] = $data['compared'] = $time;
             $data['compares'] = $row->compares ? ['compares + 1'] : 1;
             $data['diff'] = implode(',', $keys);
             return $this->update($data, $row->$primary_key);
         }
 
+        __END__:
         if ($return) {
             return $row;
         }
