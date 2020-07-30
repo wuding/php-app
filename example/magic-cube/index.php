@@ -3,6 +3,7 @@
 namespace PhpApp\Example;
 
 use MagicCube\Dispatcher;
+use model\Glob;
 
 class Index
 {
@@ -27,13 +28,14 @@ class Index
     }
 }
 
+$debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
-$result = $index->dispatch($_CONFIG['debug']);
-if ($_CONFIG['debug']) {
+$result = $index->dispatch($debug);
+if ($debug) {
     print_r(array($result, __FILE__, __LINE__));
 }
 
-if (null !== $_CONFIG['debug']) {
+if (null !== $debug) {
     $files = get_included_files();
     // 合并漏掉的
     extract(\Ext\Yac::hash('files', 'files_', 1));
@@ -43,7 +45,7 @@ if (null !== $_CONFIG['debug']) {
         }
     }
     // 排序
-    if (false === $_CONFIG['debug']) {
+    if (false === $debug) {
         sort($files);
     }
     print_r(array($files, __FILE__, __LINE__));

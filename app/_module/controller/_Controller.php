@@ -1,6 +1,8 @@
 <?php
 namespace app\_module\controller;
 
+use model\Glob;
+
 class _Controller extends \MagicCube\Controller
 {
     public $enableView = true;
@@ -54,7 +56,7 @@ class _Controller extends \MagicCube\Controller
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $file = $_FILES['_'];
             $filename = $file['tmp_name'];
-            $destination = $_CONFIG['upload_dir'] .'/'. $file['name'];
+            $destination = Glob::conf('upload_dir') .'/'. $file['name'];
             $move = move_uploaded_file($filename, $destination);
             print_r(get_defined_vars());
             exit;
