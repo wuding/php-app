@@ -78,8 +78,8 @@ trait _Abstract
 
     public static function transNames($output, $i = null, $row = null)
     {
-        $names = preg_split('/[;,]+/', $row->transNames);
-        $alias = preg_split('/[;,]+/', $row->alias);
+        $names = preg_split('/[;,]+/', $row->transNames ?? null);
+        $alias = preg_split('/[;,]+/', $row->alias ?? null);
         $haystack = [];
         foreach ($names as $value) {
             if ($value && !in_array($value, $haystack)) {
@@ -138,9 +138,9 @@ trait _Abstract
         return $str = $home ? "<a href=\"https://music.163.com/user/home?id=$home\">$home</a>" : null;
     }
 
-    public static function publishTime($publishTime)
+    public static function publishTime($publishTime, $format = 'Y-m-d H:i:s', $div = 1000)
     {
-        return $str = $publishTime ? date('Y-m-d H:i:s', $publishTime / 1000) : null;
+        return $str = $publishTime ? date($format, round($publishTime / $div)) : null;
     }
 
     public static function pic($pic)
