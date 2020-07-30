@@ -1,5 +1,14 @@
 {
     "name": "wuding/php-app",
+    "description": "skeleton application for php framework",
+    "type": "framework",
+    "keywords": ["Framework"],
+    "authors": [
+        {
+            "name": "Benny Wu",
+            "email": "contact@urlnk.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
           "app\\": "app/",
@@ -10,11 +19,11 @@
         }
     },
     "require": {
-        "wuding/magic-cube": "^20.187.1558",
-        "wuding/equiv-route": "^1.1.2",
-        "wuding/topdb": "^20.193.48",
-        "wuding/php-ext": "^20.192.141",
-        "wuding/new-ui": "^20.187.1828",
+        "wuding/magic-cube": "^20.213.97",
+        "wuding/equiv-route": "^20.213.101",
+        "wuding/topdb": "^20.213.103",
+        "wuding/php-ext": "^20.213.92",
+        "wuding/new-ui": "^20.213.108",
         "metowolf/meting": "^1.5"
     }
 }
