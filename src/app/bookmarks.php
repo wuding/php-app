@@ -3,11 +3,12 @@
 
 use Topdb\Table;
 use model\BookmarkList;
+use model\Glob;
 
 global $bookmarks, $results, $guids;
 $bookmarks = $results = $guids = [];
 
-Table::init($_CONFIG['database'], 'wuding/topdb');
+Table::init(Glob::conf('database'), 'wuding/topdb');
 
 $filename = isset($_GET['q']) ? $_GET['q'] : null;
 $filename = $filename ?? 'D:\Storage\Browser\Bookmarks\json\Bookmarks.json';

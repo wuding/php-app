@@ -12,7 +12,7 @@ unset($files[array_search('..', $files)]);
 $dir = trim(REQUEST_NAME, '/');
 $dir = rawurldecode($dir);
 if (!$drv_matches) {
-    $dir = $_CONFIG['file_exists_dir'] .'/'. $dir;
+    $dir = Glob::conf('file_exists_dir') .'/'. $dir;
 }
 $path = $dir ? '/' . $dir . '/' : '';
 $lines = array("<a href=\"$path..\">..</a>");
