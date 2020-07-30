@@ -24,7 +24,7 @@ $_CONFIG = include BASE_DIR . '/app/config.php';
 $rewrite_file = $_CONFIG['rewrite_file'] ?? null;
 $static_home = $_CONFIG['static_home'] ?? null;
 date_default_timezone_set($_CONFIG['timezone'] ?? 'UTC');
-set_time_limit($_CONFIG['time_limit'] ?? 0);
+set_time_limit($_CONFIG['time_limit'] ?? 120);
 
 // 请求
 $sorting_order = isset($_GET['sort']) ? $_GET['sort'] : null;

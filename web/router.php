@@ -2,7 +2,7 @@
 // router.php
 # echo php_sapi_name() . '_' . PHP_SAPI;
 
-// 选项设置
+/* 选项设置
 $ini_array = parse_ini_file(".user.ini");
 $ini_result = array();
 $ini_reset = array();
@@ -20,8 +20,7 @@ if ($ini_result) {
 if ($ini_reset) {
     print_r([__FILE__, __LINE__, $ini_reset]);
 }
-
-# set_time_limit(1);
+*/
 
 /**
 增加了对请求的预处理，比如文件扩展名
