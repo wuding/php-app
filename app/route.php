@@ -9,6 +9,7 @@ return [
         ['POST', '/users'],
         ['GET', '/play/{id}', 'get,post:play!index@index'],
         ['GET', '^/{template:\d+}-{param}', 'url!redirect@index'],
+        ['GET', '^/(|index.*)$', function(){ header("Location: /play");exit; }],
     ],
     'options' =>  [
         'cacheFile' => __DIR__ . '/../storage/cache/route.cache',
