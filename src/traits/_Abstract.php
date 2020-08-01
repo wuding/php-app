@@ -200,4 +200,13 @@ trait _Abstract
         $hash = substr($md5, 0, 2);
         return $filename = "$this->downloadDir/music/$site/$ext/$hash/$ur-$au-$song.$ext";
     }
+
+    public function tplReplace($tpl)
+    {
+        for ($i = 1; $i < func_num_args(); $i++) {
+            $arg = func_get_arg($i);
+            $tpl = preg_replace("/%$i/", $arg, $tpl);
+        }
+        return $tpl;
+    }
 }
