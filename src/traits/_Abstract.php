@@ -64,7 +64,7 @@ trait _Abstract
         return $str;
     }
 
-    public static function mv($mv)
+    public static function _mv($mv)
     {
         return $str = $mv ? "<a class=\"mv\" href=\"https://music.163.com/mv?id=$mv\" data-mv=\"$mv\" id=\"mv-$mv\" data-url >▶</a>" : null;
     }
