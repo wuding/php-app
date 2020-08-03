@@ -7,7 +7,7 @@ return [
         ['GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler'],
         ['GET', '/user/{name}', 'user_name_handler'],
         ['POST', '/users'],
-        ['GET', '/play/{id}', 'get,post:play!index@index'],
+        ['GET', '^/play/{id}', 'get,post:play!index@index'],
         ['GET', '^/{template:\d+}-{param}', 'url!redirect@index'],
         ['GET', '^/(|index.*)$', function(){ header("Location: /play");exit; }],
     ],
