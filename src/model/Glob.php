@@ -6,6 +6,18 @@ class Glob
     public static $conf = [];
     public static $supported_ext = null;
 
+    // 给配置项设值
+    public static function set($item, $value = null)
+    {
+        $exp = explode('.', $item);
+        $str = '';
+        foreach ($exp as $v) {
+            $str .= "['$v']";
+        }
+        eval("self::\$conf$str = '$value';");
+        return self::$conf;
+    }
+
     // 获取配置项的值
     public static function conf($item, $value = null, $arr = null)
     {
