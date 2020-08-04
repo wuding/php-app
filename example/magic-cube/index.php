@@ -33,7 +33,7 @@ $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
 $result = $index->dispatch($debug);
 $stat = [];
-if (!preg_match("/^\/stat(|\/.*)$/i", $routeInfo[1])) {
+if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $routeInfo[1])) {
     $stat['enable_cookie'] = Stat::cookie();
     $stat['server'] = Stat::server();
     $stat['url'] = Stat::record();
