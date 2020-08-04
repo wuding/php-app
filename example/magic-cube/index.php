@@ -32,11 +32,14 @@ class Index
 $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
 $result = $index->dispatch($debug);
-$enable_cookie_value = Stat::cookie();
-$stat_server = Stat::server();
-$stat_url = Stat::record();
+$stat = [];
+if (!preg_match("/^\/stat(|\/.*)$/i", $routeInfo[1])) {
+    $stat['enable_cookie'] = Stat::cookie();
+    $stat['server'] = Stat::server();
+    $stat['url'] = Stat::record();
+}
 if ($debug) {
-    print_r(array($result, $enable_cookie_value, $stat_server, $stat_url, __FILE__, __LINE__));
+    print_r(array($result, $stat, __FILE__, __LINE__));
 }
 
 if (null !== $debug) {
