@@ -29,15 +29,25 @@ class Index
     }
 }
 
+$host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
+$host_name = strtoupper($host_string);
+$stat = [];
+// 排除统计
+$request_path = parse_url($uri, PHP_URL_PATH);
+if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path)) {
+    $stat['server'] = Stat::server();
+    $stat['url'] = Stat::record();
+    // 禁用转向
+    $redirect = true;
+    if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml)$/i", $request_path)) {
+        $redirect = false;
+    }
+    $stat['enable_cookie'] = Stat::cookie($redirect, "ENABLE_COOKIE_$host_name");
+}
+
 $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
 $result = $index->dispatch($debug);
-$stat = [];
-if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $routeInfo[1])) {
-    $stat['enable_cookie'] = Stat::cookie();
-    $stat['server'] = Stat::server();
-    $stat['url'] = Stat::record();
-}
 if ($debug) {
     print_r(array($result, $stat, __FILE__, __LINE__));
 }
