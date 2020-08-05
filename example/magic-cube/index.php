@@ -29,12 +29,19 @@ class Index
     }
 }
 
+// 忽略统计标记
+$var_stat = $_GET['stat'] ?? null;
+if (null !== $var_stat) {
+    $expire = time() + 864000000;
+    $setcookie = setcookie('stat', $var_stat, $expire);
+}
+$disable_stat = $_COOKIE['stat'] ?? $var_stat;
 $host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
 $host_name = strtoupper($host_string);
 $stat = [];
 // 排除统计
 $request_path = parse_url($uri, PHP_URL_PATH);
-if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path)) {
+if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) {
     $stat['server'] = Stat::server();
     $stat['url'] = Stat::record();
     // 禁用转向
