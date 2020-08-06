@@ -33,7 +33,7 @@ class Index
 $var_stat = $_GET['stat'] ?? null;
 if (null !== $var_stat) {
     $expire = time() + 864000000;
-    $setcookie = setcookie('stat', $var_stat, $expire);
+    $setcookie = setcookie('stat', $var_stat, $expire, '/');
 }
 $disable_stat = $_COOKIE['stat'] ?? $var_stat;
 $host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
