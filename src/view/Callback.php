@@ -10,6 +10,9 @@ use model\Glob;
  */
 class Callback
 {
+    public static $put = null;
+    public static $gz = false;
+
     public function __construct($argument)
     {
         # code...
@@ -25,7 +28,13 @@ class Callback
     public static function gz($buffer)
     {
         $filename = Glob::conf('outputCallback.gz');
-        return Zlib::putContents($filename, $buffer);
+        self::$put = Zlib::putContents($filename, $buffer);
+        \NewUI\Template::$render_result = $buffer;
+        $hook = \MagicCube\Controller::$hook;
+        // 不可以回调用户函数，死循环
+        #call_user_func_array($hook, ['_' => $buffer, 'var' => 'vars']);
+        $result = self::$gz ? self::$put : false;
+        return $result;
     }
 
     // 读取，另存为 .zip 7-Zip 打开才正常
@@ -34,5 +43,14 @@ class Callback
         $filename = Glob::conf('outputCallback.gz');
         $str = File::getContents(realpath($filename));
         return $str;
+    }
+
+    public static function hook()
+    {
+        $args = func_get_args();
+        $gz = self::gz($args[0]);
+        $gzip = self::gzip($args[1]);
+        $render = \NewUI\Template::$render_result;
+        File::putContents('hook.txt', print_r(get_defined_vars(), true));
     }
 }
