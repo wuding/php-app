@@ -46,7 +46,7 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     $stat['url'] = Stat::record();
     // 禁用转向
     $redirect = true;
-    if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml)$/i", $request_path)) {
+    if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml|xml\.gz)$/i", $request_path)) {
         $redirect = false;
     }
     $stat['enable_cookie'] = Stat::cookie($redirect, "ENABLE_COOKIE_$host_name");
