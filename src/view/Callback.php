@@ -12,6 +12,7 @@ class Callback
 {
     public static $put = null;
     public static $gz = false;
+    public static $ext = null;
 
     public function __construct($argument)
     {
@@ -33,7 +34,7 @@ class Callback
         $hook = \MagicCube\Controller::$hook;
         // 不可以回调用户函数，死循环
         #call_user_func_array($hook, ['_' => $buffer, 'var' => 'vars']);
-        $result = self::$gz ? self::$put : false;
+        $result = self::$gz ? self::$put : Zlib::encode($buffer);//false
         return $result;
     }
 
@@ -41,7 +42,8 @@ class Callback
     public static function gzip($buffer)
     {
         $filename = Glob::conf('outputCallback.gz');
-        $str = File::getContents(realpath($filename));
+        $decode = 'xml' === self::$ext ? true : false;
+        $str = Zlib::getContents(realpath($filename), null, $decode);
         return $str;
     }
 
