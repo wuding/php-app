@@ -1,3 +1,4 @@
+/api
 /bookmark
 /index
 /money
@@ -12,6 +13,7 @@
 /stat
 /tutorial
 /url
+/video
 /config.php
 /module.php
 /route.php
