@@ -3,6 +3,7 @@ namespace view;
 
 use Ext\File;
 use Ext\Zlib;
+use Ext\X\PhpRedis;
 use model\Glob;
 
 /**
@@ -53,6 +54,9 @@ class Callback
         extract($args[0]);
         unset($args);
         #$render = \NewUI\Template::$render_result;
-        File::putContents('hook.txt', $render);
+        #File::putContents('hook.txt', $render);
+        $cacheKey = Glob::conf('module.video.index.index.cacheKey');
+        $ttl = Glob::conf('module.video.index.index.ttl');
+        $set = PhpRedis::set($cacheKey, $render, $ttl ? (int) $ttl : []);
     }
 }
