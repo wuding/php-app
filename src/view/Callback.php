@@ -50,9 +50,9 @@ class Callback
     public static function hook()
     {
         $args = func_get_args();
-        $gz = self::gz($args[0]);
-        $gzip = self::gzip($args[1]);
-        $render = \NewUI\Template::$render_result;
-        File::putContents('hook.txt', print_r(get_defined_vars(), true));
+        extract($args[0]);
+        unset($args);
+        #$render = \NewUI\Template::$render_result;
+        File::putContents('hook.txt', $render);
     }
 }
