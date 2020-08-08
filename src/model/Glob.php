@@ -1,10 +1,14 @@
 <?php
 namespace model;
 
+use Ext\Math;
+
 class Glob
 {
     public static $conf = [];
     public static $supported_ext = null;
+    public static $timeNode = [];
+    public static $lastTime = null;
 
     // 给配置项设值
     public static function set($item, $value = null)
@@ -53,4 +57,30 @@ class Glob
         }
         return self::$supported_ext = array_unique($array);
     }
+
+    // 运行时间标记
+    public static function time($key = null, $time = null)
+    {
+
+        $time = null === $time ? microtime(true) : $time;
+        if (null === $key) {
+            self::$timeNode[] = $time;
+        } else {
+            self::$timeNode[$key] = $time;
+        }
+
+    }
+
+    // 运行时间差
+    public static function diff($key = null)
+    {
+
+        $lt = self::$lastTime ?: $_SERVER['REQUEST_TIME_FLOAT'];
+        self::$lastTime = $m = microtime(true);
+        $diff = $m - $lt;
+        $diff = Math::floors($diff * 1000, 2);
+        self::time($key, $diff);
+
+    }
+
 }
