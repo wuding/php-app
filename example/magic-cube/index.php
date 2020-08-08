@@ -29,6 +29,7 @@ class Index
     }
 }
 
+Glob::diff('EXAMPLE_START');
 // 忽略统计标记
 $var_stat = $_GET['stat'] ?? null;
 if (null !== $var_stat) {
@@ -43,18 +44,23 @@ $stat = [];
 $request_path = parse_url($uri, PHP_URL_PATH);
 if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) {
     $stat['server'] = Stat::server();
+    Glob::diff('STAT_SERVER');
     $stat['url'] = Stat::record();
+    Glob::diff('STAT_RECORD');
     // 禁用转向
     $redirect = true;
     if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml|xml\.gz)$/i", $request_path)) {
         $redirect = false;
     }
-    $stat['enable_cookie'] = Stat::cookie($redirect, "ENABLE_COOKIE_$host_name");
+    $stat['enable_cookie'] = Stat::cookie($redirect, "ENABLE_COOKIE_$host_name", null);
+    Glob::diff('STAT_COOKIE');
 }
 
 $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
+Glob::diff('EXAMPLE_INIT');
 $result = $index->dispatch($debug);
+Glob::diff('EXAMPLE_DISPATCH');
 if ($debug) {
     print_r(array($result, $stat, __FILE__, __LINE__));
 }
@@ -74,6 +80,7 @@ if (null !== $debug) {
     }
     print_r(array($files, __FILE__, __LINE__));
 }
+Glob::diff('EXAMPLE_END');
 
 /* vendor/composer/ClassLoader.php findFile()
 extract(Yac::hash('files', 'files_', 1));
