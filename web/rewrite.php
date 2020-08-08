@@ -8,6 +8,7 @@ use EquivRoute\Router;
 use Topdb\Table;
 use NewUI\Engine;
 use model\Glob;
+use Ext\X\PhpRedis;
 
 global $template, $_VAR;
 define('ROOT', dirname(__DIR__));
@@ -30,5 +31,8 @@ $template->setCallback(Glob::conf('template.output_callback'));
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = Glob::conf('uri_custom') ?: $_SERVER['REQUEST_URI'];
 $routeInfo = $router->dispatch($httpMethod, $uri, $route['status']);
+
+// 准备工作
+PhpRedis::conn(Glob::conf('redis.host'), Glob::conf('redis.port'), 0, null, 0, 0, ['auth' => Glob::conf('redis.auth')]);
 
 include ROOT . '/example/' . Glob::conf('example') . '.php';
