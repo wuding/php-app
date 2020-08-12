@@ -28,7 +28,7 @@ $db_config = Glob::cnf('database_contect', 'database');
 Table::init($db_config, 'wuding/topdb');
 #print_r(\Ext\PDO::config($_CONFIG['db']));
 $template->setCallback(Glob::conf('template.output_callback'));
-Glob::diff('REWRITE_NEW');
+Glob::diff('REWRITE_NEW_OBJ');
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = Glob::conf('uri_custom') ?: $_SERVER['REQUEST_URI'];
@@ -37,5 +37,6 @@ Glob::diff('REWRITE_ROUTE');
 
 // 准备工作
 PhpRedis::conn(Glob::conf('redis.host'), Glob::conf('redis.port'), 0, null, 0, 0, ['auth' => Glob::conf('redis.auth')]);
-
+PhpRedis::db(Glob::conf('redis.dbindex'));
+Glob::diff('REDIS_CONN');
 include ROOT . '/example/' . Glob::conf('example') . '.php';
