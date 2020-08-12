@@ -9,6 +9,7 @@ class Glob
     public static $supported_ext = null;
     public static $timeNode = [];
     public static $lastTime = null;
+    public static $sid = null;
 
     // 给配置项设值
     public static function set($item, $value = null)
