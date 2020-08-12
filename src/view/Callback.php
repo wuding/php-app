@@ -1,4 +1,5 @@
 <?php
+
 namespace view;
 
 use Ext\File;
@@ -11,6 +12,9 @@ use model\Glob;
  */
 class Callback
 {
+
+    use \MagicCube\Traits\_Abstract;
+
     public static $put = null;
     public static $gz = false;
     public static $ext = null;
@@ -57,6 +61,24 @@ class Callback
         #File::putContents('hook.txt', $render);
         $cacheKey = Glob::conf('module.video.index.index.cacheKey');
         $ttl = Glob::conf('module.video.index.index.ttl');
-        $set = PhpRedis::set($cacheKey, $render, $ttl ? (int) $ttl : []);
+        $cacheValue = PhpRedis::get($cacheKey) ?: null;
+        $type = gettype($cacheValue);
+        $render_type = gettype($render);
+        if ('string' === $type && $cacheValue) {
+            print_r(['cache type string', "render type $render_type", __FILE__, __LINE__]);
+            #echo $cacheValue;
+        } elseif ($render) {
+            $set = PhpRedis::set($cacheKey, $render, $ttl ? (int) $ttl : 10);
+            $cacheValue = str_replace(' cached</php>', '</php>', $render);
+            echo self::_gzip($cacheValue, Glob::conf('gzip'));
+        } else {
+            print_r(["render null, type $render_type", __FILE__, __LINE__]);
+            var_dump($render);
+        }
+    }
+
+    public static function tpl_callback($buffer, $what = null)
+    {
+        return print_r([$buffer, $what], true);
     }
 }
