@@ -10,6 +10,7 @@ class Glob
     public static $timeNode = [];
     public static $lastTime = null;
     public static $sid = null;
+    public static $diffNode = [];
 
     // 给配置项设值
     public static function set($item, $value = null)
@@ -84,4 +85,11 @@ class Glob
 
     }
 
+    // 只计算设定节点的时间差
+    public static function dif($key)
+    {
+        if (in_array($key, self::$diffNode)) {
+            self::diff($key);
+        }
+    }
 }
