@@ -52,6 +52,12 @@ class Callback
         return $str;
     }
 
+    // 直接返回
+    public static function test($buffer)
+    {
+        return $buffer;
+    }
+
     public static function hook()
     {
         $args = func_get_args();
