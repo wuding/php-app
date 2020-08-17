@@ -47,9 +47,11 @@ $stat = [];
 
 // 会话开始
 $sname = Glob::conf('session.name');
+$options = Glob::conf('session.cookie');
 $sid = $_GET['sid'] ?? null;
 Stat::$unique = md5(json_encode($_SERVER));
 Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
+session_set_cookie_params($options);
 session_name($sname);
 session_id(Glob::$sid);
 session_start();
@@ -76,9 +78,9 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
 
 $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
-Glob::diff('EXAMPLE_INIT');
+#Glob::diff('EXAMPLE_INIT');
 $result = $index->dispatch($debug);
-Glob::diff('EXAMPLE_DISPATCH');
+#Glob::diff('EXAMPLE_DISPATCH');
 if ($debug) {
     print_r(array($result, $stat, __FILE__, __LINE__));
 }
