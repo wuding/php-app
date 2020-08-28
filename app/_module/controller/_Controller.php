@@ -14,6 +14,9 @@ class _Controller extends \MagicCube\Controller
 
     public function _action()
     {
+        http_response_code(404);
+        echo "404 Not Found";
+        exit;
         $uriInfo = $this->uriInfo;
         $this->uriInfo['action'] = '_action';
         return array('uriInfo' => $uriInfo, 'uri' => $this->uri, 'method' => __METHOD__, 'file' => __FILE__,  'line' => __LINE__);
