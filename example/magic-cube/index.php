@@ -30,6 +30,13 @@ class Index
     }
 }
 
+// 允许访问的主机名
+$remote_addr = in_array($_SERVER['REMOTE_ADDR'], Glob::conf('host.remote_addr'));
+if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) {
+    header("Location: ". Glob::conf('host.location') . $_SERVER['REQUEST_URI']);
+    exit;
+}
+
 Glob::diff('EXAMPLE_START');
 // 忽略统计标记
 $var_stat = $_GET['stat'] ?? null;
