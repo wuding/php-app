@@ -14,10 +14,13 @@ class Callback
 {
 
     use \MagicCube\Traits\_Abstract;
+    use \traits\_Abstract;
 
     public static $put = null;
     public static $gz = false;
     public static $ext = null;
+    public static $count = null;
+    public static $xml = null;
 
     public function __construct($argument)
     {
@@ -33,13 +36,24 @@ class Callback
     // 写入
     public static function gz($buffer)
     {
+        $code = 0;
+        $msg = null;
         $filename = Glob::conf('outputCallback.gz');
         self::$put = Zlib::putContents($filename, $buffer);
         \NewUI\Template::$render_result = $buffer;
         $hook = \MagicCube\Controller::$hook;
         // 不可以回调用户函数，死循环
         #call_user_func_array($hook, ['_' => $buffer, 'var' => 'vars']);
-        $result = self::$gz ? self::$put : Zlib::encode($buffer);//false
+        $data = [
+            'size' => self::$put,
+            'count' => self::$count
+        ];
+        if (!self::$count) {
+            $code = 1;
+            $msg = "count 0";
+        }
+        $json = self::_outputJson($code, $msg, $data);
+        $result = self::$gz ? $json : (self::$xml ? $buffer : Zlib::encode($buffer));//false
         return $result;
     }
 
