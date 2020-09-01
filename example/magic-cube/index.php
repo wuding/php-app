@@ -78,7 +78,7 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml|xml\.gz)$/i", $request_path)) {
         $redirect = false;
     }
-    $stat['cookie'] = Stat::cookie($redirect, "ENABLE_COOKIE_$host_name", null, Glob::$sid);
+    $stat['cookie'] = Stat::cookie($redirect, Glob::conf('query'), null, Glob::$sid);
     PhpRedis::db();
     Glob::diff('STAT_COOKIE');
 }
