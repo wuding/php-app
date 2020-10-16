@@ -57,6 +57,13 @@ class Callback
         return $result;
     }
 
+    public static function write($buffer)
+    {
+        $filename = Glob::conf('outputCallback.gz');
+        Zlib::putContents($filename, $buffer);
+        return $buffer;
+    }
+
     // 读取，另存为 .zip 7-Zip 打开才正常
     public static function gzip($buffer)
     {
@@ -64,6 +71,15 @@ class Callback
         $decode = 'xml' === self::$ext ? true : false;
         $str = Zlib::getContents(realpath($filename), null, $decode);
         return $str;
+    }
+
+    public static function read($buffer)
+    {
+        $filename = Glob::conf('outputCallback.gz');
+        $decode = 'xml' === self::$ext ? true : false;
+        $str = Zlib::getContents(realpath($filename), null, $decode);
+        return $str;
+        return $buffer;
     }
 
     // 直接返回
