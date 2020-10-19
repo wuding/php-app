@@ -6,6 +6,7 @@ use Stat;
 use Ext\X\PhpRedis;
 use MagicCube\Dispatcher;
 use model\Glob;
+use model\stat\UserAgent;
 
 class Index
 {
@@ -30,11 +31,28 @@ class Index
     }
 }
 
-// 允许访问的主机名
+// 配置
+$ua_arr = Glob::conf('banned.ua');
+
+// 参数、变量
+$http_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '<err>';
+$ua = new UserAgent;
+
+// 允许访问的主机名，客户端 IP 白名单
 $remote_addr = in_array($_SERVER['REMOTE_ADDR'], Glob::conf('host.remote_addr'));
 if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) {
     header("Location: ". Glob::conf('host.location') . $_SERVER['REQUEST_URI']);
     exit;
+}
+
+// 黑名单
+$user_agent = addslashes($http_user_agent);
+$md5 = md5($user_agent);
+$ua_id = $ua->one('id', "md5 = '$md5'");
+if (in_array($ua_id, $ua_arr)) {
+    http_response_code(400);
+    $routeInfo = array(1, 'error/banned', []);
+    goto __RUN__;
 }
 
 Glob::diff('EXAMPLE_START');
@@ -83,6 +101,7 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     Glob::diff('STAT_COOKIE');
 }
 
+__RUN__:
 $debug = Glob::conf('debug');
 $index = new Index($routeInfo, $httpMethod);
 #Glob::diff('EXAMPLE_INIT');
