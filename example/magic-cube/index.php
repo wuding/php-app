@@ -33,6 +33,7 @@ class Index
 
 // 配置
 $ua_arr = Glob::conf('banned.ua');
+$ua_ttl = Glob::conf('ttl.ua');
 
 // 参数、变量
 $http_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '<err>';
@@ -48,7 +49,7 @@ if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) 
 // 黑名单
 $user_agent = addslashes($http_user_agent);
 $md5 = md5($user_agent);
-$ua_id = $ua->one('id', "md5 = '$md5'");
+$ua_id = $ua->one('id', "md5 = '$md5'", '', 1, $ua_ttl);
 if (in_array($ua_id, $ua_arr)) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
