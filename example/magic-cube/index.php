@@ -33,6 +33,7 @@ class Index
 
 // 配置
 $ua_arr = Glob::conf('banned.ua');
+$ip_arr = Glob::conf('banned.ip');
 $ua_ttl = Glob::conf('ttl.ua');
 $ignore_ip = Glob::conf('log.ignore_ip');
 
@@ -52,7 +53,7 @@ if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) 
 $user_agent = addslashes($http_user_agent);
 $md5 = md5($user_agent);
 $ua_id = $ua->one('id', "md5 = '$md5'", '', 1, $ua_ttl);
-if (in_array($ua_id, $ua_arr)) {
+if (in_array($ua_id, $ua_arr) || in_array($ip, $ip_arr)) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
     goto __RUN__;

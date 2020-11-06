@@ -71,6 +71,11 @@ return array(
     ),
     'session' => array(
         'name' => 'SID',
+        'cookie' => array(
+            'lifetime' => 864000000,
+            'path' => '/',
+            'httponly' => true,
+        ),
     ),
     'template' => array(
         'output_callback' => null, // false 使用默认 null 不使用任何
@@ -79,4 +84,32 @@ return array(
         'config' => [],
         'load' => ['arr', 'variable'],
     ],
+    'host' => array(
+        'name' => array(
+            '127.0.0.1',
+            '192.168.100.4'
+        ),
+        'location' => 'http://127.0.0.1',
+        'remote_addr' => array(
+
+        ),
+    ),
+    'query' => [
+        'allow' => ['q', 'page', 'people'],
+        'remove' => ['disabled']
+    ],
+    'banned' => array(
+        'ua' => array(11),
+        'ip' => array(
+            #'127.0.0.1'
+        ),
+    ),
+    'ttl' => array(
+        'ua' => 86400,
+    ),
+    'log' => array(
+        'ignore_ip' => array(//'127.0.0.1',
+            '103.242.135.246',
+        ),
+    ),
 );
