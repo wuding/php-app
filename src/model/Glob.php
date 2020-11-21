@@ -8,10 +8,11 @@ class Glob
 {
     public static $conf = [];
     public static $supported_ext = null;
-    public static $timeNode = [];
+    public static $timeNode = ['sql' => []];
     public static $lastTime = null;
     public static $sid = null;
     public static $diffNode = [];
+    public static $sql = [];
 
     // 给配置项设值
     public static function set($item, $value = null)
@@ -92,5 +93,12 @@ class Glob
         if (in_array($key, self::$diffNode)) {
             self::diff($key);
         }
+    }
+
+    public static function sql($str = null)
+    {
+        #self::$sql[] = $str;
+        #print_r(self::$sql);
+        self::$timeNode['sql'][] = $str;
     }
 }
