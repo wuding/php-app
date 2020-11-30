@@ -62,14 +62,23 @@ if (in_array($ua_id, $ua_arr) || in_array($ip, $ip_arr)) {
 Glob::diff('EXAMPLE_START');
 // 忽略统计标记
 $var_stat = $_GET['stat'] ?? null;
+$expire = time() + 864000000;
 if (null !== $var_stat) {
-    $expire = time() + 864000000;
     $setcookie = setcookie('stat', $var_stat, $expire, '/');
 } else {
     $var_stat = Glob::conf('stat');
 }
 $var_stat = $_COOKIE['stat'] ?? $var_stat;
 $disable_stat = in_array($ip, $ignore_ip) ?: $var_stat;
+
+// 忽略搜索结果索引
+$var_index = $_GET['index'] ?? null;
+if (null !== $var_index) {
+    $setcookie = setcookie('index', $var_index, $expire, '/');
+} else {
+    $var_index = $_COOKIE['index'] ?? null;
+}
+Glob::set('index', $var_index ?? Glob::conf('index'));
 
 $host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
 $host_name = strtoupper($host_string);
