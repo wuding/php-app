@@ -22,7 +22,7 @@ class Glob
         foreach ($exp as $v) {
             $str .= "['$v']";
         }
-        eval("self::\$conf$str = '$value';");
+        eval("self::\$conf$str = \$value;");
         return self::$conf;
     }
 
