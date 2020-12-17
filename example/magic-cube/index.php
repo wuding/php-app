@@ -36,6 +36,8 @@ $ua_arr = Glob::conf('banned.ua');
 $ip_arr = Glob::conf('banned.ip');
 $ua_ttl = Glob::conf('ttl.ua');
 $ignore_ip = Glob::conf('log.ignore_ip');
+$redirect_ua = Glob::conf('log.redirect_ua');
+$redirect_path = Glob::conf('log.redirect_path');
 
 // 参数、变量
 $http_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '<err>';
@@ -107,7 +109,9 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     Glob::diff('STAT_RECORD');
     // 禁用转向
     $redirect = true;
-    if (preg_match("/^\/(robots|sitemap|play\/sitemap)(|\-\d+)\.(txt|xml|xml\.gz)$/i", $request_path)) {
+    if ($redirect_path && preg_match("/$redirect_path/i", $request_path)) {
+        $redirect = false;
+    } elseif ($redirect_ua && preg_match("/$redirect_ua/i", $http_user_agent)) {
         $redirect = false;
     }
     $stat['cookie'] = Stat::cookie($redirect, Glob::conf('query'), null, Glob::$sid);
