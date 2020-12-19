@@ -7,6 +7,7 @@ use Ext\X\PhpRedis;
 use MagicCube\Dispatcher;
 use model\Glob;
 use model\stat\UserAgent;
+use model\stat\SessionId;
 
 class Index
 {
@@ -89,6 +90,7 @@ $stat = [];
 // 会话开始
 $sname = Glob::conf('session.name');
 $options = Glob::conf('session.cookie');
+$sess_ttl = Glob::conf('session.ttl');
 $sid = $_GET['sid'] ?? null;
 Stat::$unique = md5(json_encode($_SERVER));
 Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
@@ -102,7 +104,15 @@ $_SESSION['updated'] = time();
 $request_path = parse_url($uri, PHP_URL_PATH);
 if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) {
     PhpRedis::select(Glob::conf('redis.stat_dbindex'));
+    // 会话处理
     PhpRedis::sAdd("stat_session", Glob::$sid);
+    $sess = PhpRedis::get('TMP_SESSION:'. Glob::$sid);
+    if (false === $sess) {
+        $mod = new SessionId;
+        $data = array('md5' => Glob::$sid);
+        $sess = $mod->existsWhere($data, null);
+        $set = PhpRedis::set('TMP_SESSION:'. Glob::$sid, $sess, $sess_ttl);
+    }
     $stat['srv'] = Stat::srv();
     Glob::diff('STAT_SRV');
     $stat['record'] = Stat::record();
