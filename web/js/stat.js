@@ -353,13 +353,14 @@ function api_play_title(arg) {
 
     data = json.data
     len = data.length
-    i = j = 0
+    i = 0
     for (; i < len; i++) {
         row = data[i]
         id = row.id
         html = row.tt
         ids = Server.title[id]
         leng = ids.length
+        j = 0
         for (; j < leng; j++) {
             id = ids[j]
             obj = document.getElementById(id)
