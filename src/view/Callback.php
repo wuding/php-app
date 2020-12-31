@@ -72,7 +72,9 @@ class Callback
         $filename = Glob::conf('outputCallback.gz');
         $decode = 'xml' === self::$ext ? true : false;
         $str = Zlib::getContents(realpath($filename), null, $decode);
-        return $str;
+        \NewUI\Template::$output_content = $str;
+        Glob::set('gzip', 'off');
+        return null;
     }
 
     public static function read($buffer)
