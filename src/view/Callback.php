@@ -34,7 +34,7 @@ class Callback
     }
 
     // 写入
-    public static function gz($buffer)
+    public static function gz($buffer, $phase = null)
     {
         $code = 0;
         $msg = null;
@@ -54,7 +54,9 @@ class Callback
         }
         $json = self::_outputJson($code, $msg, $data);
         $result = self::$gz ? $json : (self::$xml ? $buffer : Zlib::encode($buffer));//false
-        return $result;
+        \NewUI\Template::$output_content = $result;
+        // ob_start callback 返回 false 将打印 ob_start 前的变量
+        return null;
     }
 
     public static function write($buffer)
