@@ -6,8 +6,9 @@ use Stat;
 use Ext\X\PhpRedis;
 use MagicCube\Dispatcher;
 use model\Glob;
-use model\stat\UserAgent;
+use model\stat\RemoteAddr;
 use model\stat\SessionId;
+use model\stat\UserAgent;
 
 class Index
 {
@@ -33,6 +34,8 @@ class Index
 }
 
 // 配置
+$var_array = Glob::conf('conf');
+extract($var_array);
 $ua_arr = Glob::conf('banned.ua');
 $ip_arr = Glob::conf('banned.ip');
 $ua_ttl = Glob::conf('ttl.ua');
@@ -43,7 +46,7 @@ $redirect_path = Glob::conf('log.redirect_path');
 // 参数、变量
 $http_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '<err>';
 $ip = $_SERVER['REMOTE_ADDR'] ?? null;
-$ua = new UserAgent;
+$stat = [];
 
 // 允许访问的主机名，客户端 IP 白名单
 $remote_addr = in_array($ip, Glob::conf('host.remote_addr'));
@@ -53,10 +56,19 @@ if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) 
 }
 
 // 黑名单
-$user_agent = addslashes($http_user_agent);
-$md5 = md5($user_agent);
+$ua = new UserAgent;
+$md5 = md5($http_user_agent);
 $ua_id = $ua->one('id', "md5 = '$md5'", '', 1, $ua_ttl);
 if (in_array($ua_id, $ua_arr) || in_array($ip, $ip_arr)) {
+    http_response_code(400);
+    $routeInfo = array(1, 'error/banned', []);
+    goto __RUN__;
+}
+
+// IP 拦截
+$addr = new RemoteAddr;
+$ip_id = $addr->one('id', "str = '$ip'", '', 1, $ua_ttl);
+if (in_array($ip_id, $banned_ip_ids)) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
     goto __RUN__;
@@ -85,7 +97,6 @@ Glob::set('index', $var_index ?? Glob::conf('index'));
 
 $host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
 $host_name = strtoupper($host_string);
-$stat = [];
 
 // 会话开始
 $sname = Glob::conf('session.name');
@@ -97,6 +108,7 @@ Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
 session_set_cookie_params($options);
 session_name($sname);
 session_id(Glob::$sid);
+# 这个不能用，每次都 Set-Cookie
 session_start();
 $_SESSION['updated'] = time();
 
