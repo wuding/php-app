@@ -47,11 +47,13 @@ $redirect_path = Glob::conf('log.redirect_path');
 $http_user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '<err>';
 $ip = $_SERVER['REMOTE_ADDR'] ?? null;
 $stat = [];
+$http_host = $_SERVER['HTTP_HOST'] ?? null;
+$request_uri = $_SERVER['REQUEST_URI'] ?? null;
 
 // 允许访问的主机名，客户端 IP 白名单
 $remote_addr = in_array($ip, Glob::conf('host.remote_addr'));
-if (!in_array($_SERVER['HTTP_HOST'], Glob::conf('host.name')) && !$remote_addr) {
-    header("Location: ". Glob::conf('host.location') . $_SERVER['REQUEST_URI']);
+if (!in_array($http_host, Glob::conf('host.name')) && !$remote_addr) {
+    header("Location: ". Glob::conf('host.location') . $request_uri);
     exit;
 }
 
@@ -95,8 +97,10 @@ if (null !== $var_index) {
 }
 Glob::set('index', $var_index ?? Glob::conf('index'));
 
-$host_string = preg_replace("/\.|:/", '_', $_SERVER['HTTP_HOST'] ?? 'err');
+/*
+$host_string = preg_replace("/\.|:/", '_', $http_host ?? 'err');
 $host_name = strtoupper($host_string);
+*/
 
 // 会话开始
 $sname = Glob::conf('session.name');
