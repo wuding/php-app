@@ -13,6 +13,7 @@ class Glob
     public static $sid = null;
     public static $diffNode = [];
     public static $sql = [];
+    public static $src = null;
 
     // 给配置项设值
     public static function set($item, $value = null)
