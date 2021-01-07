@@ -74,7 +74,9 @@ class Callback
         $decode = 'xml' === self::$ext ? true : false;
         $str = Zlib::getContents(realpath($filename), null, $decode);
         \NewUI\Template::$output_content = $str;
-        Glob::set('gzip', 'off');
+        if (!$decode) {
+            Glob::set('gzip', 'off');
+        }
         return null;
     }
 
