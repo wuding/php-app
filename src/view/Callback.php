@@ -40,8 +40,8 @@ class Callback
         $msg = null;
         $filename = Glob::conf('outputCallback.gz');
         self::$put = Zlib::putContents($filename, $buffer);
-        \NewUI\Template::$render_result = $buffer;
-        $hook = \MagicCube\Controller::$hook;
+        #\NewUI\Template::$render_result = $buffer;
+        #$hook = \MagicCube\Controller::$hook;
         // 不可以回调用户函数，死循环
         #call_user_func_array($hook, ['_' => $buffer, 'var' => 'vars']);
         $data = [
@@ -63,7 +63,8 @@ class Callback
     {
         $filename = Glob::conf('outputCallback.gz');
         Zlib::putContents($filename, $buffer);
-        return $buffer;
+        \NewUI\Template::$output_content = $buffer;
+        return null;
     }
 
     // 读取，另存为 .zip 7-Zip 打开才正常
@@ -82,8 +83,8 @@ class Callback
         $filename = Glob::conf('outputCallback.gz');
         $decode = 'xml' === self::$ext ? true : false;
         $str = Zlib::getContents(realpath($filename), null, $decode);
-        return $str;
-        return $buffer;
+        \NewUI\Template::$output_content = $str;
+        return null;
     }
 
     // 直接返回
