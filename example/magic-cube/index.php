@@ -31,6 +31,16 @@ class Index
     {
         return $result = $this->dispatcher->dispatch($return);
     }
+
+    public static function session($options, $sname)
+    {
+        session_set_cookie_params($options);
+        session_name($sname);
+        session_id(Glob::$sid);
+        # 这个不能用，每次都 Set-Cookie
+        session_start();
+        $_SESSION['updated'] = time();
+    }
 }
 
 // 配置
@@ -109,12 +119,7 @@ $sess_ttl = Glob::conf('session.ttl');
 $sid = $_GET['sid'] ?? null;
 Stat::$unique = md5(json_encode($_SERVER));
 Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
-session_set_cookie_params($options);
-session_name($sname);
-session_id(Glob::$sid);
-# 这个不能用，每次都 Set-Cookie
-session_start();
-$_SESSION['updated'] = time();
+$null = Glob::conf('session.start') ? Index::session($options, $sname) : null;
 
 // 排除统计
 $request_path = parse_url($uri, PHP_URL_PATH);
