@@ -20,6 +20,10 @@ web 文档根目录
 | 1      | index.php  | php -S 0.0.0.0:80 -t E:\env\www\work\wuding\php-app\web      |
 | 2      | index.html | php -S localhost:8080                                        |
 
+使用路由情况下：
+
+- 如果请求路径不存在并且不包含点，则显示为 index.php
+
 ### 存在的目录和文件
 
 /favicon.ico
