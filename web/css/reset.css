@@ -1,0 +1,27 @@
+
+a {
+    text-decoration: none;
+}
+
+blockquote {
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+button {
+    background-color: white;
+    border: none;
+    padding: 0;
+}
+
+dl, dd {
+    margin: 0;
+    overflow: hidden;
+}
+
+h1 {
+    font-weight: normal;
+}
