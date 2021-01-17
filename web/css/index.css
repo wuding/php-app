@@ -1,0 +1,124 @@
+
+/*
+页眉
+*/
+.index header {
+    margin: 0 auto;
+    line-height: 36px;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.index header h1 {
+    margin: 0;
+    display: inline-block;
+    font-size: 1em;
+    float: left;
+    width: 50px;
+    text-align: left;
+}
+
+.index header div {
+    display: inline-block;
+    float: right;
+    font-size: 1em;
+    width: 50px;
+    text-align: right;
+}
+
+.index header blockquote {
+    text-align: center;
+    font-weight: bold;
+}
+
+/*
+表单
+*/
+.index form {
+    text-align: center;
+    padding: 20px 0 0 0;
+    margin: 0 auto;
+    max-width: 640px;
+}
+
+.index form div {
+    padding: 20px 0 0 0;
+    max-width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.index form button {
+    cursor: pointer;
+}
+
+.index input {
+    width: 300px;
+    height: 36px;
+    margin: 0 auto;
+    padding: 0 0.5em;
+    border: 1px #ccc solid;
+    box-sizing: border-box;
+    display: block;
+    font-size: 1em;
+}
+
+
+/*
+列表
+*/
+.index dl {
+    display: inline-block;
+    width: 60px;
+    padding: 0 0 10px 0;
+}
+
+.index dl a {
+    display: block;
+    text-decoration: none;
+}
+
+.index dd {
+    height: 32px;
+    font-size: 32px;
+    line-height: 32px;
+    font-family: cursive;
+}
+
+.index dl img {
+    height: 32px;
+}
+
+.index dl img.fav-30 {
+    height: 30px;
+    padding: 1px;
+}
+
+.index dl img.fav-28 {
+    height: 28px;
+    padding: 2px;
+}
+
+.index dl img.fav-26 {
+    height: 26px;
+    padding: 3px;
+}
+
+.index dt {
+    width: 60px;
+    font-size: 14px;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/*
+响应式
+*/
+@media (min-width: 640px) {
+.index dl {
+    float: left;
+}
+}
