@@ -1,5 +1,5 @@
 
-/app/config.php
+/app/search
+/conf/*.php
 /vendor
-/web/tmp/*
 /composer.lock

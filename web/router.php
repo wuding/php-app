@@ -58,7 +58,7 @@ function router() {
     $uri = $dirname ."/". $filename;
 
     // 准备
-    Glob::$conf = include ROOT .'/app/config.php';
+    Glob::$conf = include ROOT .'/conf/develop.php';
 
     // 控制器、模板
     new Dispatcher($uri);
