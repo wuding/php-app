@@ -8,6 +8,6 @@
         "phpmailer/phpmailer": "^6.2",
         "wuding/magic-cube": "^21.1.19",
         "wuding/new-ui": "^21.1.19",
-        "wuding/topdb": "^21.1.19"
+        "wuding/topdb": "^21.1.20"
     }
 }
