@@ -23,5 +23,6 @@ return array(
     'database' => null, // 简单写法，替代 db.server.master
     'view' => array(
         'cdn_prefix' => '',
+        'favicon_default' => '/img/favicon/default.png',
     ),
 );

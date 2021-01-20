@@ -28,7 +28,7 @@
         <?=$dl?>
         <dl>
             <a href="/search/settings/add">
-                <dd><img src="/img/icon/plus.png"></dd>
+                <dd><img src="<?=$cdn_prefix?>/search/img/plus.png"></dd>
                 <dt>添加</dt>
             </a>
         </dl>
