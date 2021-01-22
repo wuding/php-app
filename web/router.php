@@ -7,6 +7,7 @@ $autoload = require ROOT ."/vendor/autoload.php";
 use MagicCube\Dispatcher;
 use NewUI\Engine;
 use Pkg\Glob;
+use Ext\X\Redis as PhpRedis;
 
 #header("content-type: text/plain");
 /*
@@ -59,6 +60,21 @@ function router() {
 
     // 准备
     Glob::$conf = include ROOT .'/conf/develop.php';
+    // 配置
+    $server = Glob::conf('merge.server');
+    $country_uids = Glob::conf('geo.country_uids');
+    $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
+
+    // 自定义变量
+    $_SERVER = array_merge($_SERVER, $server);
+    $remote_addr = $_SERVER['REMOTE_ADDR'] ?? null;
+
+    // 默认 UID
+    $uid = get_uid_by_addr(1, $remote_addr, $country_uids);
+    define('DEFAULT_UID', $uid);
+
+    // 内存缓存
+    Glob::$obj['Redis'] = new PhpRedis($redis_conf);
 
     // 控制器、模板
     new Dispatcher($uri);
@@ -73,4 +89,23 @@ function router() {
     }
     return true;
 }
+
+// 通过客户端 IP 地址所属国家获取配置的默认用户 ID
+function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array())
+{
+    $country = $remote_addr ? geoip_country_code_by_name($remote_addr) : '';
+    if (is_string($country)) {
+        if (isset($country_uids[$country])) {
+            $uid = $country_uids[$country];
+        } else {
+            var_dump($country);
+            print_r([__LINE__, __FILE__]);
+        }
+    } elseif (false !== $country) {
+        var_dump($country);
+        print_r([__LINE__, __FILE__]);
+    }
+    return $uid;
+}
+
 return router();
