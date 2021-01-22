@@ -17,7 +17,7 @@ class Index extends \MagicCube\Controller
         // 查询
         extract(get(array('q')));
         // 会话
-        $uid = session('user.id', 1);
+        $uid = session('user.id', DEFAULT_UID);
         $login = session('user.name');
         // 模型
         $ShortcutKey = new ShortcutKey;
@@ -38,9 +38,9 @@ class Index extends \MagicCube\Controller
 
         //=sh
         // 模型
-        $all = $surplus ? $ShortcutKey->select('no, url, favicon, name', "user = '$uid'", 'id', $surplus) : array();
+        $all = $surplus ? $ShortcutKey->all($uid, $surplus) : array();
         // 视图
-        $dl = Prototype::dl($all, $favicon_default);
+        $dl = Prototype::dl($all, $favicon_default, $cdn_prefix);
 
         //=g
         return get_defined_vars();

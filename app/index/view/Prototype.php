@@ -5,12 +5,18 @@ namespace app\index\view;
 class Prototype
 {
     // 搜索引擎图标列表
-    public static function dl($all = array(), $favicon = null)
+    public static function dl($all = array(), $favicon = null, $cdn_prefix = null)
     {
         $pieces = array();
         foreach ($all as $row) {
             $no = $row->no ?: $row->url;
-            $icon = $row->favicon ?: $favicon;
+            $icon = $favicon;
+            if ($row->favicon) {
+                $icon = $row->favicon;
+                if (null !== $cdn_prefix) {
+                    $icon = str_replace("{cdn_prefix}", $cdn_prefix, $icon);
+                }
+            }
             $name = htmlspecialchars($row->name);
             $pieces[] = <<<HEREDOC
 <dl>
