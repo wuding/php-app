@@ -4,7 +4,7 @@ namespace app\index\controller;
 
 use app\index\view\Prototype;
 use app\search\model\view\ShortcutKey;
-use function php\fn\{get, session};
+use function php\func\{get, session};
 use Pkg\Glob;
 
 class Index extends \MagicCube\Controller
