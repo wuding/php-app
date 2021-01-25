@@ -13,6 +13,8 @@ class Index extends \MagicCube\Controller
     {
         //=s
         // 配置
+        $conf = include dirname(__DIR__) ."/config.php";
+        extract($conf);
         extract(Glob::conf('view'));
         // 查询
         extract(get(array('q')));
@@ -35,10 +37,13 @@ class Index extends \MagicCube\Controller
 
         //=z
         $qh = htmlspecialchars($q);
+        $limit = $limit ?: $surplus;
+        $timeout = $ttl['search_list'] ?? null;
 
         //=sh
         // 模型
-        $all = $surplus ? $ShortcutKey->all($uid, $surplus) : array();
+        $all = $ShortcutKey->all($uid, $limit, $timeout);
+
         // 视图
         $dl = Prototype::dl($all, $favicon_default, $cdn_prefix);
 
