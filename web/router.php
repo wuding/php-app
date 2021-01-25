@@ -52,7 +52,7 @@ function router() {
     define('DEFAULT_UID', $uid);
 
     // 内存缓存
-    Glob::$obj['Redis'] = new PhpRedis($redis_conf);
+    Glob::$mem = new PhpRedis($redis_conf);
 
     // 控制器、模板
     new Dispatcher($uri);

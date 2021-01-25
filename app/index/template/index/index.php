@@ -19,7 +19,7 @@
 </header>
 
 <form action="/search">
-    <input type="search" name="q" value="<?=$qh?>" placeholder="搜索" autofocus onfocus="this.select()">
+    <input type="search" name="q" value="<?=$qh?>" placeholder="搜索" autocomplete="off" autofocus onfocus="this.select()">
     <blockquote style="display: none">
         <button type="submit">搜索</button>
     </blockquote>
