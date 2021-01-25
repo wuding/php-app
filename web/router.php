@@ -9,28 +9,6 @@ use NewUI\Engine;
 use Pkg\Glob;
 use Ext\X\Redis as PhpRedis;
 
-#header("content-type: text/plain");
-/*
-$token = $_GET['token'] ?? null;
-$sid = $_COOKIE['SID'] ?? null;
-
-$token = isset($_GET['token']) ? $_GET['token'] : null;
-$sid = isset($_COOKIE['SID']) ? $_COOKIE['SID'] : null;
-if ($token !== $sid) {
-    #return true;
-}
-$test = dirname(__FILE__);*/
-/*ksort($_SERVER);
-print_r($_SERVER);strstr($_SERVER['REQUEST_URI'], '?', true)
-*/
-
-function has2($arr, $key, $value = null) {
-    if (isset($arr[$key]) && $arr[$key]) {
-        return $arr[$key];
-    }
-    return $value;
-}
-
 session_start();
 
 function router() {
