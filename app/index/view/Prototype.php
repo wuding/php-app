@@ -7,6 +7,9 @@ class Prototype
     // 搜索引擎图标列表
     public static function dl($all = array(), $favicon = null, $cdn_prefix = null)
     {
+        if (!is_array($all)) {
+            return null;
+        }
         $pieces = array();
         foreach ($all as $row) {
             $no = $row->no ?: $row->url;
