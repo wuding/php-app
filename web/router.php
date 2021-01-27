@@ -75,9 +75,9 @@ function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array
     if (is_string($country)) {
         if (isset($country_uids[$country])) {
             $uid = $country_uids[$country];
-        } else {
-            var_dump($country);
-            print_r([__LINE__, __FILE__]);
+        } else { // 未设置国家
+            #var_dump($country);
+            #print_r([__LINE__, __FILE__]);
         }
     } elseif (false !== $country) {
         var_dump($country);
