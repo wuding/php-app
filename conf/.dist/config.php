@@ -60,4 +60,19 @@ return array(
             'US' => 0,
         ),
     ),
+    // 本地化
+    'locale' => array(
+        'default_language' => 'en',
+        'available_languages' => array('zh'),
+        'module' => array(
+            '' => array(),
+            'index' => array(
+                'site_name' => 'URLNK.ORG',
+                'login' => 'Sign in',
+                'settings' => 'Settings',
+                'search' => 'Search',
+                'add' => 'Add',
+            ),
+        ),
+    ),
 );
