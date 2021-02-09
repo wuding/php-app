@@ -38,6 +38,12 @@ function router() {
 
     // 准备
     Glob::$conf = include ROOT .'/conf/develop.php';
+    Glob::lng(
+        Glob::conf('locale.default_language'),
+        ROOT ."/conf/locale",
+        Glob::conf('locale.available_languages')
+    );
+
     // 配置
     $server = Glob::conf('merge.server');
     $country_uids = Glob::conf('geo.country_uids');
