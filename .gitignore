@@ -1,5 +1,10 @@
 
+/app/index
 /app/search
+/app/user
+
 /conf/*.php
+/conf/locale/*.php
+
 /vendor
 /composer.lock
