@@ -8,6 +8,7 @@ use MagicCube\Dispatcher;
 use NewUI\Engine;
 use Pkg\Glob;
 use Ext\X\Redis as PhpRedis;
+use Ext\GetText;
 
 session_start();
 
@@ -38,11 +39,8 @@ function router() {
 
     // 准备
     Glob::$conf = include ROOT .'/conf/develop.php';
-    Glob::lng(
-        Glob::conf('locale.default_language'),
-        ROOT ."/conf/locale",
-        Glob::conf('locale.available_languages')
-    );
+    $lang = Glob::lang(Glob::conf('locale.default_language'));
+    $GetText = new GetText(LC_ALL, $lang, ROOT ."/conf/locale");
 
     // 配置
     $server = Glob::conf('merge.server');
