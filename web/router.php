@@ -4,7 +4,7 @@ define('ROOT', dirname(__DIR__));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
-use function php\func\cookie;
+use function php\func\{server, get, cookie};
 use MagicCube\Dispatcher;
 use NewUI\Engine;
 use Pkg\{Glob, X\GeoIP};
@@ -16,9 +16,9 @@ session_start();
 function router($check_file = null) {
     global $template;
     // 参数、变量
-    $src = $_GET['src'] ?? null;
-    $debug = $_GET['debug'] ?? null;
-    $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $src = get('src');
+    $debug = get('debug');
+    $path = parse_url(server('REQUEST_URI'), PHP_URL_PATH);
     $path = urldecode($path);
     $file = __DIR__ . $path;
     $is_file = $check_file ? is_file($file) : null;
@@ -55,8 +55,8 @@ function router($check_file = null) {
     // 本地化
     $domain = Glob::conf('locale.domain') ?: $lang;
     $directory = Glob::conf('locale.directory');
-    $ext = Glob::conf('locale.ext');
-    if ('gettext' === $ext) {
+    $func = Glob::conf('locale.func');
+    if ('gettext' === $func) {
         // 故意错误目录，清空缓存
         $bind = bindtextdomain($domain, "./$domain/". time());
         $GetText = new GetText(LC_ALL, $lang, $directory, $domain);
@@ -74,7 +74,7 @@ function router($check_file = null) {
 
     // 自定义变量
     $_SERVER = array_merge($_SERVER, $server);
-    $remote_addr = $_SERVER['REMOTE_ADDR'] ?? null;
+    $remote_addr = server('REMOTE_ADDR');
 
     // 注册容器
     Glob::set('GeoIP', new GeoIP($remote_addr, $custom_directory));
