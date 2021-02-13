@@ -4,15 +4,16 @@ define('ROOT', dirname(__DIR__));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
+use function php\func\cookie;
 use MagicCube\Dispatcher;
 use NewUI\Engine;
-use Pkg\Glob;
+use Pkg\{Glob, X\GeoIP};
 use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
 
 session_start();
 
-function router() {
+function router($check_file = null) {
     global $template;
     // 参数、变量
     $src = $_GET['src'] ?? null;
@@ -20,7 +21,7 @@ function router() {
     $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $path = urldecode($path);
     $file = __DIR__ . $path;
-    $is_file = is_file($file);
+    $is_file = $check_file ? is_file($file) : null;
 
     // 检测、查看源码
     if ($is_file && file_exists($file)) {
@@ -31,6 +32,8 @@ function router() {
         return false;
     }
 
+    $GLOBALS['_LANG'] = array();
+
     // 标准化请求地址
     $var_array = pathinfo($path);
     extract($var_array);
@@ -39,17 +42,42 @@ function router() {
 
     // 准备
     Glob::$conf = include ROOT .'/conf/develop.php';
-    $lang = Glob::lang(Glob::conf('locale.default_language'));
-    $GetText = new GetText(LC_ALL, $lang, ROOT ."/conf/locale");
+    // 语言
+    $language = Glob::conf('locale.default_language');
+    $languages = Glob::conf('locale.available_languages');
+    $langs = array_keys($languages);
+    $lng = Glob::lang($language);
+    $lang = cookie('lang') ?: $lng;
+    if (!in_array($lang, $langs)) {
+        $lang = $language;
+    }
+    $country = $languages[$lang];
+    // 本地化
+    $domain = Glob::conf('locale.domain') ?: $lang;
+    $directory = Glob::conf('locale.directory');
+    $ext = Glob::conf('locale.ext');
+    if ('gettext' === $ext) {
+        // 故意错误目录，清空缓存
+        $bind = bindtextdomain($domain, "./$domain/". time());
+        $GetText = new GetText(LC_ALL, $lang, $directory, $domain);
+    } else {
+        $LANG = Glob::lng($lang, $directory, $domain, $langs, false);
+    }
+    // 配置
+    $GLOBALS['_CONF'] = array('lang' => $lang, 'country' => $country);
 
     // 配置
     $server = Glob::conf('merge.server');
     $country_uids = Glob::conf('geo.country_uids');
     $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
+    $custom_directory = Glob::conf('ext.geoip.custom_directory');
 
     // 自定义变量
     $_SERVER = array_merge($_SERVER, $server);
     $remote_addr = $_SERVER['REMOTE_ADDR'] ?? null;
+
+    // 注册容器
+    Glob::set('GeoIP', new GeoIP($remote_addr, $custom_directory));
 
     // 默认 UID
     $uid = get_uid_by_addr(1, $remote_addr, $country_uids);
@@ -75,7 +103,8 @@ function router() {
 // 通过客户端 IP 地址所属国家获取配置的默认用户 ID
 function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array())
 {
-    $country = $remote_addr ? geoip_country_code_by_name($remote_addr) : '';
+    $GeoIP = Glob::get('GeoIP');
+    $country = $remote_addr ? $GeoIP->countryCode($remote_addr) : '';
     if (is_string($country)) {
         if (isset($country_uids[$country])) {
             $uid = $country_uids[$country];
@@ -90,4 +119,4 @@ function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array
     return $uid;
 }
 
-return router();
+return router('cli-server' === php_sapi_name());
