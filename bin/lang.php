@@ -31,14 +31,16 @@ function translate($return = null) {
         foreach ($languages as $key => $val) {
             $lang = Glob::get($key);
             if (!$lang) {
-                $lang = include ROOT ."/conf/locale/$key/LC_MESSAGES/messages.php";
-                $set = Glob::set($key, $lang);
+                $lang = @include ROOT ."/conf/locale/$key/LC_MESSAGES/messages.php";
+                $set = Glob::set($key, $lang ?: array());
             }
             $itm = globals("$hash.$key", '', 'messages');
             $item = $itm ?: globals($hash, '', $lang);
             $array[$key] = $item;
         }
-        $array['en'] = $value;
+        if (!$array['en']) {
+            $array['en'] = $value;
+        }
         $arr[$hash] = $array;
     }
 
@@ -76,6 +78,11 @@ function export($lang, $variable, $output = null) {
     // 翻译结果
     if (!$output) {
         return $arr;
+    }
+
+    // 新建目录
+    if (!is_dir($dir)) {
+        $mk = mkdir($dir, 0777, true);
     }
 
     // 写入语言文件
