@@ -4,7 +4,7 @@ define('ROOT', dirname(__DIR__));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
-use function php\func\{server, get, cookie};
+use function php\func\{server, get, cookie, globals};
 use MagicCube\Dispatcher;
 use NewUI\Engine;
 use Pkg\{Glob, X\GeoIP};
@@ -48,10 +48,11 @@ function router($check_file = null) {
     $langs = array_keys($languages);
     $lng = Glob::lang($language);
     $lang = cookie('lang') ?: $lng;
+    $lang = variant($lang);
     if (!in_array($lang, $langs)) {
         $lang = $language;
     }
-    $country = $languages[$lang];
+    $country = $languages[$lang] ?: 'Globe';
     // 本地化
     $domain = Glob::conf('locale.domain') ?: $lang;
     $directory = Glob::conf('locale.directory');
@@ -117,6 +118,52 @@ function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array
         print_r([__LINE__, __FILE__]);
     }
     return $uid;
+}
+
+// 语言变体
+function variant($language)
+{
+    //=s
+    $lang = strtolower($language);
+    if ('zh' === $lang) {
+        return $lang;
+    }
+
+    //=f
+    $arr = array();
+    $variable = array(
+        'main',
+        'variant',
+    );
+
+    //=z
+    $LNG = preg_split("/\W+/", $lang);
+
+    //=sh
+    foreach ($variable as $key => $value) {
+        $arr[$value] = globals($key, null, $LNG);
+    }
+    extract($arr);
+
+    //=l
+    if ('zh' === $main) {
+        if (!$variant) {
+            return $lang;
+        }
+        // 繁体
+        if (in_array($variant, array('hant', 'tw', 'hk', 'mo'))) {
+            return $lang = "zh-hant";
+        } elseif (in_array($variant, array('hans', 'cn', 'sg', 'my'))) { // 简体
+            return $lang = "zh";
+        } else { // 其他
+            return $main;
+        }
+    }
+
+    //=j
+
+    //=g
+    return $lang;
 }
 
 return router('cli-server' === php_sapi_name());
