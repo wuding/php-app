@@ -1,13 +1,15 @@
 {
     "autoload": {
         "psr-4": {
-            "app\\": "app/"
+            "app\\": "app/",
+            "src\\": "src/"
         }
     },
     "require": {
         "phpmailer/phpmailer": "^6.2",
-        "wuding/magic-cube": "^21.1.19",
-        "wuding/new-ui": "^21.1.19",
-        "wuding/topdb": "^21.1.20"
+        "wuding/magic-cube": "^21.2.16",
+        "wuding/new-ui": "^21.1.26",
+        "wuding/topdb": "^21.2.16",
+        "geoip/geoip": "^1.17"
     }
 }
