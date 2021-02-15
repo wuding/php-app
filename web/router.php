@@ -85,7 +85,7 @@ function router($check_file = null) {
     define('DEFAULT_UID', $uid);
 
     // 内存缓存
-    Glob::$mem = new PhpRedis($redis_conf);
+    $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     // 控制器、模板
     new Dispatcher($uri);
@@ -102,9 +102,9 @@ function router($check_file = null) {
 }
 
 // 通过客户端 IP 地址所属国家获取配置的默认用户 ID
-function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array())
+function get_uid_by_addr($uid = null, $remote_addr = null, $country_uids = array(), $geo_ip = 'GeoIP')
 {
-    $GeoIP = Glob::get('GeoIP');
+    $GeoIP = is_string($geo_ip) ? Glob::get($geo_ip) : $geo_ip;
     $country = $remote_addr ? $GeoIP->countryCode($remote_addr) : '';
     if (is_string($country)) {
         if (isset($country_uids[$country])) {
