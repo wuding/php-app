@@ -1,0 +1,1 @@
+php ../src/bin/language.php
