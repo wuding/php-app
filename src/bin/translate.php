@@ -7,7 +7,7 @@
   *
   */
 
-define('ROOT', dirname(__DIR__));
+define('ROOT', dirname(dirname(__DIR__)));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
@@ -19,7 +19,7 @@ function translate($return = null, $sort = null, $detail = null, $filter = null,
     Glob::$conf = include ROOT .'/conf/develop.php';
     $id = include ROOT ."/conf/locale/msgid.php";
     $filename = ROOT ."/conf/locale/messages";
-    $messages = @include $filename .".php";
+    $messages = include $filename .".php";
 
     // 类型检查
     if (!is_array($messages)) {
@@ -264,6 +264,7 @@ if ('cli' === php_sapi_name()) {
 
 $translate = translate(true, $sort, $detail, $filter, $list);
 print_r($translate);
+
 // 导出所有输出结果
 if ($output) {
     $put = file_put_contents($output, $translate);
