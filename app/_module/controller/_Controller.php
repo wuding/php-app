@@ -54,7 +54,12 @@ class _Controller extends \MagicCube\Controller
 
     public function upload()
     {
-        global $_CONFIG;
+        // 测试版，用户限制
+        $stat = $_COOKIE['stat'] ?? null;
+        if (!in_array($stat, array(1))) {
+            header("Location: /");
+            exit;
+        }
         $this->enableView = true;
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $file = $_FILES['_'];
@@ -65,5 +70,21 @@ class _Controller extends \MagicCube\Controller
             exit;
         }
         return [];
+    }
+
+    // 苹果设备图标请求
+    public function appleTouchIcon()
+    {
+        $filename = ROOT .'/web/img/favicon.png';
+        $size = filesize($filename);
+        header("Content-Type: image/x-png");
+        #header("Content-Length: $size");
+        readfile($filename);
+        exit;
+    }
+
+    public function appleTouchIconPrecomposed()
+    {
+        return $this->appleTouchIcon();
     }
 }
