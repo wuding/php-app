@@ -10,9 +10,10 @@ return array(
         ),
         'server' => array(
             'master' => array(
-                'username' => '',
-                'password' => '',
+                'username' => '<USER>',
+                'password' => '<PASS>',
                 'port' => 3306,
+                'host' => 'localhost'
             ),
             'slave' => array(
                 'username' => '',
@@ -35,7 +36,7 @@ return array(
                 'reserved' => null,
                 'retry_interval' => 0,
                 'read_timeout' => 0,
-                'option' => array('auth' => ''),
+                'option' => array('auth' => '<PASSWORD>'),
                 'method' => 'pconnect',
             ),
         ),
@@ -43,7 +44,7 @@ return array(
     'redis' => null, // 简单写法，替代 mem.server.master
     // 视图变量配置
     'view' => array(
-        'cdn_prefix' => '',
+        'cdn_prefix' => 'http://127.0.0.1:81',
         'favicon_default' => '/img/favicon/default.png',
     ),
     // 合并覆盖超全局变量
@@ -54,16 +55,26 @@ return array(
     ),
     // 地理位置
     'geo' => array(
+        // bin/country.bat 生成
         'country_uids' => array(
-            '' => 0,
-            'CN' => 0,
-            'US' => 0,
+            'XA' => 1,
+            'CN' => 156,
+            'US' => 840,
         ),
     ),
     // 本地化
     'locale' => array(
+        // bin/translate.bat 生成翻译文件
+        'func' => '\php\func\lang', // 或者 gettext
+        'directory' => ROOT .'/conf/locale',
         'default_language' => 'en',
-        'available_languages' => array('zh'),
+        // bin/language.bat 生成语言对应国家地区
+        'available_languages' => array(
+            'en' => 'US',
+            'eo' = 'Esperanto',
+            'zh' => 'CN',
+            'zh-hant' => 'TW',
+        ),
         'module' => array(
             '' => array(),
             'index' => array(
@@ -73,6 +84,12 @@ return array(
                 'search' => 'Search',
                 'add' => 'Add',
             ),
+        ),
+    ),
+    // 扩展
+    'ext' => array(
+        'geoip' => array(
+            'custom_directory' => ini_get('geoip.custom_directory') ?: ROOT .'/data/geoip',
         ),
     ),
 );
