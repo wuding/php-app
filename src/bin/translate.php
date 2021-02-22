@@ -7,7 +7,7 @@
   *
   */
 
-define('ROOT', dirname(dirname(__DIR__)));
+defined('ROOT') ?: define('ROOT', dirname(dirname(__DIR__)));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 

@@ -6,7 +6,7 @@
   *
   */
 
-define('ROOT', dirname(dirname(__DIR__)));
+defined('ROOT') ?: define('ROOT', dirname(dirname(__DIR__)));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
@@ -19,7 +19,7 @@ function country_uid($return = null, $max_id = 1000)
 
     $m = new User;
     $arr = array();
-    $all = $m->select("id, username", "id < $max_id", "id");
+    $all = $m->select("id, username", "id < $max_id", "id") ?: array();
     foreach ($all as $row) {
         $arr[$row->username] = (int) $row->id;
     }

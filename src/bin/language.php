@@ -7,7 +7,7 @@
   *
   */
 
-define('ROOT', dirname(dirname(__DIR__)));
+defined('ROOT') ?: define('ROOT', dirname(dirname(__DIR__)));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
@@ -28,7 +28,7 @@ function language($return = null)
     ksort($languages);
 
     //=sh
-    $all = $LangStr->select('str, country', "pid = 0 OR sup = 1", 'str');
+    $all = $LangStr->select('str, country', "pid = 0 OR sup = 1", 'str') ?: array();
     foreach ($all as $row) {
         $key = strtolower($row->str);
         $arr[$key] = $row->country;
