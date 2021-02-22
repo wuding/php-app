@@ -14,7 +14,7 @@ trait Reuse
                 unset($lang[$key]);
                 $key = "_$val";
             }
-            $lang[$key] = $func($value);
+            $lang[$key] = $func ? $func($value) : $value;
         }
         return $lang;
     }

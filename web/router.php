@@ -61,7 +61,7 @@ function router($check_file = null) {
         // 故意错误目录，清空缓存
         $bind = bindtextdomain($domain, "./$domain/". time());
         $GetText = new GetText(LC_ALL, $lang, $directory, $domain);
-    } else {
+    } elseif ('\php\func\lang' === $func) {
         $LANG = Glob::lng($lang, $directory, $domain, $langs, false);
     }
     // 配置
