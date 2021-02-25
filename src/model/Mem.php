@@ -65,10 +65,8 @@ class Mem
             return PhpRedis::del($key);
         }
         // JSON 格式化数组或对象
-        if (is_object($value) || is_array($value)) {
+        if (is_object($value) || is_array($value) || is_bool($value)) {
             $json = true;
-        } elseif (is_bool($value)) {
-            $value = $value ? 1 : 0;
         } elseif (!is_string($value)) {
             var_dump([$key, $value, __FILE__, __LINE__]);
             exit;
