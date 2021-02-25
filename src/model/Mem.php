@@ -30,7 +30,9 @@ class Mem
         // 改变类型
         if (is_string($cacheValue)) {
             // JSON 格式的数组或对象
-            if (preg_match("/^\[{\"(.*)\"}\]$/", $cacheValue, $matches) || preg_match("/^{\"(.*)\"}$/", $cacheValue, $matches)) {
+            if (preg_match("/^\[{\"(.*)}\]$/", $cacheValue, $matches) || preg_match("/^{\"(.*)\"}$/", $cacheValue, $matches)) {
+                $json = true;
+            } elseif (in_array($cacheValue, array('[]', 'false'))) {
                 $json = true;
             } elseif (!is_numeric($cacheValue)) {
                 var_dump([$cacheKey, $cacheValue, __FILE__, __LINE__]);
@@ -65,8 +67,10 @@ class Mem
         // JSON 格式化数组或对象
         if (is_object($value) || is_array($value)) {
             $json = true;
+        } elseif (is_bool($value)) {
+            $value = $value ? 1 : 0;
         } elseif (!is_string($value)) {
-            var_dump([$value, __FILE__, __LINE__]);
+            var_dump([$key, $value, __FILE__, __LINE__]);
             exit;
         }
         if ($json) {
