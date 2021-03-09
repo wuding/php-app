@@ -15,6 +15,12 @@ session_start();
 
 function router($check_file = null) {
     global $template;
+    // 导入配置
+    Glob::$conf = include ROOT .'/conf/develop.php';
+    // 模拟超全局变量
+    $server = Glob::conf('merge.server');
+    $_SERVER = array_merge($_SERVER, $server);
+
     // 参数、变量
     $src = get('src');
     $debug = get('debug');
@@ -40,8 +46,6 @@ function router($check_file = null) {
     $dirname = '\\' === $dirname ? '' : $dirname;
     $uri = $dirname ."/". $filename;
 
-    // 准备
-    Glob::$conf = include ROOT .'/conf/develop.php';
     // 语言
     $language = Glob::conf('locale.default_language');
     $languages = Glob::conf('locale.available_languages');
@@ -68,13 +72,11 @@ function router($check_file = null) {
     $GLOBALS['_CONF'] = array('lang' => $lang, 'country' => $country);
 
     // 配置
-    $server = Glob::conf('merge.server');
     $country_uids = Glob::conf('geo.country_uids');
     $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
     $custom_directory = Glob::conf('ext.geoip.custom_directory');
 
-    // 自定义变量
-    $_SERVER = array_merge($_SERVER, $server);
+    // IP
     $remote_addr = server('REMOTE_ADDR');
 
     // 注册容器
