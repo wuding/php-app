@@ -8,3 +8,6 @@
 
 /vendor
 /composer.lock
+
+*.lng
+*.mo
