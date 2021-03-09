@@ -90,8 +90,10 @@ function router($check_file = null) {
     $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     // 控制器、模板
-    new Dispatcher($uri);
-    $obj = Dispatcher::dispatch($debug);
+    $ns = "app\{m}{extra}\controller\{c}";
+    $extra = "\\theme\{t}";
+    new Dispatcher($uri, Glob::class);
+    $obj = Dispatcher::dispatch($debug, $ns, $extra);
     $template = new Engine();
 
     // 调试
