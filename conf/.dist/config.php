@@ -66,6 +66,7 @@ return array(
     'locale' => array(
         // bin/translate.bat 生成翻译文件
         'func' => '\php\func\lang', // 或者 gettext
+        'domain' => '',
         'directory' => ROOT .'/conf/locale',
         'default_language' => 'en',
         // bin/language.bat 生成语言对应国家地区
@@ -83,6 +84,29 @@ return array(
                 'settings' => 'Settings',
                 'search' => 'Search',
                 'add' => 'Add',
+            ),
+            'user' => array(
+                'site_nm' => 'URLNK.ORG',
+                'login' => 'Sign in',
+                'Settings',
+                'acc_set' => 'Account settings',
+                'usr_set' => 'User settings',
+                'email' => 'E-mail',
+                'phone' => 'Mobile phone',
+                'logout' => 'Sign out',
+                'passwd' => 'Password',
+                'send_code' => 'Send verification code',
+                'Sign up',
+                'captcha' => 'Verification Code',
+                'usr_reg' => 'User registration',
+                'Account',
+                'code_sent' => 'Verification code sent',
+                'Sending',
+                'cnfrm_pw' => 'Confirm password',
+                'set_pw' => 'Set password',
+                'chg_bind' => 'Change binding',
+                'Binding',
+                'New ',
             ),
         ),
     ),
