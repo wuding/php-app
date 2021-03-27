@@ -189,7 +189,7 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
 }
 
 // IP 会话次数限制
-if (!preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
+if (!$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
     extract(Index::ip($ip, $ip_ttl));
 }
 
