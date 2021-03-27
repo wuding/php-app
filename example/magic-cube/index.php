@@ -12,8 +12,9 @@ use model\stat\UserAgent;
 
 class Index
 {
-    const VERSION = '20.213.237';
+    const VERSION = '21.3.27';
     public $dispatcher = null;
+    public static $count = 0;
 
     public function __construct($routeInfo, $httpMethod)
     {
@@ -39,7 +40,43 @@ class Index
         session_id(Glob::$sid);
         # 这个不能用，每次都 Set-Cookie
         session_start();
-        $_SESSION['updated'] = time();
+        $count = $_SESSION['count'] ?? 0;
+        if (!$count) {
+            $_SESSION['initial'] = time();
+            $_SESSION['count'] = 1;
+        } else {
+            $_SESSION['updated'] = time();
+            $_SESSION['count'] = 1 + $count;
+        }
+        static::$count = $_SESSION['count'];
+    }
+
+    public static function ip($ip, $ip_ttl)
+    {
+        //=s
+        $ip_key = 'TMP_IP:'. $ip;
+        $tmp_ip = PhpRedis::get($ip_key);
+        if (false === $tmp_ip) {
+            $json_ip = array(Glob::$sid);
+            $json_ip = json_encode($json_ip);
+            $set = PhpRedis::set($ip_key, $json_ip, $ip_ttl);
+            return array();
+        }
+        //=z
+        $ip_arr = json_decode($tmp_ip);
+        if (!in_array(Glob::$sid, $ip_arr)) {
+            $ip_arr[] = Glob::$sid;
+            $json_ip = json_encode($ip_arr);
+            $set = PhpRedis::set($ip_key, $json_ip, $ip_ttl);
+        }
+        $count = count($ip_arr);
+        //=l
+        if (4 < $count && 9 > static::$count) {
+            http_response_code(400);
+            $routeInfo = array(1, 'error/banned', []);
+            return array('routeInfo' => $routeInfo);
+        }
+        return array();
     }
 }
 
@@ -49,6 +86,7 @@ extract($var_array);
 $ua_arr = Glob::conf('banned.ua');
 $ip_arr = Glob::conf('banned.ip');
 $ua_ttl = Glob::conf('ttl.ua');
+$ip_ttl = Glob::conf('ttl.ip');
 $ignore_ip = Glob::conf('log.ignore_ip');
 $redirect_ua = Glob::conf('log.redirect_ua');
 $redirect_path = Glob::conf('log.redirect_path');
@@ -148,6 +186,11 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     $stat['cookie'] = Stat::cookie($redirect, Glob::conf('query'), null, Glob::$sid);
     PhpRedis::db();
     Glob::diff('STAT_COOKIE');
+}
+
+// IP 会话次数限制
+if (!preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
+    extract(Index::ip($ip, $ip_ttl));
 }
 
 __RUN__:
