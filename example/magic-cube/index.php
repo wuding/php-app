@@ -74,7 +74,7 @@ class Index
         if (4 < $count && 9 > static::$count) {
             http_response_code(400);
             $routeInfo = array(1, 'error/banned', []);
-            return array('routeInfo' => $routeInfo);
+            return array('routeInfo' => $routeInfo, 'ip_ban' => true);
         }
         return array();
     }
@@ -159,6 +159,15 @@ Stat::$unique = md5(json_encode($_SERVER));
 Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
 $null = Glob::conf('session.start') ? Index::session($options, $sname) : null;
 
+// IP 会话次数限制
+if (!$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
+    $ip_ban = null;
+    extract(Index::ip($ip, $ip_ttl));
+    if (true === $ip_ban) {
+        goto __RUN__;
+    }
+}
+
 // 排除统计
 $request_path = parse_url($uri, PHP_URL_PATH);
 if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) {
@@ -186,11 +195,6 @@ if (!preg_match("/^\/(stat|robot)(|\/.*)$/i", $request_path) && !$disable_stat) 
     $stat['cookie'] = Stat::cookie($redirect, Glob::conf('query'), null, Glob::$sid);
     PhpRedis::db();
     Glob::diff('STAT_COOKIE');
-}
-
-// IP 会话次数限制
-if (!$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
-    extract(Index::ip($ip, $ip_ttl));
 }
 
 __RUN__:
