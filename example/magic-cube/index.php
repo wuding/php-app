@@ -41,16 +41,18 @@ class Index
         # 这个不能用，每次都 Set-Cookie
         session_start();
         $count = $_SESSION['count'] ?? 0;
+        $sid = $_GET['sid'] ?? null;
         if (!$count) {
             $_SESSION['initial'] = time();
             $_SESSION['count'] = 1;
-        } else {
+        } elseif (!$sid) {
             $_SESSION['updated'] = time();
             $_SESSION['count'] = 1 + $count;
         }
         static::$count = $_SESSION['count'];
     }
 
+    // 通过 IP 会话及访问次数判定垃圾流量
     public static function ip($ip, $ip_ttl)
     {
         //=s
@@ -72,6 +74,27 @@ class Index
         $count = count($ip_arr);
         //=l
         if (4 < $count && 9 > static::$count) {
+            http_response_code(400);
+            $routeInfo = array(1, 'error/banned', []);
+            return array('routeInfo' => $routeInfo, 'ip_ban' => true);
+        }
+        return array();
+    }
+
+    // 通过来源和次数判定垃圾流量
+    public static function spam($row)
+    {
+        if (!$row) {
+            return array();
+        }
+        $arr = (array) $row;
+        foreach ($arr as $key => $value) {
+            if (is_numeric($value)) {
+                $arr[$key] = (int) $value;
+            }
+        }
+        extract($arr);
+        if (-1 === $referer && 50 < $log) {
             http_response_code(400);
             $routeInfo = array(1, 'error/banned', []);
             return array('routeInfo' => $routeInfo, 'ip_ban' => true);
@@ -117,7 +140,12 @@ if (in_array($ua_id, $ua_arr) || in_array($ip, $ip_arr)) {
 
 // IP 拦截
 $addr = new RemoteAddr;
-$ip_id = $addr->one('id', "str = '$ip'", '', 1, $ua_ttl);
+$ip_row = $addr->one('id, referer, log', "str = '$ip'", null, 1, $ua_ttl);
+$ip_id = 0;
+$ip_ban = null;
+if ($ip_row) {
+    $ip_id = $ip_row->id;
+}
 if (in_array($ip_id, $banned_ip_ids)) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
@@ -161,7 +189,10 @@ $null = Glob::conf('session.start') ? Index::session($options, $sname) : null;
 
 // IP 会话次数限制
 if (!$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
-    $ip_ban = null;
+    extract(Index::spam($ip_row));
+    if (true === $ip_ban) {
+        goto __RUN__;
+    }
     extract(Index::ip($ip, $ip_ttl));
     if (true === $ip_ban) {
         goto __RUN__;
