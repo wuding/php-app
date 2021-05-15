@@ -36,5 +36,14 @@
 <p class="telegram"><b>Telegram</b>: <a href="https://t.me/urlnkcom">https://t.me/urlnkcom</a></p>
 <p class="qq"><b>QQ Group</b>: 141709092</p>
 <p class="wx-qrcode"><img src="/img/play/wx.jpg?v=<?=date('Ymd')?>"></p>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?00b9179f59273509672b001b0eb76db0";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
 </body>
 </html>
