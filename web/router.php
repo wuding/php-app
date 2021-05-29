@@ -24,7 +24,9 @@ function router($check_file = null) {
     // 参数、变量
     $src = get('src');
     $debug = get('debug');
-    $path = parse_url(server('REQUEST_URI'), PHP_URL_PATH);
+    $request_uri = server('REQUEST_URI');
+    $request_uri = preg_replace("/^\/+/", '/', $request_uri);
+    $path = parse_url($request_uri, PHP_URL_PATH);
     $path = urldecode($path);
     $file = __DIR__ . $path;
     $is_file = $check_file ? is_file($file) : null;
@@ -75,6 +77,7 @@ function router($check_file = null) {
     $country_uids = Glob::conf('geo.country_uids');
     $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
     $custom_directory = Glob::conf('ext.geoip.custom_directory');
+    $module_names = Glob::conf('module.*');
 
     // IP
     $remote_addr = server('REMOTE_ADDR');
@@ -90,9 +93,16 @@ function router($check_file = null) {
     $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     // 控制器、模板
+    $array = explode('/', $uri);
+    list(, $module) = $array;
+    $module = strtolower($module);
+    $prefix = null;
+    if ($module && !in_array($module, $module_names)) {
+        $prefix = "/index/entry/index";
+    }
     $ns = "app\{m}{extra}\controller\{c}";
     $extra = "\\theme\{t}";
-    new Dispatcher($uri, Glob::class);
+    new Dispatcher($uri, Glob::class, $prefix);
     $obj = Dispatcher::dispatch($debug, $ns, $extra);
     $template = new Engine();
 
