@@ -13,3 +13,6 @@
 
 *.lng
 *.mo
+
+*.sublime-project
+*.sublime-workspace
