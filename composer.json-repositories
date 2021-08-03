@@ -1,0 +1,88 @@
+{
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "src\\": "src/",
+            "Func\\X\\": "vendor/wuding/php-func/src/X/",
+            "Func\\": "vendor/wuding/php-func/src/",
+            "Pkg\\": "vendor/wuding/php-pkg/src",
+            "Ext\\": "vendor/wuding/php-ext/src/",
+            "MagicCube\\": "vendor/wuding/magic-cube/src",
+            "NewUI\\": "vendor/wuding/new-ui/src"
+        },
+        "files": [
+            "vendor/wuding/php-func/src/Func.php",
+            "vendor/wuding/php-ext/src/Ext.php"
+        ]
+    },
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/php-func",
+                "version": "dev-develop",
+                "source": {
+                    "url": "Benny@localhost:root/php-func.git",
+                    "type": "git",
+                    "reference": "origin/develop"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/php-pkg",
+                "version": "dev-master",
+                "source": {
+                    "url": "Benny@localhost:root/php-pkg.git",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/php-ext",
+                "version": "dev-develop",
+                "source": {
+                    "url": "Benny@localhost:root/php-ext.git",
+                    "type": "git",
+                    "reference": "origin/develop"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/magic-cube",
+                "version": "dev-develop",
+                "source": {
+                    "url": "Benny@localhost:root/magic-cube.git",
+                    "type": "git",
+                    "reference": "origin/develop"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/new-ui",
+                "version": "dev-develop",
+                "source": {
+                    "url": "Benny@localhost:root/new-ui.git",
+                    "type": "git",
+                    "reference": "origin/develop"
+                }
+            }
+        }
+    ],
+    "require": {
+        "wuding/php-func": "dev-develop",
+        "wuding/php-pkg": "dev-master",
+        "wuding/php-ext": "dev-develop",
+        "wuding/magic-cube": "dev-develop",
+        "wuding/new-ui": "dev-develop",
+        "geoip/geoip": "^1.17"
+    }
+}
