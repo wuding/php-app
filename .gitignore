@@ -6,6 +6,8 @@
 /conf/*.php
 /conf/locale/*.php
 
+/data/geoip/*.dat
+
 /vendor
 /composer.lock
 
