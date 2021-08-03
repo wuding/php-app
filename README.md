@@ -109,10 +109,10 @@ composer require phpmailer/phpmailer
 
 ```bash
 # 创建项目
-composer create-project wuding/php-app=dev-develop
+composer create-project wuding/php-app=dev-develop --prefer-source
 
 # 或者下载 zip 解压后安装
-composer install
+composer install --prefer-source
 ```
 
 
