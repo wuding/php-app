@@ -51,14 +51,14 @@ function router($check_file = null) {
     // 语言
     $language = Glob::conf('locale.default_language');
     $languages = Glob::conf('locale.available_languages');
-    $langs = array_keys($languages);
+    $langs = array_keys($languages ?? array());
     $lng = Glob::lang($language);
     $lang = cookie('lang') ?: $lng;
     $lang = variant($lang);
     if (!in_array($lang, $langs)) {
         $lang = $language;
     }
-    $country = $languages[$lang] ?: 'Globe';
+    $country = ($languages[$lang] ?? null) ?: 'Globe';
     // 本地化
     $domain = Glob::conf('locale.domain') ?: $lang;
     $directory = Glob::conf('locale.directory');
