@@ -19,7 +19,7 @@ function router($check_file = null) {
     Glob::$conf = include ROOT .'/conf/develop.php';
     // 模拟超全局变量
     $server = Glob::conf('merge.server');
-    $_SERVER = array_merge($_SERVER, $server);
+    $_SERVER = array_merge($_SERVER, $server ?? array());
 
     // 参数、变量
     $src = get('src');
