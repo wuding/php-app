@@ -72,7 +72,7 @@ return array(
         // bin/language.bat 生成语言对应国家地区
         'available_languages' => array(
             'en' => 'US',
-            'eo' = 'Esperanto',
+            'eo' => 'Esperanto',
             'zh' => 'CN',
             'zh-hant' => 'TW',
         ),
