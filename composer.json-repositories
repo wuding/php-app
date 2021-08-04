@@ -8,7 +8,8 @@
             "Pkg\\": "vendor/wuding/php-pkg/src",
             "Ext\\": "vendor/wuding/php-ext/src/",
             "MagicCube\\": "vendor/wuding/magic-cube/src",
-            "NewUI\\": "vendor/wuding/new-ui/src"
+            "NewUI\\": "vendor/wuding/new-ui/src",
+            "Topdb\\": "vendor/wuding/topdb/src"
         },
         "files": [
             "vendor/wuding/php-func/src/Func.php",
@@ -75,6 +76,18 @@
                     "reference": "origin/develop"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wuding/topdb",
+                "version": "dev-develop",
+                "source": {
+                    "url": "Benny@localhost:root/topdb.git",
+                    "type": "git",
+                    "reference": "origin/develop"
+                }
+            }
         }
     ],
     "require": {
@@ -83,6 +96,7 @@
         "wuding/php-ext": "dev-develop",
         "wuding/magic-cube": "dev-develop",
         "wuding/new-ui": "dev-develop",
+        "wuding/topdb": "dev-develop",
         "geoip/geoip": "^1.17"
     }
 }
