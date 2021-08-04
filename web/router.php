@@ -97,11 +97,20 @@ function router($check_file = null) {
     list(, $module) = $array;
     $module = strtolower($module);
     $prefix = null;
-    if ($module && !in_array($module, $module_names)) {
+    if ($module && $module_names && !in_array($module, $module_names)) {
         $prefix = "/index/entry/index";
     }
-    $ns = "app\{m}{extra}\controller\{c}";
+
+    $srcDir = null;
+    $haystack = array('note');
+    if (in_array($module, $haystack)) {
+        $srcDir = '\src';
+    }
+
+    $nsTpl = "app\{m}{src}{extra}\controller\{c}";
+    $ns = str_replace('{src}', $srcDir, $nsTpl);
     $extra = "\\theme\{t}";
+
     new Dispatcher($uri, Glob::class, $prefix);
     $obj = Dispatcher::dispatch($debug, $ns, $extra);
     $template = new Engine();
