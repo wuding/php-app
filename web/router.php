@@ -78,6 +78,7 @@ function router($check_file = null) {
     $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
     $custom_directory = Glob::conf('ext.geoip.custom_directory');
     $module_names = Glob::conf('module.*');
+    $module_folders = Glob::conf('module./', array());
 
     // IP
     $remote_addr = server('REMOTE_ADDR');
@@ -102,7 +103,7 @@ function router($check_file = null) {
     }
 
     $srcDir = null;
-    $haystack = array('note');
+    $haystack = $module_folders ?: array('note', 'git');
     if (in_array($module, $haystack)) {
         $srcDir = '\src';
     }
