@@ -2,3 +2,6 @@
 /tmp
 /vendor
 /composer.lock
+
+*.sublime-project
+*.sublime-workspace
