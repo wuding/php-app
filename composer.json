@@ -7,10 +7,12 @@
     },
     "require": {
         "phpmailer/phpmailer": "^6.2",
-        "wuding/magic-cube": "^21.2.16",
-        "wuding/new-ui": "^21.1.26",
-        "wuding/topdb": "^21.2.16",
         "geoip/geoip": "^1.17",
-        "wuding/php-func": "^21.2"
+        "wuding/magic-cube": "dev-develop",
+        "wuding/new-ui": "dev-develop",
+        "wuding/topdb": "dev-develop",
+        "wuding/php-ext": "dev-develop",
+        "wuding/php-func": "dev-develop",
+        "wuding/php-pkg": "dev-master"
     }
 }
