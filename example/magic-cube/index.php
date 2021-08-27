@@ -12,7 +12,7 @@ use model\stat\UserAgent;
 
 class Index
 {
-    const VERSION = '21.3.27';
+    const VERSION = '21.8.27';
     public $dispatcher = null;
     public static $count = 0;
 
@@ -101,6 +101,49 @@ class Index
         }
         return array();
     }
+
+    // 实例化模型
+    public static function var_models($models)
+    {
+        $var_array = array();
+        foreach ($models as $key => $value) {
+            $val = null;
+            if ($value) {
+                $val = new $value;
+            }
+            $var_array[$key] = $val;
+        }
+        return $var_array;
+    }
+
+    // 黑名单
+    public static function ban_ua($ua, $http_user_agent, $ua_ttl, $ua_arr)
+    {
+        if (!$ua) {
+            return false;
+        }
+        $md5 = md5($http_user_agent);
+        $ua_id = $ua->one('id', "md5 = '$md5'", '', 1, $ua_ttl);
+        if (in_array($ua_id, $ua_arr)) {
+            return true;
+        }
+        return null;
+    }
+
+    // IP 拦截
+    public static function ban_ip($addr, $ip, $ua_ttl, $banned_ip_ids)
+    {
+        global $ip_row;
+        if (!$addr) {
+            return false;
+        }
+        $ip_row = $addr->one('id, referer, log', "str = '$ip'", null, 1, $ua_ttl);
+        $ip_id = $ip_row ? $ip_row->id : 0;
+        if (in_array($ip_id, $banned_ip_ids)) {
+            return true;
+        }
+        return null;
+    }
 }
 
 // 配置
@@ -128,25 +171,15 @@ if (!in_array($http_host, Glob::conf('host.name')) && !$remote_addr) {
     exit;
 }
 
-// 黑名单
-$ua = new UserAgent;
-$md5 = md5($http_user_agent);
-$ua_id = $ua->one('id', "md5 = '$md5'", '', 1, $ua_ttl);
-if (in_array($ua_id, $ua_arr) || in_array($ip, $ip_arr)) {
-    http_response_code(400);
-    $routeInfo = array(1, 'error/banned', []);
-    goto __RUN__;
-}
+global $ip_ban, $ip_row;
+$ip_ban = $ip_row = null;
 
-// IP 拦截
-$addr = new RemoteAddr;
-$ip_row = $addr->one('id, referer, log', "str = '$ip'", null, 1, $ua_ttl);
-$ip_id = 0;
-$ip_ban = null;
-if ($ip_row) {
-    $ip_id = $ip_row->id;
-}
-if (in_array($ip_id, $banned_ip_ids)) {
+$var_array = Index::var_models($models);
+extract($var_array);
+
+$ban_ua = Index::ban_ua($ua, $http_user_agent, $ua_ttl, $ua_arr);
+$ban_ip = Index::ban_ip($addr, $ip, $ua_ttl, $banned_ip_ids);
+if (in_array(true, array($ban_ua, $ban_ip), true) || in_array($ip, $ip_arr)) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
     goto __RUN__;
