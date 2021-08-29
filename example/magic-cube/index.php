@@ -53,8 +53,11 @@ class Index
     }
 
     // 通过 IP 会话及访问次数判定垃圾流量
-    public static function ip($ip, $ip_ttl)
+    public static function ip($not_spider, $ip, $ip_ttl)
     {
+        if (!$not_spider) {
+            return array();
+        }
         //=s
         $ip_key = 'TMP_IP:'. $ip;
         $tmp_ip = PhpRedis::get($ip_key);
@@ -74,6 +77,7 @@ class Index
         $count = count($ip_arr);
         //=l
         if (4 < $count && 9 > static::$count) {
+            return true;
             http_response_code(400);
             $routeInfo = array(1, 'error/banned', []);
             return array('routeInfo' => $routeInfo, 'ip_ban' => true);
@@ -82,9 +86,9 @@ class Index
     }
 
     // 通过来源和次数判定垃圾流量
-    public static function spam($row)
+    public static function spam($not_spider, $row)
     {
-        if (!$row) {
+        if (!$row || !$not_spider) {
             return array();
         }
         $arr = (array) $row;
@@ -95,6 +99,7 @@ class Index
         }
         extract($arr);
         if (-1 === $referer && 50 < $log) {
+            return true;
             http_response_code(400);
             $routeInfo = array(1, 'error/banned', []);
             return array('routeInfo' => $routeInfo, 'ip_ban' => true);
@@ -144,6 +149,37 @@ class Index
         }
         return null;
     }
+
+    public static function ban_ip_arr($ip, $ip_arr)
+    {
+        $result = in_array($ip, $ip_arr);
+        return $result;
+    }
+
+    public static function ban_all($enables, $ua, $addr, $http_user_agent, $ua_ttl, $ua_arr, $ip, $ip_ttl, $ip_arr, $ip_row, $banned_ip_ids, $not_spider)
+    {
+        $var_array = array(
+            'ban_ua' => array($ua, $http_user_agent, $ua_ttl, $ua_arr),
+            'ban_ip' => array($addr, $ip, $ua_ttl, $banned_ip_ids),
+            'ban_ip_arr' => array($ip, $ip_arr),
+            'spam' => array($not_spider, $ip_row),
+            'ip' => array($not_spider, $ip, $ip_ttl),
+        );
+        $result = $variable = array();
+        foreach ($enables as $value) {
+            $val = $var_array[$value] ?? null;
+            if ($val) {
+                $variable[$value] = $val;
+            }
+        }
+        foreach ($variable as $key => $value) {
+            $result[$key] = $ret = call_user_func_array(array('\PhpApp\Example\Index', $key), $value);
+            if (true === $ret) {
+                return true;
+            }
+        }
+        return $result;
+    }
 }
 
 // 配置
@@ -177,9 +213,10 @@ $ip_ban = $ip_row = null;
 $var_array = Index::var_models($models);
 extract($var_array);
 
-$ban_ua = Index::ban_ua($ua, $http_user_agent, $ua_ttl, $ua_arr);
-$ban_ip = Index::ban_ip($addr, $ip, $ua_ttl, $banned_ip_ids);
-if (in_array(true, array($ban_ua, $ban_ip), true) || in_array($ip, $ip_arr)) {
+// IP 会话次数限制
+$not_spider = !$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent);
+$ban_all = Index::ban_all($enable_ban, $ua, $addr, $http_user_agent, $ua_ttl, $ua_arr, $ip, $ip_ttl, $ip_arr, $ip_row, $banned_ip_ids, $not_spider);
+if (true === $ban_all) {
     http_response_code(400);
     $routeInfo = array(1, 'error/banned', []);
     goto __RUN__;
@@ -219,18 +256,6 @@ $sid = $_GET['sid'] ?? null;
 Stat::$unique = md5(json_encode($_SERVER));
 Glob::$sid = $_COOKIE[$sname] ?? ($sid ?: Stat::$unique);
 $null = Glob::conf('session.start') ? Index::session($options, $sname) : null;
-
-// IP 会话次数限制
-if (!$remote_addr && !preg_match("/(http|bot|spider|bing)/i", $http_user_agent)) {
-    extract(Index::spam($ip_row));
-    if (true === $ip_ban) {
-        goto __RUN__;
-    }
-    extract(Index::ip($ip, $ip_ttl));
-    if (true === $ip_ban) {
-        goto __RUN__;
-    }
-}
 
 // 排除统计
 $request_path = parse_url($uri, PHP_URL_PATH);
