@@ -541,7 +541,7 @@ function html($all, $title = null) {
 
         $any = $ok = '';
         $set = false;
-        if ('date.timezone' !== $key) {
+        if (!in_array($key, array('date.timezone', 'default_charset'))) {
             $set = false === ini_set($key, 'test_set');
         } else {
             $any = 'N';

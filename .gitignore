@@ -8,6 +8,8 @@
 
 /data/geoip/*.dat
 
+/temp/php/sys/*
+
 /vendor
 /composer.lock
 
@@ -16,3 +18,5 @@
 
 *.sublime-project
 *.sublime-workspace
+
+!.keep
