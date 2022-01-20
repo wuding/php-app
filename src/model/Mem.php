@@ -18,6 +18,8 @@ class Mem
 
     public static function __callStatic($name, $arguments)
     {
+        return $result = call_user_func_array(array('\Ext\X\PhpRedis', $name), $arguments);
+        #print_r(debug_backtrace());
         print_r([get_defined_vars(), __FILE__, __LINE__]);
     }
 
@@ -30,7 +32,7 @@ class Mem
         // 改变类型
         if (is_string($cacheValue)) {
             // JSON 格式的数组或对象
-            if (preg_match("/^\[{\"(.*)}\]$/", $cacheValue, $matches) || preg_match("/^{\"(.*)\"}$/", $cacheValue, $matches)) {
+            if (preg_match("/^\[{\"(.*)}\]$/", $cacheValue, $matches) || preg_match("/^{\"(.*)}$/", $cacheValue, $matches)) {
                 $json = true;
             } elseif (in_array($cacheValue, array('[]', 'false'))) {
                 $json = true;
