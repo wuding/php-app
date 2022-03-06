@@ -204,6 +204,36 @@ return array(
 
 
 
+##### 多语言
+
+从
+
+> conf/locale/.dist/
+
+复制出
+
+> conf/locale/msgid.php
+
+和
+
+> conf/locale/messages.php
+
+
+
+打开
+
+> bin
+
+文件夹，运行下列文件
+
+- country - 导出国家 UID
+
+- language - 语言与国家键值对
+
+- translate - 翻译可用语言键名
+
+
+
 #### 扩展
 
 ```php
