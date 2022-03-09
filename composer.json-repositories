@@ -3,6 +3,7 @@
         "psr-4": {
             "app\\": "app/",
             "src\\": "src/",
+            "api\\": "api/",
             "Func\\X\\": "vendor/wuding/php-func/src/X/",
             "Func\\": "vendor/wuding/php-func/src/",
             "Pkg\\": "vendor/wuding/php-pkg/src",
