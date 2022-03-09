@@ -1,6 +1,6 @@
 <?php
 
-define('ROOT', dirname(__DIR__));
+define('ROOT', dirname(__DIR__, 2));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
@@ -10,7 +10,7 @@ use NewUI\Engine;
 use Pkg\{Glob, X\GeoIP};
 use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
-use api\pinduoduo\src\Ddk;
+use api\pinduoduo\src\Pdd;
 
 $array = array(
     'type' => 'pdd.ddk.goods.search',
@@ -28,7 +28,7 @@ $array = array(
     'p_id' => '1916625_209040306',
 );
 $clientSecret = "139224afbdab39a6be66f3523d3cbf979157425c";
-$str = Ddk::generateSign($array, $clientSecret);
+$str = Pdd::generateSign($array, $clientSecret);
 $array['sign'] = $str;
-$url = Ddk::generateUrl($array);
+$url = Pdd::generateUrl($array);
 var_dump($url);
