@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 $string = '_Abstract,BC';
-$dir = 'N:\Server\VCS\GitHub\wuding\php-ext\src';
+$dir = 'L:\Server\VCS\GitHub\wuding\php-ext\develop\src';
 $variable = explode(',', $string);
 foreach ($variable as $value) {
     include "$dir\\$value.php";
