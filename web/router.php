@@ -96,7 +96,7 @@ function router($check_file = null) {
     // 控制器、模板
     $array = explode('/', $uri);
     list(, $module) = $array;
-    $module = strtolower($module);
+    $module = strtolower($module) ?: 'index';
     $prefix = null;
     if ($module && $module_names && !in_array($module, $module_names)) {
         $prefix = "/index/entry/index";
