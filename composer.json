@@ -11,10 +11,10 @@
     ],
     "autoload": {
         "psr-4": {
-          "app\\": "app/",
+          "app\\": "app",
           "model\\": "src/model",
           "view\\": "src/view",
-          "src\\": "src/",
+          "src\\": "src",
           "traits\\": "src/traits"
         }
     },
@@ -25,6 +25,7 @@
         "wuding/php-ext": "^20.213.92",
         "wuding/new-ui": "^20.213.108",
         "wuding/php-stat": "dev-master",
-        "metowolf/meting": "^1.5"
+        "metowolf/meting": "^1.5",
+        "league/oauth2-github": "^2.0"
     }
 }
