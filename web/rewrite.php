@@ -24,7 +24,7 @@ func(Glob::conf('func.config'), Glob::conf('func.load'));
 #Glob::diff('REWRITE_FUNC');
 $template = new Engine(ROOT . '/app/template');
 $router = new Router($route['name'], $route['routes'], $route['options']);
-$db_config = Glob::cnf('database_contect', 'database');
+$db_config = Glob::cnf('database_connect', 'database');
 Table::init($db_config, 'wuding/topdb');
 #print_r(\Ext\PDO::config($_CONFIG['db']));
 $template->setCallback(Glob::conf('template.output_callback'));
@@ -36,7 +36,11 @@ $routeInfo = $router->dispatch($httpMethod, $uri, $route['status']);
 #Glob::diff('REWRITE_ROUTE');
 
 // 准备工作
-PhpRedis::conn(Glob::conf('redis.host'), Glob::conf('redis.port'), 0, null, 0, 0, ['auth' => Glob::conf('redis.auth')]);
+$option = array();
+if ($auth = Glob::conf('redis.auth')) {
+    $option['auth'] = $auth;
+}
+PhpRedis::conn(Glob::conf('redis.host'), Glob::conf('redis.port'), 0, null, 0, 0, $option);
 PhpRedis::db(Glob::conf('redis.dbindex'));
 Glob::diff('REDIS_CONN');
 include ROOT . '/example/' . Glob::conf('example') . '.php';
