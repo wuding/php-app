@@ -2,7 +2,9 @@
     "name": "wuding/php-app",
     "description": "skeleton application for php framework",
     "type": "framework",
-    "keywords": ["Framework"],
+    "keywords": [
+        "Framework"
+    ],
     "authors": [
         {
             "name": "Benny Wu",
@@ -11,11 +13,11 @@
     ],
     "autoload": {
         "psr-4": {
-          "app\\": "app",
-          "model\\": "src/model",
-          "view\\": "src/view",
-          "src\\": "src",
-          "traits\\": "src/traits"
+            "app\\": "app/",
+            "model\\": "src/model/",
+            "view\\": "src/view/",
+            "src\\": "src/",
+            "traits\\": "src/traits/"
         }
     },
     "require": {
