@@ -1,3 +1,21 @@
+
+/**
+ * reset
+ *
+ *
+ */
+
+body {
+    margin: 0;
+}
+
+
+/**
+ * origin
+ *
+ *
+ */
+
 h1 {
     float: left;
     margin: 0;
@@ -26,4 +44,22 @@ footer {
     padding: 0 0 0 20px;
     opacity: 0.8;
     clear: left;
+}
+
+aside {
+    clear: left;
+    padding: 20px;
+    color: #777;
+    font-family: sans-serif;
+}
+
+aside i {
+    padding: 0 10px;
+}
+
+header {
+    background-color: azure;
+    padding: 20px;
+    border-bottom: 1px solid;
+    overflow: hidden;
 }
