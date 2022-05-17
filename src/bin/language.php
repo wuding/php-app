@@ -11,7 +11,7 @@ defined('ROOT') ?: define('ROOT', dirname(dirname(__DIR__)));
 
 $autoload = require ROOT ."/vendor/autoload.php";
 
-use app\index\model\LangStr;
+use app\index\src\model\LangStr;
 use Pkg\Glob;
 
 function language($return = null)

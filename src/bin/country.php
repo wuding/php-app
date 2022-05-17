@@ -11,7 +11,7 @@ defined('ROOT') ?: define('ROOT', dirname(dirname(__DIR__)));
 $autoload = require ROOT ."/vendor/autoload.php";
 
 use Pkg\Glob;
-use app\user\model\User;
+use app\user\src\model\User;
 
 function country_uid($return = null, $max_id = 1000)
 {
