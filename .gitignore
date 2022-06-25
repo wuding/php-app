@@ -1,6 +1,7 @@
 
 /api/*
 /app/*
+!/app/test
 
 /bin/*.txt
 

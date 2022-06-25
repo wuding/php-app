@@ -7,9 +7,9 @@ class Index extends \MagicCube\Controller
     public function __construct($vars = array())
     {
         if (is_numeric($vars['uriInfo']['controller'])) {
-
+            print_r($vars);
         }
-        parent::__construct($vars);print_r($vars);
+        parent::__construct($vars);
     }
 
     public static function index()
