@@ -8,6 +8,8 @@
 
 ### 目录结构
 
+api 程序接口
+
 app 应用目录
 
 bin 工具脚本
@@ -18,9 +20,13 @@ conf 配置目录
 
 data 数据目录
 
+docs 开发文档
+
 src 源文件目录
 
 temp 临时目录
+
+vendor 依赖包
 
 web 文档根目录
 
