@@ -102,7 +102,7 @@ function router($check_file = null) {
         $prefix = "/index/entry/index";
     }
 
-    $srcDir = null;
+    $srcDir = '';
     $haystack = $module_folders ?: array('note', 'git');
     if (in_array($module, $haystack)) {
         $srcDir = '\src';
