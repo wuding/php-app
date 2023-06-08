@@ -4,6 +4,20 @@ namespace src\model;
 
 class Schema extends \Topdb\Tbl
 {
+    const VERSION = '23.6.5';
+    public static $conf_file = null;
+    public $times = array(
+        'created' => '23.6.5 16:47',
+        'modified' => ['23.6.5 17:57', '23.6.8 15:04'],
+        'updated' => [
+            23 => [
+                6 => [
+                    5,
+                ],
+            ],
+        ],
+    );
+
     public function __construct($vars = null, $prop = null, $config = null, $merge = null)
     {
         // 不包含导入
@@ -19,6 +33,9 @@ class Schema extends \Topdb\Tbl
                 }
             }
         }
-        parent::__construct($vars, $prop, $conf);
+
+        $connect = $conf['Db']['connect'];
+        unset($conf['Db']['connect']);
+        parent::__construct($vars, $prop, $conf, $connect);
     }
 }
