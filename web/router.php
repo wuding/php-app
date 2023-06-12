@@ -10,6 +10,7 @@ use NewUI\Engine;
 use Pkg\{Glob, X\GeoIP};
 use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
+use Ext\Err;
 
 session_start();
 
@@ -17,6 +18,9 @@ function router($check_file = null) {
     global $template;
     // 导入配置
     Glob::$conf = include ROOT .'/conf/develop.php';
+
+
+
     // 模拟超全局变量
     $server = Glob::conf('merge.server');
     $_SERVER = array_merge($_SERVER, $server ?? array());
@@ -39,6 +43,10 @@ function router($check_file = null) {
         }
         return false;
     }
+
+    // throw Exception
+    Err::$config['env'] = 'development';
+    Err::setExceptionHandler();
 
     $GLOBALS['_LANG'] = array();
 
