@@ -26,3 +26,5 @@
 *.sublime-workspace
 
 !.keep
+
+.DS_Store
