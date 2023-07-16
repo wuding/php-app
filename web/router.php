@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 define('ROOT', dirname(__DIR__));
 
 $autoload = require ROOT ."/vendor/autoload.php";
@@ -11,21 +13,168 @@ use Pkg\{Glob, X\GeoIP};
 use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
 use Ext\Err;
+use Ext\Sess;
 
 class Router
 {
-    const VERSION = '23.7.13';
-    const REVISION = 24;
+    const VERSION = '23.7.16';
+    const REVISION = 25;
     const EDITION = array(
-        10,
+        11,
         11,
         8,
         1,
         1,
     );
+
+
+
+    /*
+    +---------------------------------------------+
+    + CORE
+    +---------------------------------------------+
+    */
+
+
+    // initial
+    public function __construct()
+    {
+        // 9
+
+        $args = func_get_args();
+        // extract($args[0]);
+
+        $sess_start = Sess::start($args[0]['conf']['ext']['session']);
+
+        unset($args);
+/*
+        var_dump($expression = [__FILE__, __LINE__,
+            'vars' => get_defined_vars(),
+        ]);
+*/
+
+    }
+
+
+    public function startUp()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + COMPILE
+    +---------------------------------------------+
+    */
+
+
+    public function complieTime()
+    {
+
+    }
+
+
+    public function parse()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + E
+    +---------------------------------------------+
+    */
+
+
+    public function runTime()
+    {
+
+    }
+
+
+
+
+
+    // fatal
+    public function error()
+    {
+
+    }
+
+
+    // no-fatal
+    public function warning()
+    {
+
+    }
+
+
+    public function strict()
+    {
+
+    }
+
+
+    public function all()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + USER
+    +---------------------------------------------+
+    */
+
+
+    // trigger_error()
+    public function userGenerated()
+    {
+
+    }
+
+
+    public function notice()
+    {
+
+    }
+
+
+    public function deprecated()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + RECOVERABLE
+    +---------------------------------------------+
+    */
+
+
+    // set_error_handler()
+    public function catchable()
+    {
+
+    }
+
 }
 
-session_start();
+$param_arr = array(
+    'conf' => require ROOT .'/conf/develop.php',
+);
+
+$Router = new Router($param_arr);
+
+// session_start();
 
 function router($check_file = null) {
     global $template;
