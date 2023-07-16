@@ -12,6 +12,19 @@ use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
 use Ext\Err;
 
+class Router
+{
+    const VERSION = '23.7.13';
+    const REVISION = 24;
+    const EDITION = array(
+        10,
+        11,
+        8,
+        1,
+        1,
+    );
+}
+
 session_start();
 
 function router($check_file = null) {
@@ -99,6 +112,7 @@ function router($check_file = null) {
     define('DEFAULT_UID', $uid);
 
     // 内存缓存
+    // $mem = Glob::set('Mem', new PhpRedis($redis_conf));
     $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     // 控制器、模板
