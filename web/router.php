@@ -17,8 +17,8 @@ use Ext\Sess;
 
 class Router
 {
-    const VERSION = '23.7.16';
-    const REVISION = 25;
+    const VERSION = '23.9.2';
+    const REVISION = 26;
     const EDITION = array(
         11,
         11,
@@ -44,6 +44,7 @@ class Router
         $args = func_get_args();
         // extract($args[0]);
 
+        $Sess = new Sess;
         $sess_start = Sess::start($args[0]['conf']['ext']['session']);
 
         unset($args);
@@ -284,7 +285,7 @@ function router($check_file = null) {
     $extra = "\\theme\{t}";
 
     new Dispatcher($uri, Glob::class, $prefix);
-    $obj = Dispatcher::dispatch($debug, $ns, $extra);
+    $obj = Dispatcher::dispatch($debug, $ns, $extra, $_GET ? null : $_SERVER['REQUEST_URI']);
     $template = new Engine();
 
     // 调试
