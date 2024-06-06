@@ -1,14 +1,20 @@
 
-/app/index
-/app/search
-/app/user
+/api/*
+/app/*
+!/app/test
+
+/bin/*.txt
 
 /conf/*.php
 /conf/locale/*.php
+/conf/locale/messages*
 
 /data/geoip/*.dat
 
+/src/api/*
+
 /temp/php/sys/*
+/temp/*
 
 /vendor
 /composer.lock
@@ -20,3 +26,5 @@
 *.sublime-workspace
 
 !.keep
+
+.DS_Store
