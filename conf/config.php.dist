@@ -102,4 +102,7 @@ return array(
     'module' => array(
         '/' => array('note', 'git',),
     ),
+    'php' => array(
+        'env' => 'development',
+    ),
 );
