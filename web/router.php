@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 define('ROOT', dirname(__DIR__));
 
 $autoload = require ROOT ."/vendor/autoload.php";
@@ -10,13 +12,178 @@ use NewUI\Engine;
 use Pkg\{Glob, X\GeoIP};
 use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
+use Ext\Err;
+use Ext\Sess;
 
-session_start();
+class Router
+{
+    const VERSION = '23.9.2';
+    const REVISION = 26;
+    const EDITION = array(
+        11,
+        11,
+        8,
+        1,
+        1,
+    );
+
+
+
+    /*
+    +---------------------------------------------+
+    + CORE
+    +---------------------------------------------+
+    */
+
+
+    // initial
+    public function __construct()
+    {
+        // 9
+
+        $args = func_get_args();
+        // extract($args[0]);
+
+        $Sess = new Sess;
+        $sess_start = Sess::start($args[0]['conf']['ext']['session']);
+
+        unset($args);
+/*
+        var_dump($expression = [__FILE__, __LINE__,
+            'vars' => get_defined_vars(),
+        ]);
+*/
+
+    }
+
+
+    public function startUp()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + COMPILE
+    +---------------------------------------------+
+    */
+
+
+    public function complieTime()
+    {
+
+    }
+
+
+    public function parse()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + E
+    +---------------------------------------------+
+    */
+
+
+    public function runTime()
+    {
+
+    }
+
+
+
+
+
+    // fatal
+    public function error()
+    {
+
+    }
+
+
+    // no-fatal
+    public function warning()
+    {
+
+    }
+
+
+    public function strict()
+    {
+
+    }
+
+
+    public function all()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + USER
+    +---------------------------------------------+
+    */
+
+
+    // trigger_error()
+    public function userGenerated()
+    {
+
+    }
+
+
+    public function notice()
+    {
+
+    }
+
+
+    public function deprecated()
+    {
+
+    }
+
+
+
+    /*
+    +---------------------------------------------+
+    + RECOVERABLE
+    +---------------------------------------------+
+    */
+
+
+    // set_error_handler()
+    public function catchable()
+    {
+
+    }
+
+}
+
+$param_arr = array(
+    'conf' => require ROOT .'/conf/develop.php',
+);
+
+$Router = new Router($param_arr);
+
+// session_start();
 
 function router($check_file = null) {
     global $template;
     // 导入配置
     Glob::$conf = include ROOT .'/conf/develop.php';
+
+
+
     // 模拟超全局变量
     $server = Glob::conf('merge.server');
     $_SERVER = array_merge($_SERVER, $server ?? array());
@@ -39,6 +206,10 @@ function router($check_file = null) {
         }
         return false;
     }
+
+    // throw Exception
+    Err::$config['env'] = 'development';
+    Err::setExceptionHandler();
 
     $GLOBALS['_LANG'] = array();
 
@@ -91,18 +262,19 @@ function router($check_file = null) {
     define('DEFAULT_UID', $uid);
 
     // 内存缓存
+    // $mem = Glob::set('Mem', new PhpRedis($redis_conf));
     $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     // 控制器、模板
     $array = explode('/', $uri);
     list(, $module) = $array;
-    $module = strtolower($module);
+    $module = strtolower($module) ?: 'index';
     $prefix = null;
     if ($module && $module_names && !in_array($module, $module_names)) {
         $prefix = "/index/entry/index";
     }
 
-    $srcDir = null;
+    $srcDir = '';
     $haystack = $module_folders ?: array('note', 'git');
     if (in_array($module, $haystack)) {
         $srcDir = '\src';
@@ -113,7 +285,7 @@ function router($check_file = null) {
     $extra = "\\theme\{t}";
 
     new Dispatcher($uri, Glob::class, $prefix);
-    $obj = Dispatcher::dispatch($debug, $ns, $extra);
+    $obj = Dispatcher::dispatch($debug, $ns, $extra, $_GET ? null : $_SERVER['REQUEST_URI']);
     $template = new Engine();
 
     // 调试
