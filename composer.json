@@ -1,4 +1,16 @@
 {
+    "name": "wuding/php-app",
+    "description": "skeleton application for php framework",
+    "type": "framework",
+    "keywords": [
+        "Framework"
+    ],
+    "authors": [
+        {
+            "name": "Benny Wu",
+            "email": "contact@urlnk.com"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "app\\": "app/",
