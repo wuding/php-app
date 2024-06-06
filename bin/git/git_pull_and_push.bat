@@ -20,7 +20,7 @@ FOR %%G IN (%remotes%) DO (
     ECHO +--------+>>%log_file%
     ECHO ^| %%G ^|>>%log_file%
     ECHO +--------+>>%log_file%
-    git push %%G %branch_name% >>%log_file% 2>&1
+    %git_path% push %%G %branch_name% >>%log_file% 2>&1
     ECHO.>>%log_file%
 )
 
