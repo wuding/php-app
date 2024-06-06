@@ -3,7 +3,7 @@
         "psr-4": {
             "app\\": "app/",
             "src\\": "src/",
-            "api\\": "src/api/"
+            "api\\": "api/"
         }
     },
     "require": {
