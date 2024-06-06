@@ -8,6 +8,8 @@
 
 ### 目录结构
 
+api 程序接口
+
 app 应用目录
 
 bin 工具脚本
@@ -18,9 +20,13 @@ conf 配置目录
 
 data 数据目录
 
+docs 开发文档
+
 src 源文件目录
 
 temp 临时目录
+
+vendor 依赖包
 
 web 文档根目录
 
@@ -201,6 +207,36 @@ return array(
     ),
 );
 ```
+
+
+
+##### 多语言
+
+从
+
+> conf/locale/.dist/
+
+复制出
+
+> conf/locale/msgid.php
+
+和
+
+> conf/locale/messages.php
+
+
+
+打开
+
+> bin
+
+文件夹，运行下列文件
+
+- country - 导出国家 UID
+
+- language - 语言与国家键值对
+
+- translate - 翻译可用语言键名
 
 
 
