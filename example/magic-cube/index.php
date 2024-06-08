@@ -203,7 +203,8 @@ $request_uri = $_SERVER['REQUEST_URI'] ?? null;
 // 允许访问的主机名，客户端 IP 白名单
 $remote_addr = in_array($ip, Glob::conf('host.remote_addr'));
 if (!in_array($http_host, Glob::conf('host.name')) && !$remote_addr) {
-    header("Location: ". Glob::conf('host.location') . $request_uri);
+    #header("Location: ". Glob::conf('host.location') . $request_uri);
+    var_dump([$http_host, Glob::conf('host.name'), $remote_addr, $ip, Glob::conf('host.remote_addr')]);
     exit;
 }
 
@@ -299,7 +300,7 @@ if ($debug) {
 if (null !== $debug) {
     $files = get_included_files();
     // 合并漏掉的
-    extract(\Ext\Yac::hash('files', 'files_', 1));
+    extract(\model\Mem::hash('files', 'files_', 1));
     $cacheValue = is_array($cacheValue) ? $cacheValue : [];
     foreach ($cacheValue as $key => $value) {
         if (!in_array($value, $files)) {
