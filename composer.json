@@ -21,12 +21,13 @@
         }
     },
     "require": {
-        "wuding/magic-cube": "^20.213.97",
-        "wuding/equiv-route": "^20.213.101",
-        "wuding/topdb": "^20.213.103",
-        "wuding/php-ext": "^20.213.92",
-        "wuding/new-ui": "^20.213.108",
+        "wuding/magic-cube": "dev-master",
+        "wuding/equiv-route": "dev-master",
+        "wuding/topdb": "dev-master",
+        "wuding/php-ext": "dev-master",
+        "wuding/new-ui": "dev-master",
         "wuding/php-stat": "dev-master",
+        "wuding/php-func": "dev-master",
         "metowolf/meting": "^1.5",
         "league/oauth2-github": "^2.0"
     }
