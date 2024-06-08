@@ -76,6 +76,8 @@ return array(
             'path' => '/',
             'httponly' => true,
         ),
+        'start' => true,
+        'ttl' => 86400 * 7,
     ),
     'template' => array(
         'output_callback' => null, // false 使用默认 null 不使用任何
@@ -111,5 +113,15 @@ return array(
         'ignore_ip' => array(//'127.0.0.1',
             '103.242.135.246',
         ),
+    ),
+    'conf' => array(
+        'banned_ip_ids' => array(
+            -1,
+        ),
+        'models' => array(
+            'ua' => '\model\stat\UserAgent',#
+            'addr' => '\model\stat\RemoteAddr',#
+        ),
+        'enable_ban' => array(),#'ban_ua', 'ban_ip', 'ban_ip_arr', 'spam', 'ip'
     ),
 );
