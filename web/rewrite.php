@@ -1,5 +1,7 @@
 <?php
 
+// version 20240809.18
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -39,6 +41,7 @@ $routeInfo = $router->dispatch($httpMethod, $uri, $route['status']);
 $option = array();
 if ($auth = Glob::conf('redis.auth')) {
     $option['auth'] = $auth;
+    $option['connect'] = Glob::conf('redis.connect');
 }
 PhpRedis::conn(Glob::conf('redis.host'), Glob::conf('redis.port'), 0, null, 0, 0, $option);
 PhpRedis::db(Glob::conf('redis.dbindex'));
