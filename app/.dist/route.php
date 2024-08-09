@@ -1,4 +1,7 @@
 <?php
+
+// version 20240809.2
+
 return [
 	# 'name' => 'nikic/fast-route',
 	'name' => 'wuding/equiv-route',
@@ -7,6 +10,9 @@ return [
 		['GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler'],
 		['GET', '/user/{name}', 'user_name_handler'],
 		['POST', '/users'],
+		['GET', '^/play/{id:\d+}', 'get,post:play!index@index'],
+		['GET', '^/{template:\d+}-{param}', 'url!redirect@index'],
+		['GET', '^/(|index.*)$', function(){ header("Location: /play");exit; }],
 	],
 	'options' =>  [
 	    'cacheFile' => __DIR__ . '/../storage/cache/route.cache',
