@@ -1,9 +1,12 @@
 <?php
 
-defined('ENV_DIR') or define('ENV_DIR', 'I:\env');
+// version 20240809.6
+
+defined('ENV_DIR') or define('ENV_DIR', 'K:\Server\VCS\GitHub\wuding\php-app\master');
+// E:\putz\Server\VCS\Github\devops-env\env4devops\master
 
 return array(
-    'stat' => null,
+    'stat' => true,
     'rewrite_file' => BASE_DIR . '/web/rewrite.php',
     'static_home' => false,
     'debug' => $_GET['debug'] ?? null,
@@ -35,7 +38,8 @@ return array(
         '' => array(
             '/^[a-z]{4}(.*)$/' => 'filename',
         ),
-        'filename' => ENV_DIR . '/www/.dist/a-z7.php',
+        'filename' => ENV_DIR . '/web/a-z7.php',
+        // /www/.dist/a-z7.php
     ),
     'virtual_hosts' => array(),
     'host_domain' => '.loc.urlnk.com',
@@ -68,6 +72,7 @@ return array(
         'auth' => '',
         'dbindex' => 15,
         'stat_dbindex' => 14,
+        'connect' => 6,
     ),
     'session' => array(
         'name' => 'SID',
