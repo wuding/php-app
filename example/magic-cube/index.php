@@ -12,7 +12,7 @@ use model\stat\UserAgent;
 
 class Index
 {
-    const VERSION = '21.8.27';
+    const VERSION = 24.0801;
     public $dispatcher = null;
     public static $count = 0;
 
@@ -35,7 +35,7 @@ class Index
 
     public static function session($options, $sname)
     {
-        session_set_cookie_params($options);
+        call_user_func_array('session_set_cookie_params', $options);
         session_name($sname);
         session_id(Glob::$sid);
         # 这个不能用，每次都 Set-Cookie
