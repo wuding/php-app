@@ -1,0 +1,17 @@
+{
+  "autoload": {
+    "psr-4": {
+      "api\\": "api/",
+      "app\\": "app/",
+      "bin\\": "bin/",
+      "conf\\": "conf/",
+      "data\\": "data/",
+      "docs\\": "docs/",
+      "example\\": "example/",
+      "src\\": "src/",
+      "temp\\": "temp/",
+      "test\\": "test/",
+      "web\\": "web/"
+    }
+  }
+}
