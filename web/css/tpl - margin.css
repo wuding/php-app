@@ -1,0 +1,164 @@
+:root {
+    view-transition-name: root;
+}
+
+html {
+    display: block;
+}
+
+head {
+    display: none;
+}
+
+meta {
+    display: none;
+}
+
+title {
+    display: none;
+}
+
+link {
+    display: none;
+}
+
+body {
+    display: block;
+    margin: 0px;
+}
+
+header {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+nav {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+dfn {
+    font-style: normal;
+}
+
+main {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+dl {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+ol {
+    display: block;
+    list-style-type: decimal;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+    unicode-bidi: isolate;
+}
+
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+}
+
+article {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+section {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+p {
+    display: block;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    unicode-bidi: isolate;
+}
+
+
+ol ul {
+    list-style-type: circle;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+    unicode-bidi: isolate;
+}
+
+li {
+    display: block;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+}
+
+ol ul {
+    list-style-type: circle;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+::marker {
+    unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+    text-indent: 0px !important;
+    text-align: start !important;
+    text-align-last: start !important;
+}
+
+dt {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+dd {
+    display: block;
+    margin-inline-start: 40px;
+    unicode-bidi: isolate;
+}
