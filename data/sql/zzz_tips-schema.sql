@@ -1,4 +1,4 @@
--- Adminer 5.2.1 MySQL 5.7.36-log dump
+-- Adminer 5.3.0 MySQL 5.7.36-log dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -13,6 +13,7 @@ CREATE TABLE `tip_domain_zone` (
   `uid` int(11) DEFAULT NULL,
   `idc` int(11) DEFAULT NULL,
   `vps` int(11) DEFAULT NULL,
+  `year` int(11) DEFAULT NULL,
   `registration` double DEFAULT NULL,
   `renewal` double DEFAULT NULL,
   `total` double DEFAULT NULL,
@@ -44,4 +45,4 @@ CREATE TABLE `tip_vps` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
--- 2025-04-24 13:02:00 UTC
+-- 2.2025-05-07 15:23:48 UTC
