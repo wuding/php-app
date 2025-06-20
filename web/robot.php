@@ -1,11 +1,13 @@
 <!doctype html>
 <html>
-<!-- version 20250613.2 build 105636.1749783396 -->
+<!-- version 20250620.3 -->
 <?php
 $url = $_GET['url'] ?? null;
 $millisec = $_GET['millisec'] ?? null;
 $start = $_GET['start'] ?? null;
 $task = $_GET['task'] ?? null;
+
+$item = $_GET['item'] ?? null;
 $last = $_GET['last'] ?? null;
 ?>
 <head>
@@ -20,7 +22,7 @@ $last = $_GET['last'] ?? null;
     <button type="button" onclick="start()" id="btn-request">开始</button>
     <button type="button" onclick="document.getElementById('item').value='';start();">更改</button>
     <p>
-    请求键名 <input id="item" name="request_key" value="" style="width:650px">
+    请求键名 <input id="item" name="request_key" value="<?=$item?>" style="width:650px">
     <button type="button" onclick="recovery(1)">恢复</button>
     <button type="button" onclick="removeItem()">清除</button>
 
@@ -68,21 +70,24 @@ $last = $_GET['last'] ?? null;
 </fieldset>
 <fieldset>
 <legend>回收</legend>
-垃圾回收<button type="button" onclick="gc_enable()">设置</button>
+垃圾回收 <button type="button" onclick="autoGc()" id="btn-gc">设置</button>
 <p>
-    <textarea id="gc_code">gc_collect_cycles()</textarea>
+    <textarea id="gc_code" style="width:100%">gc_collect_cycles()</textarea>
 </p>
 <p>
-    间隔毫秒 <input type="text" name="" value="43200000" id="gc_interval">
+    间隔秒钟 <input type="text" name="" value="43200" id="gc_interval">
 </p>
 <p>
-    重置地址 <input type="text" name="" value="<?=$url ?? null?>" id="gc_url">
+    重置地址 <input type="text" name="" value="<?=$url ?? null?>" id="gc_url" style="width:650px">
 </p>
 <p>
-    最后地址 <input type="text" name="" value="<?=$last ?? null?>" id="gc_url_last">
+    最后地址 <input type="text" name="" value="<?=$last ?? null?>" id="gc_url_last" style="width:650px">
+</p>
+<p>
+    重置时间 <input id="reset_time" value="" style="width:350px" disabled>
 </p>
 </fieldset>
-<script type="text/javascript" src="/js/robot.js?v=20250617.3"></script>
+<script type="text/javascript" src="/js/robot.js?v=20250620.4"></script>
 <script type="text/javascript">
 <?php
 if ($start ?? null) {
@@ -90,9 +95,18 @@ if ($start ?? null) {
 }
 
 if ($task ?? null) {
-    echo 'autoTask()';
+    echo 'autoTask();';
+}
+
+if ($item ?? null) {
+    echo 'recovery(1);';
+}
+
+if ($last ?? null) {
+    echo "ele('reset_time').value = new Date();";
 }
 ?>
+
 </script>
 </main>
 </body>
