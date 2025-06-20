@@ -1,4 +1,4 @@
-// version 20210831.2
+// version 20250613.3 build 105636.1749783838
 
 // 时间
 var dt = new Date()
@@ -485,3 +485,22 @@ if ('function' !== storageType) {
     localLog()
 }
 
+function gc_collect_cycles()
+{
+    u = ele('gc_url').value
+    l = ele('url').value
+    m = ele('millisec').value
+    r = '/robot.php?url=' + u + '&millisec=' + m + '&start=1&task=&last=' + l
+    document.location = r
+}
+
+function gc_enable()
+{
+    n = num('gc_interval')
+    i = window.setInterval(gc_enabled, n)
+}
+
+function gc_enabled()
+{
+    eval(ele('gc_code').value)
+}
