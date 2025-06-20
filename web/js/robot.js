@@ -1,4 +1,4 @@
-// version 20250613.3 build 105636.1749783838
+// version 20250620.4
 
 // 时间
 var dt = new Date()
@@ -6,7 +6,7 @@ firstTime = lastTime = dt.getTime()
 startTime = timeFormat(dt)
 
 // 整数定义
-timeoutUrl = timeOver = offsetTime = stop = step = execTask = 0
+timeoutUrl = timeOver = offsetTime = stop = step = execTask = execGc = 0
 timeoutMs = 300000
 timeoutApi = 100
 timeoutVal = 1
@@ -14,7 +14,7 @@ pageNo = 1
 frequency = 30
 
 // 可未定义
-intervalTsk = timeoutId = lastUrl = null
+intervalTsk = timeoutId = lastUrl = intervalGc = null
 
 // 数组定义，连等会合并键名
 XHR = []
@@ -430,6 +430,19 @@ function stopTask() {
     ele('cancel_time').value = dt = new Date()
 }
 
+function gc_disable() {
+    window.clearInterval(intervalGc)
+    ele('btn-gc').innerHTML = '设置'
+}
+
+function gc_enable()
+{
+    n = num('gc_interval')
+    m = n * 1000
+    intervalGc = window.setInterval(gc_enabled, m)
+    ele('btn-gc').innerHTML = '取消'
+}
+
 // 切换任务执行
 function autoTask() {
     if (execTask) {
@@ -438,6 +451,16 @@ function autoTask() {
     } else {
         setTask()
         execTask = 1
+    }
+}
+
+function autoGc() {
+    if (execGc) {
+        gc_disable()
+        execGc = 0
+    } else {
+        gc_enable()
+        execGc = 1
     }
 }
 
@@ -488,16 +511,15 @@ if ('function' !== storageType) {
 function gc_collect_cycles()
 {
     u = ele('gc_url').value
+    i = ele('item').value
     l = ele('url').value
-    m = ele('millisec').value
-    r = '/robot.php?url=' + u + '&millisec=' + m + '&start=1&task=&last=' + l
-    document.location = r
-}
+    qs = 'item=' + i
+    if (u) {
+        qs = 'url=' + u
+    }
 
-function gc_enable()
-{
-    n = num('gc_interval')
-    i = window.setInterval(gc_enabled, n)
+    r = '/robot.php?' + qs + '&start=&task=&last=' + l
+    document.location = r
 }
 
 function gc_enabled()
