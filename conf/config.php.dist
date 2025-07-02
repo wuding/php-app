@@ -1,5 +1,7 @@
 <?php
 
+// version 250703.3
+
 date_default_timezone_set('PRC');
 
 return array(
@@ -11,6 +13,8 @@ return array(
     'ext' => array(
         'geoip' => array(
             'custom_directory' => ini_get('geoip.custom_directory') ?: ROOT .'/data/geoip',
+        ),
+        'session' => array(
         ),
     ),
     'view' => array(
