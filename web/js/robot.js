@@ -1,4 +1,4 @@
-// version 20250620.4
+// version 250702.5
 
 // 时间
 var dt = new Date()
@@ -19,6 +19,7 @@ intervalTsk = timeoutId = lastUrl = intervalGc = null
 // 数组定义，连等会合并键名
 XHR = []
 REQ = []
+LOG = []
 
 /* 通用 */
 
@@ -98,7 +99,7 @@ function removeItem() {
 }
 
 // Local Storage 列表生成
-function localLog() {
+function localLog_v1() {
     log = ele('request_log')
     for (i = 0; i < localStorage.length; i++) {
         opt = document.createElement("option")
@@ -118,6 +119,43 @@ function localLog() {
             console.log(err)
         }
     }
+}
+
+function localLogOpt(value, index, array)
+{
+    obj = LOG[index]
+    url = obj.url
+
+    opt = document.createElement("option")
+    opt.innerHTML = value
+    opt.setAttribute('value', url)
+
+    log = ele('request_log')
+    try {
+        log.append(opt)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+function localLog()
+{
+    keys = []
+    for (i = 0; i < localStorage.length; i++) {
+        key = localStorage.key(i)
+        val = localStorage.getItem(key)
+        regex = /^\{/i
+        result = regex.test(val)
+        if (!result) {
+            continue
+        }
+
+        obj = JSON.parse(val)
+        LOG.push(obj)
+        keys.push(key)
+    }
+    keys.sort()
+    keys.forEach(localLogOpt)
 }
 
 // 从项目恢复
