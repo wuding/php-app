@@ -4,7 +4,8 @@ namespace src\model;
 
 class Schema extends \Topdb\Tbl
 {
-    const VERSION = '23.6.5';
+    const VERSION = 25.0703;
+    const REVISION = 3;
     public static $conf_file = null;
     public $times = array(
         'created' => '23.6.5 16:47',
@@ -34,7 +35,7 @@ class Schema extends \Topdb\Tbl
             }
         }
 
-        $connect = $conf['Db']['connect'];
+        $connect = $conf['Db']['connect'] ?? null;
         unset($conf['Db']['connect']);
         parent::__construct($vars, $prop, $conf, $connect);
     }
