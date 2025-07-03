@@ -17,8 +17,8 @@ use Ext\Sess;
 
 class Router
 {
-    const VERSION = '23.9.2';
-    const REVISION = 26;
+    const VERSION = 25.0703;
+    const REVISION = 27;
     const EDITION = array(
         11,
         11,
@@ -218,6 +218,7 @@ function router($check_file = null) {
     extract($var_array);
     $dirname = '\\' === $dirname ? '' : $dirname;
     $uri = $dirname ."/". $filename;
+    $uri = preg_replace("/^\/\//", '/', $uri);
 
     // 语言
     $language = Glob::conf('locale.default_language');
