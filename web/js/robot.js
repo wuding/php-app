@@ -1,4 +1,4 @@
-// version 250702.5
+// version 250708.6
 
 // 时间
 var dt = new Date()
@@ -77,6 +77,7 @@ function setItemName(url) {
 function record(nm) {
     obj = {
         url: ele('url').value,
+        init_url: ele('init_url').value,
         delay: ele('timeout').value,
         maximum: ele('max_page').value,
         interval: ele('millisec').value,
@@ -86,6 +87,10 @@ function record(nm) {
     //console.log(obj)
     json = JSON.stringify(obj)
     localStorage.setItem(nm, json)
+
+    if (!ele('init_url').value) {
+        ele('init_url').value = ele('url').value
+    }
 }
 
 // 移除项目
@@ -179,6 +184,7 @@ function wayback(obj) {
     ele('millisec').value = obj.interval
     ele('repeat_time').value = obj.repeat
     ele('code').value = obj.code
+    ele('init_url').value = obj.init_url
 }
 
 /* API */
@@ -231,6 +237,7 @@ function api(url) {
                     message('no response text ('+ xhr +') : '+  url)
                     apiAgain(url, xhr)
                 }
+                ele('result_code').innerText = text
 
             } else if (statusArr.includes(x.status)) {
                 apiAgain(url, xhr)
@@ -563,4 +570,38 @@ function gc_collect_cycles()
 function gc_enabled()
 {
     eval(ele('gc_code').value)
+}
+
+function reset()
+{
+    ele('item').value = '';
+    ele('init_url').value = ele('url').value;
+    start();
+}
+
+function restore()
+{
+    ele('item').value = '';
+    ele('url').value = ele('init_url').value;
+    start();
+}
+
+function retry()
+{
+    start(1);
+    setTimeout("start(0);", 5000);
+}
+
+function reload()
+{
+    XHR = [];
+    REQ = [];
+    ele('url').value = ele('init_url').value;
+    start(0);
+}
+
+function restart()
+{
+    start(1);
+    setTimeout("reload();", 5000);
 }
