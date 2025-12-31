@@ -1,4 +1,4 @@
-// version 250708.6
+// version 251226.7
 
 // 时间
 var dt = new Date()
@@ -279,6 +279,12 @@ function apiCall(json, func) {
             message('api json type: '+ type)
 
         } else {
+            info = json.info
+            skip = info?.skip
+            if (skip) {
+                ele('result_log').innerText = ele('result_log').innerText +"\r\n"+ ele('url').value +"\r\n"+ skip;
+            }
+
             ele('requests').value = 1 + new Number(ele('requests').value)
             d = new Date()
             nowTime = d.getTime()
