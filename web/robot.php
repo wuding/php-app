@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<!-- version 20250708.4 -->
+<!-- version 20251226.5 -->
 <?php
 $url = $_GET['url'] ?? null;
 $millisec = $_GET['millisec'] ?? null;
@@ -77,9 +77,14 @@ testTask();
 </fieldset>
 <fieldset>
     <legend>消息</legend>
+    <p>msg</p>
     <div id="msg"></div>
+    <p>note</p>
     <div id="note"></div>
+    <p>结果</p>
     <textarea id="result_code" style="width:100%" rows="10"></textarea>
+    <p>日志</p>
+    <textarea id="result_log" style="width:100%" rows="10"></textarea>
 </fieldset>
 <fieldset>
 <legend>回收</legend>
@@ -100,7 +105,7 @@ testTask();
     重置时间 <input id="reset_time" value="" style="width:350px" disabled>
 </p>
 </fieldset>
-<script type="text/javascript" src="/js/robot.js?v=20250708.6"></script>
+<script type="text/javascript" src="/js/robot.js?v=20251226.8"></script>
 <script type="text/javascript">
 <?php
 if ($start ?? null) {
