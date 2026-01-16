@@ -14,11 +14,12 @@ use Ext\X\Redis as PhpRedis;
 use Ext\GetText;
 use Ext\Err;
 use Ext\Sess;
+use src\{_Abstract, Router};
 
-class Router
+class Route
 {
-    const VERSION = 25.0703;
-    const REVISION = 27;
+    const VERSION = 25.0809;
+    const REVISION = 23;
     const EDITION = array(
         11,
         11,
@@ -169,11 +170,13 @@ class Router
 
 }
 
+/*
 $param_arr = array(
     'conf' => require ROOT .'/conf/develop.php',
 );
+*/
 
-$Router = new Router($param_arr);
+// $Route = new Route($param_arr);
 
 // session_start();
 
@@ -183,6 +186,17 @@ function router($check_file = null) {
     Glob::$conf = include ROOT .'/conf/develop.php';
 
 
+    _Abstract::$autoload = $GLOBALS['autoload'];
+    // Router::run();
+    $output = Router::output();
+    $haystack = [
+        'web-view',
+        'pre',
+    ];
+    if (in_array($output, $haystack, true)) {
+        // var_dump([$output, $haystack]);
+        die;
+    }
 
     // 模拟超全局变量
     $server = Glob::conf('merge.server');
