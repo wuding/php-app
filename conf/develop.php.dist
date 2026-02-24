@@ -1,0 +1,52 @@
+<?php
+
+// version 1.260206
+
+return [
+  'constants' => [
+    'ROOT' => dirname(__DIR__),
+  ],
+  'psr4' => [
+    'Pkg\\' => 'J:/http/php-app/vendor/wuding/php-pkg/src',
+    'Ext\\' => 'J:/git/github.com/wuding/php-ext/develop/src',
+    'NewUI\\' => 'J:/http/php-app/vendor/wuding/new-ui/src',
+    'MagicCube\\' => 'J:/git/github.com/wuding/magic-cube/develop/src',
+    'Topdb\\' => 'J:/git/github.com/wuding/topdb/develop/src',
+    'app\\' => 'F:/Server/http/php-app_v26/app',
+    'src\\' => 'F:/Server/http/php-app_v26/src',
+  ],
+  'includes' => [
+    'J:/http/php-app/vendor/wuding/php-func/src/Func.php',
+  ],
+  'db' => array(
+        'alias' => array(
+            'connect' => 'db.server.master',
+            'remote' => 'db.server.remote',
+        ),
+        'server' => array(
+            'master' => array(
+                'username' => '',
+                'password' => '',
+                'port' => 3306,
+                'host' => 'localhost'
+            ),
+            'slave' => array(
+                'username' => '',
+                'password' => '',
+                'port' => 3306,
+            ),
+            'connect' => array(
+                'username' => '',
+                'password' => '',
+                'port' => 3306,
+                'host' => 'localhost',
+            ),
+            'remote' => array(
+                'username' => '',
+                'password' => '',
+                'port' => 3306,
+                'host' => '',
+            ),
+        ),
+    ),
+];
