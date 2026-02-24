@@ -1,0 +1,15 @@
+{
+    "name": "dings/php-app_v26",
+    "autoload": {
+        "psr-4": {
+            "Dings\\PhpAppV26\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "wuding",
+            "email": "netjoin@gmail.com"
+        }
+    ],
+    "require": {}
+}
