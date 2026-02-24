@@ -1,0 +1,9 @@
+git clone git@github.com:wuding/php-pkg.git -b master php-pkg
+git clone git@github.com:wuding/php-ext.git -b develop php-ext
+git clone git@github.com:wuding/new-ui.git -b develop new-ui
+git clone git@github.com:wuding/magic-cube.git -b develop magic-cube
+git clone git@github.com:wuding/topdb.git -b develop topdb
+git clone git@github.com:wuding/php-func.git -b develop php-func
+
+git clone git@github.com:app-module/api.git -b main api
+git clone git@github.com:app-module/calendar.git -b main calendar
