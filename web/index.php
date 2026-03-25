@@ -5,14 +5,15 @@ namespace phoenix\web;
 use Pkg\Glob;
 use MagicCube\Dispatcher;
 use NewUI\Engine;
+use Ext\X\Redis as PhpRedis;
 
 class Router
 {
   // verb
   const BUILD = 20260206.173855;
-  const EDITION = 0;
-  const REVISION = 1;
-  const VERSION = 26.0206;
+  const EDITION = 3.30;
+  const REVISION = 2;
+  const VERSION = 26.0322;
 
   function __construct()
   {
@@ -73,6 +74,8 @@ class Router
     global $template;
     // 导入配置
     Glob::$conf = include ROOT .'/conf/develop.php';
+    $redis_conf = Glob::cnf('mem.alias.connect', 'redis') ?? array();
+    $mem = Glob::set('Mem', new PhpRedis($redis_conf));
 
     $uri = self::uri();
     $debug = $_GET['debug'] ?? null;
@@ -109,6 +112,7 @@ class Router
     $module_folders = [
       'app',
       'api',
+      'calendar',
     ];
 
     $module = strtolower($module) ?: 'index';
