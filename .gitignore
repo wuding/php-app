@@ -1,0 +1,8 @@
+# version 260401.1
+
+/api/
+/app/
+
+# /vendor/
+
+*.lnk
