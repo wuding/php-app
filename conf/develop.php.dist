@@ -1,23 +1,37 @@
 <?php
 
-// version 1.260206
+// version 2.260721
+
+define('ROOT', dirname(__DIR__));
 
 return [
+/* init */
   'constants' => [
-    'ROOT' => dirname(__DIR__),
+    // 'ROOT' => dirname(__DIR__),
   ],
   'psr4' => [
-    'Pkg\\' => 'J:/http/php-app/vendor/wuding/php-pkg/src',
+    'Pkg\\' => 'J:/git/github.com/wuding/php-pkg/master/src',
     'Ext\\' => 'J:/git/github.com/wuding/php-ext/develop/src',
-    'NewUI\\' => 'J:/http/php-app/vendor/wuding/new-ui/src',
+    'NewUI\\' => 'J:/git/github.com/wuding/new-ui/develop/src',
     'MagicCube\\' => 'J:/git/github.com/wuding/magic-cube/develop/src',
     'Topdb\\' => 'J:/git/github.com/wuding/topdb/develop/src',
     'app\\' => 'F:/Server/http/php-app_v26/app',
     'src\\' => 'F:/Server/http/php-app_v26/src',
+    'api\\' => 'F:/Server/http/php-app_v26/api',
+    'thiagoalessio\\TesseractOCR\\' => 'J:/Server/SCM/tesseract-ocr-for-php/src',
+    // '' => '',
   ],
   'includes' => [
-    'J:/http/php-app/vendor/wuding/php-func/src/Func.php',
+    // 'J:/http/php-app/vendor/wuding/php-func/src/Func.php',
+    'J:/git/github.com/wuding/php-func/develop/src/Func.php'
   ],
+  'ini' => [
+    'date' => [
+        'timezone' => 'PRC'
+    ]
+  ],
+
+/* connect */
   'db' => array(
         'alias' => array(
             'connect' => 'db.server.master',
@@ -49,4 +63,38 @@ return [
             ),
         ),
     ),
+   'mem' => array(
+        'alias' => array(
+            'connect' => 'mem.server.master'
+        ),
+        'server' => array(
+            'master' => array(
+                'host' => '127.0.0.1',
+                'port' => 6379,
+                'timeout' => 0,
+                'reserved' => null,
+                'retry_interval' => 0,
+                'read_timeout' => 0,
+                'option' => array(
+                    // 'auth' => ''
+                ),
+                'method' => 'connect',
+            ),
+        ),
+    ),
+
+/* run */
+  'debug' => [
+    'run' => ''
+  ],
+
+  'modules' => [
+    'app',
+    'api',
+    'api26',
+    'calendar',
+    'chart',
+    'index',
+    'people'
+  ]
 ];
