@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh" version="20260730.1">
+<head>
+<meta charset="UTF-8">
+<title>获取屏幕尺寸</title>
+</head>
+
+<body>
+<p>在 JavaScript 中，可以通过内置对象获取 屏幕尺寸、浏览器窗口尺寸 和 网页内容尺寸。
+下面给你一个完整可运行的示例，涵盖常用的几种尺寸获取方式，并带有注释说明。
+</p>
+
+<h2>屏幕尺寸信息</h2>
+<pre id="output"></pre>
+
+<script>
+function getSizes() {
+    const info = {};
+
+    // 1. 屏幕尺寸（物理屏幕分辨率）
+    info.screenWidth = window.screen.width;       // 屏幕总宽度
+    info.screenHeight = window.screen.height;     // 屏幕总高度
+
+    // 2. 可用屏幕尺寸（去掉任务栏/状态栏等）
+    info.availWidth = window.screen.availWidth;
+    info.availHeight = window.screen.availHeight;
+
+    // 3. 浏览器窗口内部尺寸（视口大小）
+    info.innerWidth = window.innerWidth;   // 可视区域宽度
+    info.innerHeight = window.innerHeight; // 可视区域高度
+
+    // 4. 网页内容尺寸（包含滚动部分）
+    info.pageWidth = document.documentElement.scrollWidth;
+    info.pageHeight = document.documentElement.scrollHeight;
+
+    // 5. 检测横屏/竖屏
+    info.orientation = (info.innerWidth > info.innerHeight) ? "横屏" : "竖屏";
+
+    return info;
+}
+
+// 显示结果
+function displaySizes() {
+    const sizes = getSizes();
+    document.getElementById("output").textContent = JSON.stringify(sizes, null, 2);
+}
+
+// 初次加载
+displaySizes();
+
+// 窗口大小变化时更新
+window.addEventListener("resize", displaySizes);
+</script>
+</body>
+</html>
+
+<!-- 
+说明
+
+window.screen.width/height
+获取设备屏幕的物理分辨率（单位：CSS 像素）。
+window.screen.availWidth/availHeight
+获取除去系统任务栏、Dock 等占用空间后的可用屏幕尺寸。
+window.innerWidth/innerHeight
+获取浏览器视口（可见区域）的宽高。
+document.documentElement.scrollWidth/scrollHeight
+获取整个网页内容的宽高（包括滚动不可见部分）。
+横竖屏判断
+通过比较 innerWidth 和 innerHeight 判断。
+
+
+如果你需要，我可以帮你写一个 自动适配屏幕尺寸的响应式布局 JS 工具，这样可以直接在项目中用来适配不同设备。
+要我帮你写吗？
+ -->
